@@ -53,29 +53,31 @@ export function HotelDetails({ features, tabs, mapImageUrl, location, websiteUrl
           </div>
 
           <div className="md:hidden">
-            <h2 className="text-[22px] font-semibold text-gray-900 mb-4">Otel Özellikleri</h2>
-            {tags && tags.length > 0 ? (
-              <div className="grid grid-cols-2 gap-3">
-                {tags.map((tag, index) => {
-                  const IconComponent = (LucideIcons as any)[tag.icon || 'Tag'] || LucideIcons.Tag;
-                  return (
-                    <div
-                      key={index}
-                      className="flex items-center gap-2.5 p-3.5 bg-gray-50 border border-gray-200 rounded-xl"
-                    >
-                      <div className="w-9 h-9 rounded-lg bg-gray-900 flex items-center justify-center flex-shrink-0">
-                        <IconComponent className="w-4.5 h-4.5 text-white" strokeWidth={2} />
+            <div className="bg-white p-5 rounded-xl border border-gray-200">
+              <h2 className="text-[20px] font-semibold text-gray-900 mb-4">Otel Özellikleri</h2>
+              {tags && tags.length > 0 ? (
+                <div className="grid grid-cols-2 gap-3">
+                  {tags.map((tag, index) => {
+                    const IconComponent = (LucideIcons as any)[tag.icon || 'Tag'] || LucideIcons.Tag;
+                    return (
+                      <div
+                        key={index}
+                        className="flex items-center gap-2.5 p-3.5 bg-white border border-gray-200 rounded-xl"
+                      >
+                        <div className="w-9 h-9 rounded-lg bg-gray-900 flex items-center justify-center flex-shrink-0">
+                          <IconComponent className="w-4.5 h-4.5 text-white" strokeWidth={2} />
+                        </div>
+                        <span className="text-gray-900 font-medium text-[14px] leading-snug">{tag.name}</span>
                       </div>
-                      <span className="text-gray-900 font-medium text-[14px] leading-snug">{tag.name}</span>
-                    </div>
-                  );
-                })}
-              </div>
-            ) : (
-              <div className="text-center py-12 bg-gray-50 rounded-xl">
-                <p className="text-gray-400 font-medium text-sm">Otel özellikleri henüz eklenmemiş.</p>
-              </div>
-            )}
+                    );
+                  })}
+                </div>
+              ) : (
+                <div className="text-center py-8">
+                  <p className="text-gray-400 font-medium text-sm">Otel özellikleri henüz eklenmemiş.</p>
+                </div>
+              )}
+            </div>
           </div>
 
           <div className="bg-white border border-gray-200 rounded-2xl sm:rounded-3xl shadow-sm overflow-hidden md:block hidden">
@@ -96,18 +98,18 @@ export function HotelDetails({ features, tabs, mapImageUrl, location, websiteUrl
           </div>
 
           <div className="md:hidden">
-            <h2 className="text-[22px] font-semibold text-gray-900 mb-4">Neden Bu Otel</h2>
-            {tabs.about ? (
-              <div className="bg-white p-5 rounded-xl border border-gray-200">
+            <div className="bg-white p-5 rounded-xl border border-gray-200">
+              <h2 className="text-[20px] font-semibold text-gray-900 mb-4">Neden Bu Otel</h2>
+              {tabs.about ? (
                 <p className="text-gray-700 text-[15px] leading-relaxed whitespace-pre-line">
                   {tabs.about}
                 </p>
-              </div>
-            ) : (
-              <div className="text-center py-12 bg-gray-50 rounded-xl">
-                <p className="text-gray-400 font-medium text-sm">Bu bölüm henüz doldurulmamış.</p>
-              </div>
-            )}
+              ) : (
+                <div className="text-center py-8">
+                  <p className="text-gray-400 font-medium text-sm">Bu bölüm henüz doldurulmamış.</p>
+                </div>
+              )}
+            </div>
           </div>
 
           <div className="bg-white border border-gray-200 rounded-2xl sm:rounded-3xl shadow-sm overflow-hidden md:block hidden">
@@ -118,8 +120,8 @@ export function HotelDetails({ features, tabs, mapImageUrl, location, websiteUrl
           </div>
 
           <div className="md:hidden">
-            <h2 className="text-[22px] font-semibold text-gray-900 mb-4">Yakında Ne Yenir</h2>
             <div className="bg-white p-5 rounded-xl border border-gray-200">
+              <h2 className="text-[20px] font-semibold text-gray-900 mb-4">Yakında Ne Yenir</h2>
               <NearbyPlacesTab location={location} coordinates={coordinates} />
             </div>
           </div>
@@ -151,8 +153,8 @@ export function HotelDetails({ features, tabs, mapImageUrl, location, websiteUrl
       </div>
 
       <div className="md:hidden">
-        <h2 className="text-[22px] font-semibold text-gray-900 mb-4">Konum</h2>
         <div className="bg-white p-5 rounded-xl border border-gray-200">
+          <h2 className="text-[20px] font-semibold text-gray-900 mb-4">Konum</h2>
           <div className="flex items-start gap-2.5 mb-4">
             <MapPin className="w-5 h-5 text-gray-700 flex-shrink-0 mt-0.5" strokeWidth={2} />
             <p className="text-gray-700 text-[15px] leading-relaxed">{location}</p>
@@ -162,9 +164,9 @@ export function HotelDetails({ features, tabs, mapImageUrl, location, websiteUrl
               href={googleMapsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center h-[48px] bg-gray-900 hover:bg-gray-800 active:bg-black text-white font-semibold rounded-xl transition-colors text-[15px]"
+              className="flex items-center justify-center h-[52px] bg-white border border-gray-300 hover:border-gray-900 active:bg-gray-50 text-gray-900 font-semibold rounded-xl transition-all text-[16px]"
             >
-              <Map className="w-4.5 h-4.5 mr-2" strokeWidth={2} />
+              <Map className="w-5 h-5 mr-2" strokeWidth={2} />
               Haritada Gör
             </a>
           )}

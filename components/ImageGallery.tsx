@@ -44,7 +44,60 @@ export function ImageGallery({ images, videoUrl, videoThumbnailUrl }: ImageGalle
 
   return (
     <>
-      <div className="flex gap-2 mb-0">
+      {/* Mobile Gallery */}
+      <div className="md:hidden relative w-full h-[380px] bg-gray-100 rounded-2xl overflow-hidden cursor-pointer group mb-0">
+        {videoUrl ? (
+          <div className="relative w-full h-full" onClick={() => setIsVideoOpen(true)}>
+            {videoThumbnailUrl ? (
+              <Image
+                src={videoThumbnailUrl}
+                alt="Video thumbnail"
+                fill
+                sizes="100vw"
+                className="object-cover"
+                priority
+              />
+            ) : displayImages[0] ? (
+              <Image
+                src={displayImages[0]}
+                alt="Video thumbnail"
+                fill
+                sizes="100vw"
+                className="object-cover"
+                priority
+              />
+            ) : null}
+            <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/30 transition-colors">
+              <div className="w-16 h-16 rounded-full bg-white/90 flex items-center justify-center group-hover:scale-110 transition-transform">
+                <Play className="w-8 h-8 text-gray-900 ml-1" fill="currentColor" />
+              </div>
+            </div>
+          </div>
+        ) : displayImages[0] ? (
+          <div className="relative w-full h-full" onClick={() => setSelectedImageIndex(0)}>
+            <Image
+              src={displayImages[0]}
+              alt="Ana resim"
+              fill
+              sizes="100vw"
+              className="object-cover group-hover:scale-105 transition-transform duration-500"
+              priority
+            />
+          </div>
+        ) : null}
+        {totalImages > 1 && (
+          <div
+            className="absolute bottom-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-2 rounded-lg flex items-center gap-2"
+            onClick={() => setSelectedImageIndex(0)}
+          >
+            <Camera className="w-4 h-4 text-gray-900" />
+            <span className="text-sm font-semibold text-gray-900">{totalImages} Fotoğraf</span>
+          </div>
+        )}
+      </div>
+
+      {/* Desktop Gallery */}
+      <div className="flex gap-2 mb-0 md:flex hidden">
         <div className="relative w-[380px] h-[550px] bg-gray-100 rounded-2xl overflow-hidden cursor-pointer group flex-shrink-0">
           {videoUrl ? (
             <div className="relative w-full h-full" onClick={() => setIsVideoOpen(true)}>
