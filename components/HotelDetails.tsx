@@ -62,7 +62,7 @@ export function HotelDetails({ features, tabs, mapImageUrl, location, websiteUrl
                     return (
                       <div
                         key={index}
-                        className="flex items-center gap-2.5 p-3.5 bg-white border border-gray-200 rounded-xl"
+                        className="flex items-center gap-2.5 p-3 bg-white shadow-lg rounded-2xl"
                       >
                         <IconComponent className="w-5 h-5 text-gray-400 flex-shrink-0" strokeWidth={1.5} />
                         <span className="text-gray-600 font-medium text-[14px] leading-snug">{tag.name}</span>
