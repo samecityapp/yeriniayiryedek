@@ -24,7 +24,7 @@ export function HotelDetails({ features, tabs, mapImageUrl, location, websiteUrl
     <>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 mb-6">
         <div className="lg:col-span-2 space-y-6 sm:space-y-8">
-          <div className="bg-white border border-gray-200 rounded-2xl sm:rounded-3xl shadow-sm overflow-hidden md:block">
+          <div className="bg-white border border-gray-200 rounded-2xl sm:rounded-3xl shadow-sm overflow-hidden hidden md:block">
             <div className="p-6 sm:p-8 lg:p-10">
               <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-6">Otel Özellikleri</h2>
               {tags && tags.length > 0 ? (

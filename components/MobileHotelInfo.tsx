@@ -1,7 +1,6 @@
 'use client';
 
-import { MapPin } from 'lucide-react';
-import Image from 'next/image';
+import { ExternalLink } from 'lucide-react';
 
 type MobileHotelInfoProps = {
   hotelName: string;
@@ -22,38 +21,34 @@ export function MobileHotelInfo({
   websiteUrl,
   instagramUrl,
 }: MobileHotelInfoProps) {
-  const handleMapClick = () => {
-    if (googleMapsUrl) {
-      window.open(googleMapsUrl, '_blank');
-    }
-  };
+  const locationCity = location.split(',')[0].trim();
 
   return (
     <div className="bg-white p-5 rounded-xl border border-gray-200 mx-5 mt-4">
-      <h1 className="text-2xl font-normal text-gray-900 mb-4 leading-tight text-center">
+      <h1 className="text-2xl font-bold text-gray-900 mb-4 leading-tight text-center">
         {hotelName}
       </h1>
 
       <div className="flex items-center justify-center gap-0 mb-4">
         <div className="flex flex-col items-center justify-center bg-white rounded-xl p-3 h-[90px] min-w-[100px]">
-          <MapPin className="w-4 h-4 text-gray-700 mb-1.5" strokeWidth={2} />
-          <p className="text-xs font-medium text-gray-700 text-center leading-tight line-clamp-2">
-            {location}
+          <p className="text-xs font-medium text-gray-600 mb-1.5">Konum</p>
+          <p className="text-base font-bold text-gray-900 text-center leading-tight">
+            {locationCity}
           </p>
         </div>
 
         <div className="h-12 w-[1px] bg-gray-200 mx-1"></div>
 
         <div className="flex flex-col items-center justify-center bg-white rounded-xl p-3 h-[90px] min-w-[100px]">
-          <p className="text-xs font-medium text-gray-700 mb-1.5">GNK Skor</p>
-          <p className="text-base font-medium text-gray-700">{rating} / 5</p>
+          <p className="text-xs font-medium text-gray-600 mb-1.5">GNK Skor</p>
+          <p className="text-base font-bold text-gray-900">{rating} / 5</p>
         </div>
 
         <div className="h-12 w-[1px] bg-gray-200 mx-1"></div>
 
         <div className="flex flex-col items-center justify-center bg-white rounded-xl p-3 h-[90px] min-w-[100px]">
-          <p className="text-xs font-medium text-gray-700 mb-1.5">Fiyat</p>
-          <p className="text-base font-medium text-gray-700">{price.toLocaleString('tr-TR')} ₺</p>
+          <p className="text-xs font-medium text-gray-600 mb-1.5">Fiyat</p>
+          <p className="text-base font-bold text-gray-900">{price.toLocaleString('tr-TR')} ₺</p>
         </div>
       </div>
 
@@ -65,6 +60,7 @@ export function MobileHotelInfo({
             rel="noopener noreferrer"
             className="flex items-center justify-center h-[52px] bg-white border border-gray-300 hover:border-gray-900 active:bg-gray-50 text-gray-900 font-semibold rounded-xl transition-all text-[16px]"
           >
+            <ExternalLink className="w-5 h-5 mr-2" strokeWidth={2} />
             Otele Git
           </a>
         )}
