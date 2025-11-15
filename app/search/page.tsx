@@ -284,7 +284,7 @@ export default function SearchPage() {
                             <div className="flex justify-between items-start mb-2">
                               <h3 className="text-lg font-bold text-gray-900 group-hover:text-blue-600">{hotel.name}</h3>
                               <div className="text-right ml-4 flex-shrink-0">
-                                <div className="text-xl font-bold text-gray-900">{hotel.price}</div>
+                                <div className="text-lg font-bold text-gray-900 whitespace-nowrap">{hotel.price.toLocaleString('tr-TR')} ₺</div>
                                 <div className="text-xs text-gray-500">gecelik</div>
                               </div>
                             </div>
