@@ -23,7 +23,7 @@ export function MobileHotelInfo({
   const locationCity = location.split(',')[0].trim();
 
   return (
-    <div className="bg-white p-5 rounded-xl border border-gray-200 mx-5 mt-2">
+    <div className="bg-white p-5 rounded-xl border border-gray-200 mx-5 mt-3">
       <h1 className="text-2xl font-bold text-gray-900 mb-4 leading-tight text-center">
         {hotelName}
       </h1>
