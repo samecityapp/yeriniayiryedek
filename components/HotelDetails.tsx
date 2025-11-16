@@ -53,7 +53,7 @@ export function HotelDetails({ features, tabs, mapImageUrl, location, websiteUrl
           </div>
 
           <div className="md:hidden">
-            <div className="bg-white p-5 rounded-xl border border-gray-200 mt-2">
+            <div className="bg-white p-5 rounded-xl border border-gray-200">
               <h2 className="text-[20px] font-semibold text-gray-900 mb-4">Otel Özellikleri</h2>
               {tags && tags.length > 0 ? (
                 <div className="grid grid-cols-2 gap-2">
@@ -96,7 +96,7 @@ export function HotelDetails({ features, tabs, mapImageUrl, location, websiteUrl
           </div>
 
           <div className="md:hidden">
-            <div className="bg-white p-5 rounded-xl border border-gray-200 mt-2">
+            <div className="bg-white p-5 rounded-xl border border-gray-200">
               <h2 className="text-[20px] font-semibold text-gray-900 mb-4">Neden Bu Otel</h2>
               {tabs.about ? (
                 <p className="text-gray-700 text-[15px] leading-relaxed whitespace-pre-line">
@@ -118,7 +118,7 @@ export function HotelDetails({ features, tabs, mapImageUrl, location, websiteUrl
           </div>
 
           <div className="md:hidden">
-            <div className="bg-white p-5 rounded-xl border border-gray-200 mt-2">
+            <div className="bg-white p-5 rounded-xl border border-gray-200">
               <h2 className="text-[20px] font-semibold text-gray-900 mb-4">Yakında Ne Yenir</h2>
               <NearbyPlacesTab location={location} coordinates={coordinates} />
             </div>
@@ -151,7 +151,7 @@ export function HotelDetails({ features, tabs, mapImageUrl, location, websiteUrl
       </div>
 
       <div className="md:hidden">
-        <div className="bg-white p-5 rounded-xl border border-gray-200 mt-3">
+        <div className="bg-white p-5 rounded-xl border border-gray-200">
           <h2 className="text-[20px] font-semibold text-gray-900 mb-4">Konum</h2>
           <div className="flex items-start gap-2.5 mb-4">
             <MapPin className="w-5 h-5 text-gray-700 flex-shrink-0 mt-0.5" strokeWidth={2} />
