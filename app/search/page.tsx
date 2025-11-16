@@ -186,17 +186,17 @@ export default function SearchPage() {
   }
   
   const FilterPanel = () => (
-    <div className="space-y-8">
+    <div className="space-y-4">
       <div>
-        <h3 className="text-base font-bold text-gray-900 mb-4 tracking-tight">Otel Özellikleri</h3>
-        <div className="space-y-2.5">
+        <h3 className="text-xs font-bold text-gray-900 mb-2 tracking-tight">Otel Özellikleri</h3>
+        <div className="space-y-0.5">
           {allTags.map(tag => {
             const iconName = tag.icon || 'Tag';
             const Icon = (LucideIcons as any)[iconName] || LucideIcons.Tag;
             const isSelected = selectedTags.includes(tag.slug);
             return (
-              <label key={tag.id} className="flex items-center gap-3 cursor-pointer group p-2.5 rounded-lg hover:bg-gray-50 transition-colors">
-                <div className={`relative flex items-center justify-center w-5 h-5 rounded border-2 transition-all ${
+              <label key={tag.id} className="flex items-center gap-2 cursor-pointer group py-1 px-1.5 rounded-md hover:bg-gray-50 transition-colors">
+                <div className={`relative flex items-center justify-center w-4 h-4 rounded border-2 transition-all ${
                   isSelected
                     ? 'bg-gray-900 border-gray-900'
                     : 'border-gray-300 group-hover:border-gray-400'
@@ -208,24 +208,24 @@ export default function SearchPage() {
                     className="absolute opacity-0 w-full h-full cursor-pointer"
                   />
                   {isSelected && (
-                    <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg className="w-2.5 h-2.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                     </svg>
                   )}
                 </div>
-                <Icon className={`w-4.5 h-4.5 transition-colors ${isSelected ? 'text-gray-900' : 'text-gray-400 group-hover:text-gray-600'}`} />
-                <span className={`text-sm font-medium transition-colors ${isSelected ? 'text-gray-900' : 'text-gray-600 group-hover:text-gray-900'}`}>{tag.name}</span>
+                <Icon className={`w-3.5 h-3.5 transition-colors ${isSelected ? 'text-gray-900' : 'text-gray-400 group-hover:text-gray-600'}`} />
+                <span className={`text-xs font-medium transition-colors ${isSelected ? 'text-gray-900' : 'text-gray-600 group-hover:text-gray-900'}`}>{tag.name}</span>
               </label>
             );
           })}
         </div>
       </div>
       <div>
-        <h3 className="text-base font-bold text-gray-900 mb-4 tracking-tight">Sıralama</h3>
+        <h3 className="text-xs font-bold text-gray-900 mb-2 tracking-tight">Sıralama</h3>
         <select
           value={sortBy}
           onChange={(e) => setSortBy(e.target.value)}
-          className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl text-sm font-medium text-gray-900 bg-white hover:border-gray-300 focus:border-gray-900 focus:ring-0 focus:outline-none transition-colors cursor-pointer appearance-none bg-[url('data:image/svg+xml;charset=UTF-8,%3csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%20fill%3D%22none%22%3E%3cpath%20d%3D%22M7%207l3-3%203%203m0%206l-3%203-3-3%22%20stroke%3D%22%239CA3AF%22%20stroke-width%3D%221.5%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E')] bg-[length:1.25em] bg-[right_0.5rem_center] bg-no-repeat pr-10"
+          className="w-full px-3 py-2 border-2 border-gray-200 rounded-lg text-xs font-medium text-gray-900 bg-white hover:border-gray-300 focus:border-gray-900 focus:ring-0 focus:outline-none transition-colors cursor-pointer appearance-none bg-[url('data:image/svg+xml;charset=UTF-8,%3csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%20fill%3D%22none%22%3E%3cpath%20d%3D%22M7%207l3-3%203%203m0%206l-3%203-3-3%22%20stroke%3D%22%239CA3AF%22%20stroke-width%3D%221.5%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E')] bg-[length:1em] bg-[right_0.4rem_center] bg-no-repeat pr-8"
         >
           <option value="score">GNK Puanına Göre</option>
           <option value="price-low">Fiyat (Düşükten Yükseğe)</option>
@@ -236,7 +236,7 @@ export default function SearchPage() {
       {selectedTags.length > 0 && (
           <button
             onClick={clearFilters}
-            className="w-full py-3 px-4 text-sm font-semibold text-gray-900 bg-gray-100 hover:bg-gray-200 rounded-xl transition-colors"
+            className="w-full py-2 px-3 text-xs font-semibold text-gray-900 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
           >
               Filtreleri Temizle
           </button>
