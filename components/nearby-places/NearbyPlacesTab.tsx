@@ -8,6 +8,7 @@ import { RestaurantCard } from './RestaurantCard';
 import { Restaurant, RestaurantCategory } from '@/lib/types';
 import { sapancaPlaces } from '@/data/sapancaPlaces';
 import { bodrumPlaces } from '@/data/bodrumPlaces';
+import { antalyaPlaces } from '@/data/antalyaPlaces';
 
 const RestaurantDetailsModal = dynamic(() =>
   import('./RestaurantDetailsModal').then(mod => ({ default: mod.RestaurantDetailsModal }))
@@ -47,6 +48,19 @@ export function NearbyPlacesTab({ location, coordinates }: NearbyPlacesTabProps)
 
       if (location.toLowerCase().includes('bodrum')) {
         const normalizedCategories = bodrumPlaces.map(cat => ({
+          ...cat,
+          restaurants: cat.places || cat.restaurants || []
+        }));
+        setCategories(normalizedCategories);
+        if (normalizedCategories.length > 0) {
+          setActiveCategory(normalizedCategories[0].title);
+        }
+        setLoading(false);
+        return;
+      }
+
+      if (location.toLowerCase().includes('antalya')) {
+        const normalizedCategories = antalyaPlaces.map(cat => ({
           ...cat,
           restaurants: cat.places || cat.restaurants || []
         }));
