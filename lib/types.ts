@@ -50,30 +50,35 @@ export type SearchTerm = {
 };
 
 export interface Restaurant {
-  id: string;
-  category_id: string;
-  location: string;
+  id?: string;
+  category_id?: string;
+  location?: string;
   name: string;
-  image_url: string;
+  image?: string;
+  image_url?: string;
   description: string;
-  google_rating: number;
-  review_count: string;
-  order_suggestion: string;
-  display_order: number;
+  google_rating?: number;
+  googleRating?: number;
+  review_count?: string;
+  reviewCount?: string;
+  order_suggestion?: string;
+  orderSuggestion?: string;
+  display_order?: number;
   notes?: RestaurantNote[];
 }
 
 export interface RestaurantNote {
-  id: string;
-  restaurant_id: string;
+  id?: string;
+  restaurant_id?: string;
   emoji: string;
   text: string;
-  display_order: number;
+  display_order?: number;
 }
 
 export interface RestaurantCategory {
-  id: string;
+  id?: string;
   title: string;
-  display_order: number;
+  display_order?: number;
   restaurants?: Restaurant[];
+  places?: Restaurant[];
 }

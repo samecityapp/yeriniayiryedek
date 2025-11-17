@@ -8,11 +8,15 @@ type RestaurantCardProps = {
 };
 
 export function RestaurantCard({ restaurant, onViewDetails }: RestaurantCardProps) {
+  const imageUrl = restaurant.image_url || restaurant.image || '';
+  const rating = restaurant.google_rating || restaurant.googleRating || 0;
+  const reviewCount = restaurant.review_count || restaurant.reviewCount || '0';
+
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
       <div className="relative w-full h-48">
         <Image
-          src={restaurant.image_url}
+          src={imageUrl}
           alt={restaurant.name}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -32,8 +36,8 @@ export function RestaurantCard({ restaurant, onViewDetails }: RestaurantCardProp
           </button>
           <div className="flex items-center text-sm">
             <Star size={16} className="text-yellow-500 fill-yellow-500 mr-1" />
-            <span className="font-bold">{restaurant.google_rating}</span>
-            <span className="text-gray-500 ml-1">({restaurant.review_count})</span>
+            <span className="font-bold">{rating}</span>
+            <span className="text-gray-500 ml-1">({reviewCount})</span>
           </div>
         </div>
       </div>

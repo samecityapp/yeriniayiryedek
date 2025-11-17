@@ -102,7 +102,7 @@ export default function RestaurantsAdminPage() {
           .eq('id', editingRestaurant.id);
 
         if (error) throw error;
-        restaurantId = editingRestaurant.id;
+        restaurantId = editingRestaurant.id!;
 
         await supabase
           .from('restaurant_notes')
@@ -158,15 +158,15 @@ export default function RestaurantsAdminPage() {
 
   function handleEdit(restaurant: Restaurant) {
     setEditingRestaurant(restaurant);
-    setSelectedCategory(restaurant.category_id);
+    setSelectedCategory(restaurant.category_id || '');
     setFormData({
       name: restaurant.name,
-      image_url: restaurant.image_url,
+      image_url: restaurant.image_url || '',
       description: restaurant.description,
-      google_rating: restaurant.google_rating,
-      review_count: restaurant.review_count,
-      order_suggestion: restaurant.order_suggestion,
-      display_order: restaurant.display_order,
+      google_rating: restaurant.google_rating || 0,
+      review_count: restaurant.review_count || '',
+      order_suggestion: restaurant.order_suggestion || '',
+      display_order: restaurant.display_order || 0,
       notes: restaurant.notes?.map(n => ({ emoji: n.emoji, text: n.text })) || []
     });
     setShowForm(true);
@@ -420,7 +420,7 @@ export default function RestaurantsAdminPage() {
                       <Edit size={20} />
                     </button>
                     <button
-                      onClick={() => handleDelete(restaurant.id)}
+                      onClick={() => restaurant.id && handleDelete(restaurant.id)}
                       className="text-red-600 hover:text-red-700"
                     >
                       <Trash2 size={20} />
