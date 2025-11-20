@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import dynamic from 'next/dynamic';
 import { MapPin } from 'lucide-react';
 import { db } from '@/lib/db';
 import { ImageGallery } from '@/components/ImageGallery';
@@ -8,8 +9,12 @@ import { RelatedArticles } from '@/components/RelatedArticles';
 import { MobileHotelInfo } from '@/components/MobileHotelInfo';
 import { HotelFeatures } from '@/components/hotel/HotelFeatures';
 import { HotelDescription } from '@/components/hotel/HotelDescription';
-import LocationCard from '@/components/hotel/LocationCard';
 import { NearbyGuide } from '@/components/hotel/NearbyGuide';
+
+const LocationCard = dynamic(() => import('@/components/hotel/LocationCard'), {
+  ssr: false,
+  loading: () => <div className="h-[250px] w-full bg-gray-100 animate-pulse rounded-xl" />
+});
 
 export const revalidate = 1800;
 
