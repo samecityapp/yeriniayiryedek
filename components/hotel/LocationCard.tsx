@@ -1,6 +1,18 @@
+"use client";
+
+import dynamic from 'next/dynamic';
 import { MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
+const MapComponent = dynamic(() => import('@/components/MapComponent'), {
+  ssr: false,
+  loading: () => (
+    <div className="w-full h-full flex items-center justify-center bg-muted">
+      <div className="text-sm text-muted-foreground">Harita yükleniyor...</div>
+    </div>
+  ),
+});
 
 interface LocationCardProps {
   address: string;
@@ -20,15 +32,7 @@ export default function LocationCard({
 
   if (isNaN(lat) || isNaN(lon)) return null;
 
-  const delta = 0.005;
-  const minLat = lat - delta;
-  const maxLat = lat + delta;
-  const minLon = lon - delta;
-  const maxLon = lon + delta;
-
-  const embedMapUrl = `https://www.openstreetmap.org/export/embed.html?bbox=${minLon}%2C${minLat}%2C${maxLon}%2C${maxLat}&layer=mapnik&marker=${lat}%2C${lon}`;
-
-  const directionsUrl = `http://googleusercontent.com/maps.google.com/maps?daddr=${lat},${lon}`;
+  const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lon}`;
 
   return (
     <Card className="overflow-hidden h-full flex flex-col shadow-sm border-border/50">
@@ -40,18 +44,7 @@ export default function LocationCard({
       </CardHeader>
 
       <div className="relative w-full h-[250px] bg-muted z-0">
-        <iframe
-          title="Otel Konumu"
-          width="100%"
-          height="100%"
-          frameBorder="0"
-          scrolling="no"
-          marginHeight={0}
-          marginWidth={0}
-          src={embedMapUrl}
-          className="filter grayscale-[10%] hover:grayscale-0 transition-all duration-500"
-          loading="lazy"
-        ></iframe>
+        <MapComponent latitude={lat} longitude={lon} address={address} />
       </div>
 
       <CardContent className="flex-grow flex flex-col justify-between pt-4 pb-5 gap-4 bg-card">
