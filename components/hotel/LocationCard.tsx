@@ -4,8 +4,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 interface LocationCardProps {
   address: string;
-  latitude?: number | null;
-  longitude?: number | null;
+  latitude?: number | string | null;
+  longitude?: number | string | null;
 }
 
 export default function LocationCard({
@@ -13,19 +13,22 @@ export default function LocationCard({
   latitude,
   longitude,
 }: LocationCardProps) {
-  if (!latitude || !longitude) {
-    return null;
-  }
+  if (!latitude || !longitude) return null;
+
+  const lat = Number(latitude);
+  const lon = Number(longitude);
+
+  if (isNaN(lat) || isNaN(lon)) return null;
 
   const delta = 0.005;
-  const minLat = latitude - delta;
-  const maxLat = latitude + delta;
-  const minLon = longitude - delta;
-  const maxLon = longitude + delta;
+  const minLat = lat - delta;
+  const maxLat = lat + delta;
+  const minLon = lon - delta;
+  const maxLon = lon + delta;
 
-  const embedMapUrl = `https://www.openstreetmap.org/export/embed.html?bbox=${minLon}%2C${minLat}%2C${maxLon}%2C${maxLat}&layer=mapnik&marker=${latitude}%2C${longitude}`;
+  const embedMapUrl = `https://www.openstreetmap.org/export/embed.html?bbox=${minLon}%2C${minLat}%2C${maxLon}%2C${maxLat}&layer=mapnik&marker=${lat}%2C${lon}`;
 
-  const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${latitude},${longitude}`;
+  const directionsUrl = `http://googleusercontent.com/maps.google.com/maps?daddr=${lat},${lon}`;
 
   return (
     <Card className="overflow-hidden h-full flex flex-col shadow-sm border-border/50">
@@ -49,9 +52,6 @@ export default function LocationCard({
           className="filter grayscale-[10%] hover:grayscale-0 transition-all duration-500"
           loading="lazy"
         ></iframe>
-        <div className="absolute bottom-1 right-1 text-[10px] text-black/50 bg-white/70 px-1 rounded">
-           © OpenStreetMap
-        </div>
       </div>
 
       <CardContent className="flex-grow flex flex-col justify-between pt-4 pb-5 gap-4 bg-card">
@@ -60,17 +60,8 @@ export default function LocationCard({
           {address}
         </div>
 
-        <Button
-          asChild
-          className="w-full font-semibold tracking-wide shadow-sm"
-          size="lg"
-        >
-          <a
-            href={directionsUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 justify-center"
-          >
+        <Button asChild className="w-full font-semibold tracking-wide shadow-sm" size="lg">
+          <a href={directionsUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 justify-center">
             <MapPin className="h-4 w-4" />
             YOL TARİFİ AL
           </a>
