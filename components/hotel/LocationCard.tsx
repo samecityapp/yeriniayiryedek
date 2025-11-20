@@ -19,7 +19,10 @@ export default function LocationCard({
     return null;
   }
 
-  const embedMapUrl = `https://maps.google.com/maps?q=${latitude},${longitude}&hl=tr&z=15&output=embed`;
+  // OpenStreetMap kullanımı - ÜCRETSİZ, API key gerektirmez
+  const embedMapUrl = `https://www.openstreetmap.org/export/embed.html?bbox=${longitude-0.01},${latitude-0.01},${longitude+0.01},${latitude+0.01}&layer=mapnik&marker=${latitude},${longitude}`;
+
+  // Google Maps yol tarifi (harici link, iframe değil)
   const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${latitude},${longitude}`;
 
   return (
