@@ -1,22 +1,26 @@
 'use client';
 
-import { MapPin } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { MapPin } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 interface LocationCardProps {
-  latitude?: number;
-  longitude?: number;
-  hotelName: string;
   address?: string;
+  latitude?: number | null;
+  longitude?: number | null;
+  hotelName?: string;
 }
 
-export function LocationCard({ latitude, longitude, hotelName, address }: LocationCardProps) {
+export function LocationCard({
+  address,
+  latitude,
+  longitude,
+}: LocationCardProps) {
   if (!latitude || !longitude) {
     return null;
   }
 
-  const embedMapUrl = `https://maps.google.com/maps?q=${latitude},${longitude}&hl=tr&z=14&output=embed`;
+  const embedMapUrl = `https://maps.google.com/maps?q=${latitude},${longitude}&hl=tr&z=15&output=embed`;
   const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${latitude},${longitude}`;
 
   return (
@@ -38,7 +42,7 @@ export function LocationCard({ latitude, longitude, hotelName, address }: Locati
           marginHeight={0}
           marginWidth={0}
           src={embedMapUrl}
-          className="grayscale-[20%] hover:grayscale-0 transition-all duration-500"
+          className="filter grayscale-[20%] hover:grayscale-0 transition-all duration-500"
           allowFullScreen
           loading="lazy"
         />
@@ -52,7 +56,11 @@ export function LocationCard({ latitude, longitude, hotelName, address }: Locati
           </div>
         )}
 
-        <Button asChild className="w-full font-semibold tracking-wide shadow-sm" size="lg">
+        <Button
+          asChild
+          className="w-full font-semibold tracking-wide shadow-sm"
+          size="lg"
+        >
           <a
             href={directionsUrl}
             target="_blank"
