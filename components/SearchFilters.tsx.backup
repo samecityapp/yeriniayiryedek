@@ -3,15 +3,10 @@
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { createClient } from '@supabase/supabase-js';
+import { supabase } from '@/lib/supabase';
 import { Tag, PriceTag } from '@/lib/types';
 import { Search, MapPin, Tag as TagIcon, Hotel } from 'lucide-react';
 import * as LucideIcons from 'lucide-react';
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
 
 type SearchSuggestion = {
   type: 'hotel' | 'location' | 'tag';
@@ -30,39 +25,33 @@ export default function SearchFilters() {
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const [allHotels, setAllHotels] = useState<any[]>([]);
   const [allTags, setAllTags] = useState<Tag[]>([]);
-  const [loading, setLoading] = useState(true);
   const searchRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        console.log('[SearchFilters] Starting fetch...');
-
         const { data: tagsData, error: tagsError } = await supabase
           .from('tags')
           .select('*')
           .is('deleted_at', null)
           .order('name', { ascending: true });
 
-        console.log('[SearchFilters] Tags response:', { tagsData, tagsError });
-
         if (tagsError) {
-          console.error('[SearchFilters] Tags error:', tagsError);
+          console.error('Tags error:', tagsError);
         }
 
-        if (tagsData && tagsData.length > 0) {
-          const mapped = tagsData.map(t => ({
+        if (tagsData) {
+          console.log('[SearchFilters] Raw tags:', tagsData);
+          const mappedTags = tagsData.map(t => ({
             id: t.id,
             name: t.name,
             slug: t.slug,
             icon: t.icon || 'Tag',
-            isFeatured: Boolean(t.is_featured)
+            isFeatured: t.is_featured || false
           }));
-
-          const featured = mapped.filter(t => t.isFeatured);
-          console.log('[SearchFilters] Featured tags:', featured);
-
-          setAllTags(mapped);
+          const featured = mappedTags.filter(t => t.isFeatured);
+          console.log('[SearchFilters] Featured tags count:', featured.length, featured);
+          setAllTags(mappedTags);
           setFeaturedTags(featured);
         }
 
@@ -72,13 +61,12 @@ export default function SearchFilters() {
           .is('deleted_at', null)
           .order('min_price', { ascending: true });
 
-        console.log('[SearchFilters] Price tags response:', { priceTagsData, priceError });
-
         if (priceError) {
-          console.error('[SearchFilters] Price tags error:', priceError);
+          console.error('Price tags error:', priceError);
         }
 
-        if (priceTagsData && priceTagsData.length > 0) {
+        if (priceTagsData) {
+          console.log('[SearchFilters] Price tags count:', priceTagsData.length);
           setPriceTags(priceTagsData.map(p => ({
             id: p.id,
             label: p.label,
@@ -97,11 +85,8 @@ export default function SearchFilters() {
         if (hotelsData) {
           setAllHotels(hotelsData);
         }
-
-        setLoading(false);
       } catch (error) {
-        console.error('[SearchFilters] Catch error:', error);
-        setLoading(false);
+        console.error('[SearchFilters] Error fetching data:', error);
       }
     };
 
@@ -126,100 +111,111 @@ export default function SearchFilters() {
       return;
     }
 
-    const query = searchQuery.toLowerCase();
+    const query = searchQuery.toLocaleLowerCase('tr-TR');
     const newSuggestions: SearchSuggestion[] = [];
 
-    allHotels
-      .filter(hotel => hotel.name.toLowerCase().includes(query))
-      .slice(0, 3)
-      .forEach(hotel => {
+    allHotels.forEach(hotel => {
+      if (hotel.name.toLocaleLowerCase('tr-TR').includes(query)) {
         newSuggestions.push({
           type: 'hotel',
-          value: hotel.id,
+          value: hotel.name,
           label: hotel.name,
-          icon: 'Hotel'
         });
-      });
+      }
+    });
 
     const uniqueLocations = Array.from(new Set(allHotels.map(h => h.location)));
-    uniqueLocations
-      .filter(loc => loc && loc.toLowerCase().includes(query))
-      .slice(0, 3)
-      .forEach(loc => {
+    uniqueLocations.forEach(location => {
+      if (location.toLocaleLowerCase('tr-TR').includes(query)) {
         newSuggestions.push({
           type: 'location',
-          value: loc,
-          label: loc,
-          icon: 'MapPin'
+          value: location,
+          label: location,
         });
-      });
+      }
+    });
 
-    allTags
-      .filter(tag => tag.name.toLowerCase().includes(query) || tag.slug.toLowerCase().includes(query))
-      .slice(0, 3)
-      .forEach(tag => {
+    allTags.forEach(tag => {
+      if (tag.name.toLocaleLowerCase('tr-TR').includes(query)) {
         newSuggestions.push({
           type: 'tag',
           value: tag.slug,
           label: tag.name,
-          icon: tag.icon
+          icon: tag.icon,
         });
-      });
+      }
+    });
 
-    setSuggestions(newSuggestions);
+    setSuggestions(newSuggestions.slice(0, 8));
     setShowSuggestions(newSuggestions.length > 0);
+    setSelectedIndex(-1);
   }, [searchQuery, allHotels, allTags]);
 
-  const handleSearch = () => {
-    if (searchQuery.trim()) {
-      router.push(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
+  const handleSearch = (value?: string) => {
+    const queryValue = value || searchQuery.trim();
+    if (queryValue) {
+      setShowSuggestions(false);
+      router.push(`/search?q=${encodeURIComponent(queryValue)}`);
     }
   };
 
   const handleSuggestionClick = (suggestion: SearchSuggestion) => {
-    if (suggestion.type === 'hotel') {
-      router.push(`/otel/${suggestion.value}`);
-    } else if (suggestion.type === 'location') {
-      router.push(`/search?location=${encodeURIComponent(suggestion.value)}`);
-    } else if (suggestion.type === 'tag') {
-      router.push(`/search?q=${suggestion.value}`);
+    setSearchQuery(suggestion.label);
+    if (suggestion.type === 'location') {
+      handleSearch(suggestion.label);
+    } else {
+      handleSearch(suggestion.value);
     }
-    setShowSuggestions(false);
-    setSearchQuery('');
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'ArrowDown') {
-      e.preventDefault();
-      setSelectedIndex(prev => (prev < suggestions.length - 1 ? prev + 1 : prev));
-    } else if (e.key === 'ArrowUp') {
-      e.preventDefault();
-      setSelectedIndex(prev => (prev > 0 ? prev - 1 : -1));
-    } else if (e.key === 'Enter' && selectedIndex >= 0) {
-      e.preventDefault();
-      handleSuggestionClick(suggestions[selectedIndex]);
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (!showSuggestions || suggestions.length === 0) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        handleSearch();
+      }
+      return;
+    }
+
+    switch (e.key) {
+      case 'ArrowDown':
+        e.preventDefault();
+        setSelectedIndex(prev =>
+          prev < suggestions.length - 1 ? prev + 1 : prev
+        );
+        break;
+      case 'ArrowUp':
+        e.preventDefault();
+        setSelectedIndex(prev => prev > 0 ? prev - 1 : -1);
+        break;
+      case 'Enter':
+        e.preventDefault();
+        if (selectedIndex >= 0) {
+          handleSuggestionClick(suggestions[selectedIndex]);
+        } else {
+          handleSearch();
+        }
+        break;
+      case 'Escape':
+        setShowSuggestions(false);
+        setSelectedIndex(-1);
+        break;
     }
   };
 
   const getSuggestionIcon = (suggestion: SearchSuggestion) => {
     if (suggestion.type === 'hotel') return Hotel;
     if (suggestion.type === 'location') return MapPin;
-    if (suggestion.icon && (LucideIcons as any)[suggestion.icon]) {
-      return (LucideIcons as any)[suggestion.icon];
+    if (suggestion.type === 'tag' && suggestion.icon) {
+      return (LucideIcons as any)[suggestion.icon] || TagIcon;
     }
     return TagIcon;
   };
 
-  console.log('[SearchFilters RENDER] State:', {
-    loading,
-    featuredTagsLength: featuredTags.length,
-    priceTagsLength: priceTags.length
-  });
-
   return (
     <div className="w-full max-w-5xl mx-auto px-4">
       <div className="bg-white rounded-full shadow-xl border border-gray-200 hover:shadow-2xl transition-all duration-300">
-        <div ref={searchRef} className="relative z-20">
+        <div ref={searchRef} className="relative">
           <form onSubmit={(e) => { e.preventDefault(); handleSearch(); }} className="flex items-center">
             <div className="flex-1 relative">
               <Search className="absolute left-6 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
@@ -281,10 +277,14 @@ export default function SearchFilters() {
       </div>
 
       <div className="mt-6 space-y-3 relative z-10">
-        {featuredTags.length > 0 && (
+        {(() => {
+          console.log('[SearchFilters RENDER] featuredTags.length:', featuredTags.length, 'priceTags.length:', priceTags.length);
+          return null;
+        })()}
+        {featuredTags.length > 0 ? (
           <div className="flex items-center justify-center gap-2 flex-wrap">
             {featuredTags.slice(0, 5).map(tag => {
-              const IconComponent = (tag.icon && (LucideIcons as any)[tag.icon]) || LucideIcons.Tag;
+              const IconComponent = (LucideIcons as any)[tag.icon || 'Tag'] || LucideIcons.Tag;
               return (
                 <Link
                   key={tag.id}
@@ -297,9 +297,11 @@ export default function SearchFilters() {
               );
             })}
           </div>
+        ) : (
+          <div className="text-center text-sm text-gray-500">Tag'ler yükleniyor...</div>
         )}
 
-        {priceTags.length > 0 && (
+        {priceTags.length > 0 ? (
           <div className="flex items-center justify-center gap-2">
             {priceTags.slice(0, 3).map((pt) => (
               <Link
@@ -311,6 +313,8 @@ export default function SearchFilters() {
               </Link>
             ))}
           </div>
+        ) : (
+          <div className="text-center text-sm text-gray-500">Fiyat filtreleri yükleniyor...</div>
         )}
       </div>
     </div>
