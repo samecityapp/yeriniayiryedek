@@ -13,7 +13,8 @@ import * as LucideIcons from 'lucide-react';
 export default function SearchPage() {
   const searchParams = useSearchParams();
   const query = searchParams.get('q') || '';
-  
+  const locationQuery = searchParams.get('location') || '';
+
   const [allHotels, setAllHotels] = useState<Hotel[]>([]);
   const [filteredHotels, setFilteredHotels] = useState<Hotel[]>([]);
   const [allTags, setAllTags] = useState<Tag[]>([]);
@@ -96,29 +97,36 @@ export default function SearchPage() {
     if (isLoading) return;
     let processedHotels = [...allHotels];
 
-    const priceQuery = priceTags.find(pt => pt.slug === query);
-    if (priceQuery) {
-        processedHotels = processedHotels.filter(hotel => {
-            return hotel.price >= priceQuery.minPrice && hotel.price <= priceQuery.maxPrice;
-        });
+    if (locationQuery) {
+      const locationLower = locationQuery.toLocaleLowerCase('tr-TR');
+      processedHotels = processedHotels.filter(hotel =>
+        hotel.location.toLocaleLowerCase('tr-TR') === locationLower
+      );
     } else {
-      const tagQuery = allTags.find(t => t.slug === query);
-      if (tagQuery) {
-          processedHotels = processedHotels.filter(hotel =>
-              hotel.tags?.includes(tagQuery.slug)
-          );
-      } else if (query) {
-          const searchLower = query.toLocaleLowerCase('tr-TR');
+      const priceQuery = priceTags.find(pt => pt.slug === query);
+      if (priceQuery) {
           processedHotels = processedHotels.filter(hotel => {
-              const nameMatch = hotel.name.toLocaleLowerCase('tr-TR').includes(searchLower);
-              const locationMatch = hotel.location.toLocaleLowerCase('tr-TR').includes(searchLower);
-              const aboutMatch = hotel.about?.toLocaleLowerCase('tr-TR').includes(searchLower);
-              const tagMatch = hotel.tags?.some(tagSlug => {
-                const tag = allTags.find(t => t.slug === tagSlug);
-                return tag?.name.toLocaleLowerCase('tr-TR').includes(searchLower);
-              });
-              return nameMatch || locationMatch || aboutMatch || tagMatch;
+              return hotel.price >= priceQuery.minPrice && hotel.price <= priceQuery.maxPrice;
           });
+      } else {
+        const tagQuery = allTags.find(t => t.slug === query);
+        if (tagQuery) {
+            processedHotels = processedHotels.filter(hotel =>
+                hotel.tags?.includes(tagQuery.slug)
+            );
+        } else if (query) {
+            const searchLower = query.toLocaleLowerCase('tr-TR');
+            processedHotels = processedHotels.filter(hotel => {
+                const nameMatch = hotel.name.toLocaleLowerCase('tr-TR').includes(searchLower);
+                const locationMatch = hotel.location.toLocaleLowerCase('tr-TR').includes(searchLower);
+                const aboutMatch = hotel.about?.toLocaleLowerCase('tr-TR').includes(searchLower);
+                const tagMatch = hotel.tags?.some(tagSlug => {
+                  const tag = allTags.find(t => t.slug === tagSlug);
+                  return tag?.name.toLocaleLowerCase('tr-TR').includes(searchLower);
+                });
+                return nameMatch || locationMatch || aboutMatch || tagMatch;
+            });
+        }
       }
     }
 
@@ -138,7 +146,7 @@ export default function SearchPage() {
       }
     });
     setFilteredHotels(processedHotels);
-  }, [query, allHotels, selectedTags, sortBy, isLoading, priceTags]);
+  }, [query, locationQuery, allHotels, selectedTags, sortBy, isLoading, priceTags, allTags]);
 
   const handleTagChange = (tagSlug: string) => {
     setSelectedTags(currentTags => 
@@ -154,6 +162,10 @@ export default function SearchPage() {
   };
 
   const getSearchTitle = () => {
+    if (locationQuery) {
+      return `${locationQuery} Otelleri`;
+    }
+
     const priceQuery = priceTags.find(pt => pt.slug === query);
     if (priceQuery) return `${priceQuery.label} Oteller`;
 
