@@ -16,16 +16,21 @@ export const metadata: Metadata = {
   description: "Erdem'in Seçtiği En İyi Oteller",
 };
 
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  viewportFit: "cover",
+};
+
 export default function RootLayout({ children }: { children: React.ReactNode; }) {
   return (
     <html lang="tr" className={inter.variable}>
-      <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-      </head>
       <body className="font-sans">
         <Providers>
           <Header />
-          <main>{children}</main>
+          <main className="min-h-[100dvh]">{children}</main>
           <Footer />
         </Providers>
       </body>
