@@ -1,5 +1,7 @@
 "use client";
 
+import "leaflet/dist/leaflet.css";
+
 import { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import L from 'leaflet';
@@ -15,11 +17,11 @@ function MapResizer() {
   const map = useMap();
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      map.invalidateSize();
-    }, 150);
-
-    return () => clearTimeout(timer);
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        map.invalidateSize();
+      });
+    });
   }, [map]);
 
   return null;
@@ -47,7 +49,7 @@ export default function MapComponent({ latitude, longitude, address }: MapCompon
       center={[latitude, longitude]}
       zoom={15}
       scrollWheelZoom={false}
-      style={{ height: '100%', width: '100%' }}
+      className="h-full w-full"
       attributionControl={false}
     >
       <MapResizer />
