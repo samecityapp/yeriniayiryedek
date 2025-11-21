@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import L from 'leaflet';
 
@@ -17,7 +17,7 @@ function MapResizer() {
   useEffect(() => {
     const timer = setTimeout(() => {
       map.invalidateSize();
-    }, 100);
+    }, 150);
 
     return () => clearTimeout(timer);
   }, [map]);
@@ -33,30 +33,12 @@ interface MapComponentProps {
 
 export default function MapComponent({ latitude, longitude, address }: MapComponentProps) {
   const [mounted, setMounted] = useState(false);
-  const [cssLoaded, setCssLoaded] = useState(false);
 
   useEffect(() => {
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
-    link.integrity = 'sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=';
-    link.crossOrigin = '';
-
-    link.onload = () => {
-      setCssLoaded(true);
-      setTimeout(() => setMounted(true), 50);
-    };
-
-    document.head.appendChild(link);
-
-    return () => {
-      if (link.parentNode) {
-        document.head.removeChild(link);
-      }
-    };
+    setMounted(true);
   }, []);
 
-  if (!mounted || !cssLoaded) {
+  if (!mounted) {
     return <div className="w-full h-full bg-gray-100 animate-pulse" />;
   }
 
@@ -65,7 +47,7 @@ export default function MapComponent({ latitude, longitude, address }: MapCompon
       center={[latitude, longitude]}
       zoom={15}
       scrollWheelZoom={false}
-      style={{ height: '100%', width: '100%', position: 'absolute', top: 0, left: 0 }}
+      style={{ height: '100%', width: '100%' }}
       attributionControl={false}
     >
       <MapResizer />
