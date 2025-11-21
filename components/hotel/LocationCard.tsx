@@ -35,7 +35,7 @@ export default function LocationCard({
   const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lon}`;
 
   return (
-    <Card className="overflow-hidden h-full flex flex-col shadow-sm border-border/50">
+    <Card className="overflow-hidden shadow-sm border-border/50">
       <CardHeader className="pb-3 bg-muted/20">
         <CardTitle className="flex items-center gap-2 text-lg font-medium tracking-tight">
           <MapPin className="h-5 w-5 text-primary" />
@@ -43,11 +43,11 @@ export default function LocationCard({
         </CardTitle>
       </CardHeader>
 
-      <div className="relative w-full h-[350px] bg-muted z-0">
+      <div className="relative w-full h-[300px] bg-muted">
         <MapComponent latitude={lat} longitude={lon} address={address} />
       </div>
 
-      <CardContent className="flex-grow flex flex-col justify-between pt-4 pb-5 gap-4 bg-card">
+      <CardContent className="pt-4 pb-5 space-y-4 bg-card">
         <div className="text-sm text-muted-foreground leading-relaxed">
           <span className="font-medium text-foreground block mb-1">Adres:</span>
           {address}

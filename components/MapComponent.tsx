@@ -46,12 +46,13 @@ export default function MapComponent({ latitude, longitude, address }: MapCompon
       center={[latitude, longitude]}
       zoom={15}
       scrollWheelZoom={false}
-      style={{ height: '100%', width: '100%', zIndex: 0 }}
-      className="rounded-sm"
+      style={{ height: '100%', width: '100%' }}
+      className="z-0"
       attributionControl={false}
     >
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        maxZoom={19}
       />
       <Marker position={[latitude, longitude]}>
         {address && (

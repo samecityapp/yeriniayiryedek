@@ -6,6 +6,16 @@ body {
   background-color: #f8fafc;
 }
 
+.leaflet-container {
+  height: 100%;
+  width: 100%;
+  z-index: 0;
+}
+
+.leaflet-tile-container {
+  pointer-events: auto;
+}
+
 @layer utilities {
   .scrollbar-hide {
     -ms-overflow-style: none;
