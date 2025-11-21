@@ -43,7 +43,7 @@ export default function LocationCard({
         </CardTitle>
       </CardHeader>
 
-      <div className="relative w-full h-[250px] bg-muted z-0">
+      <div className="relative w-full h-[350px] bg-muted z-0">
         <MapComponent latitude={lat} longitude={lon} address={address} />
       </div>
 
