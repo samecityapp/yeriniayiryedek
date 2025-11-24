@@ -193,10 +193,8 @@ export default async function HotelDetailPage({ params }: Props) {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
-            <div className="lg:col-span-3">
+            <div className="lg:col-span-2 space-y-6">
               <HotelFeatures tags={hotelTagsWithIcons} />
-            </div>
-            <div className="lg:col-span-2">
               <HotelDescription about={hotel.about || ''} />
             </div>
             <div className="lg:col-span-1">
