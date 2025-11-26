@@ -20,6 +20,8 @@ export type Hotel = {
   website_url?: string;
   instagram_url?: string;
   google_maps_url?: string;
+  breakfast_description?: string;
+  breakfast_images?: string[];
 };
 
 export type Group = {

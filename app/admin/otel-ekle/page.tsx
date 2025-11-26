@@ -38,6 +38,8 @@ export default function OtelEklePage() {
   const [websiteUrl, setWebsiteUrl] = useState('');
   const [instagramUrl, setInstagramUrl] = useState('');
   const [googleMapsUrl, setGoogleMapsUrl] = useState('');
+  const [breakfastDescription, setBreakfastDescription] = useState('');
+  const [breakfastImages, setBreakfastImages] = useState<string[]>([]);
 
   const [allTags, setAllTags] = useState<Tag[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -80,6 +82,8 @@ export default function OtelEklePage() {
             setWebsiteUrl(hotelData.website_url || '');
             setInstagramUrl(hotelData.instagram_url || '');
             setGoogleMapsUrl(hotelData.google_maps_url || '');
+            setBreakfastDescription(hotelData.breakfast_description || '');
+            setBreakfastImages(hotelData.breakfast_images || []);
           }
         }
       } catch (error) {
@@ -145,7 +149,9 @@ export default function OtelEklePage() {
       video_thumbnail_url: videoThumbnailUrl.trim() || null,
       website_url: websiteUrl.trim() || null,
       instagram_url: instagramUrl.trim() || null,
-      google_maps_url: googleMapsUrl.trim() || null
+      google_maps_url: googleMapsUrl.trim() || null,
+      breakfast_description: breakfastDescription.trim() || null,
+      breakfast_images: breakfastImages.length > 0 ? breakfastImages : null
     };
 
     try {
@@ -408,6 +414,39 @@ export default function OtelEklePage() {
                 placeholder="Bu oteli neden seçmeliyim? Otelin öne çıkan özellikleri..."
                 className="min-h-[120px]"
               />
+            </div>
+
+            <div className="border-t pt-6">
+              <Label className="text-sm font-semibold mb-3 block">
+                Kahvaltımız
+              </Label>
+              <p className="text-sm text-gray-500 mb-4">
+                Bu bölüm opsiyoneldir. Doldurmadığınız takdirde otel detay sayfasında görünmez.
+              </p>
+              <div className="space-y-4">
+                <div className="space-y-2">
+                  <Label htmlFor="breakfast" className="text-sm font-semibold">
+                    Kahvaltı Açıklaması
+                  </Label>
+                  <Textarea
+                    id="breakfast"
+                    value={breakfastDescription}
+                    onChange={(e) => setBreakfastDescription(e.target.value)}
+                    placeholder="Otelin kahvaltısı hakkında açıklama yazın..."
+                    className="min-h-[100px]"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label className="text-sm font-semibold">
+                    Kahvaltı Fotoğrafları (Maksimum 3)
+                  </Label>
+                  <GalleryUpload
+                    value={breakfastImages}
+                    onChange={setBreakfastImages}
+                    maxImages={3}
+                  />
+                </div>
+              </div>
             </div>
 
             <div className="border-t pt-6">

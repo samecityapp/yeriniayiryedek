@@ -11,11 +11,12 @@ const VideoPlayer = dynamic(() => import('./VideoPlayer'), {
 
 type ImageGalleryProps = {
   images: string[];
-  videoUrl?: string;
-  videoThumbnailUrl?: string;
+  videoUrl?: string | null;
+  videoThumbnailUrl?: string | null;
+  onClose?: () => void;
 };
 
-export function ImageGallery({ images, videoUrl, videoThumbnailUrl }: ImageGalleryProps) {
+export function ImageGallery({ images, videoUrl, videoThumbnailUrl, onClose }: ImageGalleryProps) {
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
   const [isVideoOpen, setIsVideoOpen] = useState(false);
 
@@ -199,10 +200,16 @@ export function ImageGallery({ images, videoUrl, videoThumbnailUrl }: ImageGalle
       {selectedImageIndex !== null && (
         <div
           className="fixed inset-0 bg-black bg-opacity-95 z-50 flex items-center justify-center"
-          onClick={() => setSelectedImageIndex(null)}
+          onClick={() => {
+            setSelectedImageIndex(null);
+            onClose?.();
+          }}
         >
           <button
-            onClick={() => setSelectedImageIndex(null)}
+            onClick={() => {
+              setSelectedImageIndex(null);
+              onClose?.();
+            }}
             className="absolute top-6 right-6 text-white hover:text-gray-300 transition-colors z-10 bg-black/40 rounded-full p-2 backdrop-blur-sm"
           >
             <X className="w-8 h-8" />

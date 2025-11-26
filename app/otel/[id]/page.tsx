@@ -10,6 +10,7 @@ import { MobileHotelInfo } from '@/components/MobileHotelInfo';
 import { HotelFeatures } from '@/components/hotel/HotelFeatures';
 import { HotelDescription } from '@/components/hotel/HotelDescription';
 import { NearbyGuide } from '@/components/hotel/NearbyGuide';
+import { BreakfastSection } from '@/components/hotel/BreakfastSection';
 import PremiumClassic from '@/components/hotel/ScoreCard/PremiumClassic';
 
 const LocationCard = dynamic(() => import('@/components/hotel/LocationCard'), {
@@ -194,6 +195,12 @@ export default async function HotelDetailPage({ params }: Props) {
             <div className="lg:col-span-2 space-y-6">
               <HotelFeatures tags={hotelTagsWithIcons} />
               <HotelDescription about={hotel.about || ''} />
+              {hotel.breakfast_description && (
+                <BreakfastSection
+                  description={hotel.breakfast_description}
+                  images={hotel.breakfast_images || []}
+                />
+              )}
             </div>
             <div className="lg:col-span-1">
               <LocationCard latitude={hotel.latitude} longitude={hotel.longitude} address={hotel.location} />
