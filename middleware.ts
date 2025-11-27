@@ -4,17 +4,21 @@ import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
 import { createClient } from "@supabase/supabase-js";
 
-const redis = new Redis({
-  url: process.env.UPSTASH_REDIS_REST_URL!,
-  token: process.env.UPSTASH_REDIS_REST_TOKEN!,
-});
+const redis = process.env.UPSTASH_REDIS_REST_URL
+  ? new Redis({
+      url: process.env.UPSTASH_REDIS_REST_URL,
+      token: process.env.UPSTASH_REDIS_REST_TOKEN!,
+    })
+  : null;
 
-const ratelimit = new Ratelimit({
-  redis,
-  limiter: Ratelimit.slidingWindow(60, "1 m"),
-  analytics: true,
-  prefix: "gnk-ratelimit",
-});
+const ratelimit = redis
+  ? new Ratelimit({
+      redis,
+      limiter: Ratelimit.slidingWindow(60, "1 m"),
+      analytics: true,
+      prefix: "gnk-ratelimit",
+    })
+  : null;
 
 const BOT_USER_AGENTS = [
   "googlebot",
@@ -77,8 +81,15 @@ async function checkAdminAccess(req: NextRequest): Promise<boolean> {
 }
 
 export async function middleware(req: NextRequest) {
-  const userAgent = req.headers.get("user-agent") || "";
   const path = req.nextUrl.pathname;
+
+  if (
+    path.startsWith("/_next") ||
+    path.startsWith("/static") ||
+    path.includes(".")
+  ) {
+    return NextResponse.next();
+  }
 
   if (path.startsWith("/admin")) {
     const isAdmin = await checkAdminAccess(req);
@@ -88,11 +99,13 @@ export async function middleware(req: NextRequest) {
     }
   }
 
+  const userAgent = req.headers.get("user-agent") || "";
+
   if (isBot(userAgent)) {
     return NextResponse.next();
   }
 
-  if (path.startsWith("/api") || path.startsWith("/search")) {
+  if (ratelimit && (path.startsWith("/api") || path.startsWith("/search"))) {
     const ip = req.ip || req.headers.get("x-forwarded-for") || "127.0.0.1";
 
     try {
@@ -135,5 +148,7 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/api/:path*", "/search/:path*", "/admin/:path*"],
+  matcher: [
+    '/((?!_next/static|_next/image|favicon.ico).*)',
+  ],
 };

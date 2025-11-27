@@ -36,43 +36,37 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   async headers() {
-    const csp = `
-      default-src 'self';
-      script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com;
-      style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
-      img-src 'self' data: blob: https://*.supabase.co https://*.tile.openstreetmap.org https://www.openstreetmap.org https://images.pexels.com https://placehold.co https://maps.gstatic.com https://api.mapbox.com;
-      font-src 'self' https://fonts.gstatic.com data:;
-      connect-src 'self' https://*.supabase.co https://*.supabase.in wss://*.supabase.co https://*.tile.openstreetmap.org;
-      frame-src 'self' https://www.openstreetmap.org https://*.openstreetmap.org;
-      object-src 'none';
-      base-uri 'self';
-      form-action 'self';
-      frame-ancestors 'self' https://*.bolt.new https://*.webcontainer-api.io https://*.local-credentialless.webcontainer-api.io;
-    `.replace(/\s{2,}/g, ' ').trim();
-
     return [
       {
-        source: '/(.*)',
+        source: '/:path*',
         headers: [
           {
+            key: 'Access-Control-Allow-Credentials',
+            value: 'true',
+          },
+          {
+            key: 'Access-Control-Allow-Origin',
+            value: '*',
+          },
+          {
+            key: 'Access-Control-Allow-Methods',
+            value: 'GET,OPTIONS,PATCH,DELETE,POST,PUT',
+          },
+          {
+            key: 'Access-Control-Allow-Headers',
+            value: 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version',
+          },
+          {
             key: 'Content-Security-Policy',
-            value: csp,
+            value: "frame-ancestors 'self' https://*.bolt.new https://bolt.new https://*.webcontainer-api.io https://*.local-credentialless.webcontainer-api.io;",
           },
           {
             key: 'X-Content-Type-Options',
             value: 'nosniff',
           },
           {
-            key: 'Strict-Transport-Security',
-            value: 'max-age=63072000; includeSubDomains; preload',
-          },
-          {
             key: 'Referrer-Policy',
             value: 'strict-origin-when-cross-origin',
-          },
-          {
-            key: 'Permissions-Policy',
-            value: 'camera=(), microphone=(), geolocation=(self)',
           },
         ],
       },
