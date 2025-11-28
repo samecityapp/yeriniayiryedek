@@ -4,6 +4,7 @@ import { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowLeft, Calendar, Clock } from 'lucide-react';
+import { getLocalizedText } from '@/lib/localization';
 
 type Props = { params: { slug: string } };
 
@@ -19,8 +20,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 
   return {
-    title: `${article.title} | GNK Rehber`,
-    description: article.meta_description,
+    title: `${getLocalizedText(article.title)} | GNK Rehber`,
+    description: getLocalizedText(article.meta_description),
   };
 }
 
@@ -52,7 +53,7 @@ export default async function ArticlePage({ params }: Props) {
           <header className="mb-12">
             <div className="flex items-center gap-3 mb-6">
               <span className="text-xs font-medium uppercase tracking-wide text-zinc-400">
-                {article.location}
+                {getLocalizedText(article.location)}
               </span>
               <span className="text-zinc-300">•</span>
               <div className="flex items-center gap-1.5 text-xs text-zinc-400">
@@ -67,18 +68,18 @@ export default async function ArticlePage({ params }: Props) {
             </div>
 
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-zinc-900 mb-8 leading-tight tracking-tight">
-              {article.title}
+              {getLocalizedText(article.title)}
             </h1>
 
             <p className="text-lg text-zinc-600 leading-relaxed">
-              {article.meta_description}
+              {getLocalizedText(article.meta_description)}
             </p>
           </header>
 
           <div className="relative w-full aspect-[16/9] rounded-2xl overflow-hidden mb-16">
             <Image
               src={article.cover_image_url || 'https://placehold.co/1200x675/e5e5e5/666666?text=GNK'}
-              alt={article.title}
+              alt={getLocalizedText(article.title)}
               fill
               sizes="100vw"
               className="object-cover"
@@ -109,7 +110,7 @@ export default async function ArticlePage({ params }: Props) {
                 Bu rehber işinize yaradı mı?
               </h3>
               <p className="text-muted-foreground mb-8 leading-relaxed">
-                {article.location} bölgesindeki daha fazla gizli cenneti keşfetmek için diğer rehberlerimize göz atın.
+                {getLocalizedText(article.location)} bölgesindeki daha fazla gizli cenneti keşfetmek için diğer rehberlerimize göz atın.
               </p>
               <Link
                 href="/rehber"

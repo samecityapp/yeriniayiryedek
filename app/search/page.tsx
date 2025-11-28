@@ -57,7 +57,8 @@ export default function SearchPage() {
             tags: h.tags || [],
             amenities: h.amenities || [],
             galleryImages: h.gallery_images || [],
-            about: h.about || h.description
+            about: h.about || h.description,
+            description: h.description || h.name
           }));
           setAllHotels(mappedHotels);
         }
@@ -119,11 +120,11 @@ export default function SearchPage() {
             const searchLower = query.toLocaleLowerCase('tr-TR');
             processedHotels = processedHotels.filter(hotel => {
                 const nameMatch = getLocalizedText(hotel.name).toLocaleLowerCase('tr-TR').includes(searchLower);
-                const locationMatch = hotel.location.toLocaleLowerCase('tr-TR').includes(searchLower);
+                const locationMatch = getLocalizedText(hotel.location).toLocaleLowerCase('tr-TR').includes(searchLower);
                 const aboutMatch = hotel.about?.toLocaleLowerCase('tr-TR').includes(searchLower);
                 const tagMatch = hotel.tags?.some(tagSlug => {
                   const tag = allTags.find(t => t.slug === tagSlug);
-                  return tag?.name.toLocaleLowerCase('tr-TR').includes(searchLower);
+                  return tag ? getLocalizedText(tag.name).toLocaleLowerCase('tr-TR').includes(searchLower) : false;
                 });
                 return nameMatch || locationMatch || aboutMatch || tagMatch;
             });
@@ -142,7 +143,7 @@ export default function SearchPage() {
       switch (sortBy) {
         case 'price-low': return a.price - b.price;
         case 'price-high': return b.price - a.price;
-        case 'name': return a.name.localeCompare(b.name);
+        case 'name': return getLocalizedText(a.name).localeCompare(getLocalizedText(b.name));
         default: return b.gnkScore - a.gnkScore;
       }
     });
@@ -322,7 +323,7 @@ export default function SearchPage() {
                             </div>
                             <div className="flex items-center text-gray-600 text-sm mb-3">
                               <MapPin className="w-4 h-4 mr-1.5" />
-                              <span>{hotel.location}</span>
+                              <span>{getLocalizedText(hotel.location)}</span>
                             </div>
                             <p className="text-gray-600 text-sm mb-4 line-clamp-2 flex-grow">
                               {hotel.about || 'Bu muhteşem otel, konforlu konaklama deneyimi sunar.'}
@@ -334,7 +335,7 @@ export default function SearchPage() {
                                   if (!tagInfo) return null;
                                   const iconName = tagInfo.icon || 'Tag';
                                   const Icon = (LucideIcons as any)[iconName] || LucideIcons.Tag;
-                                  return (<span key={tagSlug} className="flex items-center text-xs text-gray-600"><Icon className="w-3.5 h-3.5 mr-1.5 text-gray-400"/>{tagInfo.name}</span>)
+                                  return (<span key={tagSlug} className="flex items-center text-xs text-gray-600"><Icon className="w-3.5 h-3.5 mr-1.5 text-gray-400"/>{getLocalizedText(tagInfo.name)}</span>)
                                 })}
                               </div>
                             )}

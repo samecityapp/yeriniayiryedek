@@ -23,7 +23,7 @@ export function RestaurantDetailsModal({ restaurant, onClose }: RestaurantDetail
               <Utensils size={20} className="mr-2" />
               <h3 className="font-semibold">Ne Sipariş Etmeli?</h3>
             </div>
-            <p className="text-blue-900 font-medium">{restaurant.order_suggestion}</p>
+            <p className="text-blue-900 font-medium">{restaurant.order_suggestion ? getLocalizedText(restaurant.order_suggestion) : ''}</p>
           </div>
           {restaurant.notes && restaurant.notes.length > 0 && (
             <div>

@@ -12,6 +12,7 @@ import { HotelDescription } from '@/components/hotel/HotelDescription';
 import { NearbyGuide } from '@/components/hotel/NearbyGuide';
 import { BreakfastSection } from '@/components/hotel/BreakfastSection';
 import PremiumClassic from '@/components/hotel/ScoreCard/PremiumClassic';
+import { getLocalizedText } from '@/lib/localization';
 
 const LocationCard = dynamic(() => import('@/components/hotel/LocationCard'), {
   ssr: false,
@@ -35,8 +36,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 
   return {
-    title: `GNK | ${hotel.name} - ${hotel.location}`,
-    description: `${hotel.name} hakkında detaylı bilgi. ${(hotel.about || '').substring(0, 120)}...`,
+    title: `GNK | ${getLocalizedText(hotel.name)} - ${getLocalizedText(hotel.location)}`,
+    description: `${getLocalizedText(hotel.name)} hakkında detaylı bilgi. ${(hotel.about || '').substring(0, 120)}...`,
   };
 }
 
@@ -61,13 +62,13 @@ export default async function HotelDetailPage({ params }: Props) {
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Hotel',
-    name: hotel.name,
+    name: getLocalizedText(hotel.name),
     description: hotel.about || '',
     image: hotel.galleryImages && hotel.galleryImages.length > 0 ? hotel.galleryImages[0] : hotel.coverImageUrl,
     address: {
       '@type': 'PostalAddress',
-      streetAddress: hotel.location,
-      addressLocality: hotel.location.split(',')[1]?.trim() || hotel.location,
+      streetAddress: getLocalizedText(hotel.location),
+      addressLocality: getLocalizedText(hotel.location).split(',')[1]?.trim() || getLocalizedText(hotel.location),
       addressCountry: 'TR',
     },
     geo: hotel.coordinates ? {
@@ -100,10 +101,10 @@ export default async function HotelDetailPage({ params }: Props) {
           </div>
 
           <MobileHotelInfo
-            hotelName={hotel.name}
+            hotelName={getLocalizedText(hotel.name)}
             price={hotel.price}
             rating={rating.score}
-            location={hotel.location}
+            location={getLocalizedText(hotel.location)}
             googleMapsUrl={hotel.google_maps_url}
             websiteUrl={hotel.website_url}
             instagramUrl={hotel.instagram_url}
@@ -129,15 +130,15 @@ export default async function HotelDetailPage({ params }: Props) {
           )}
 
           <div className="order-4">
-            <LocationCard latitude={hotel.latitude} longitude={hotel.longitude} address={hotel.location} />
+            <LocationCard latitude={hotel.latitude} longitude={hotel.longitude} address={getLocalizedText(hotel.location)} />
           </div>
 
           <div className="order-5">
-            <NearbyGuide location={hotel.location} coordinates={hotel.coordinates} isMobile={true} />
+            <NearbyGuide location={getLocalizedText(hotel.location)} coordinates={hotel.coordinates} isMobile={true} />
           </div>
 
           <div className="order-6">
-            <RelatedArticles location={hotel.location.split(',')[0].trim()} />
+            <RelatedArticles location={getLocalizedText(hotel.location).split(',')[0].trim()} />
           </div>
         </div>
       </div>
@@ -149,11 +150,11 @@ export default async function HotelDetailPage({ params }: Props) {
 
           <div className="flex justify-between items-start gap-6 mb-4">
             <div className="flex-1">
-              <p className="text-sm text-gray-500 mb-2">Otel / {hotel.location} / {hotel.name}</p>
-              <h1 className="text-3xl lg:text-4xl font-bold text-gray-900">{hotel.name}</h1>
+              <p className="text-sm text-gray-500 mb-2">Otel / {getLocalizedText(hotel.location)} / {getLocalizedText(hotel.name)}</p>
+              <h1 className="text-3xl lg:text-4xl font-bold text-gray-900">{getLocalizedText(hotel.name)}</h1>
               <div className="flex items-center text-gray-600 mt-2">
                 <MapPin size={16} className="mr-2" />
-                <span className="text-base">{hotel.location}</span>
+                <span className="text-base">{getLocalizedText(hotel.location)}</span>
               </div>
             </div>
             <div className="flex-shrink-0">
@@ -212,15 +213,15 @@ export default async function HotelDetailPage({ params }: Props) {
               )}
             </div>
             <div className="lg:col-span-1">
-              <LocationCard latitude={hotel.latitude} longitude={hotel.longitude} address={hotel.location} />
+              <LocationCard latitude={hotel.latitude} longitude={hotel.longitude} address={getLocalizedText(hotel.location)} />
             </div>
           </div>
 
           <div className="mb-6">
-            <NearbyGuide location={hotel.location} coordinates={hotel.coordinates} />
+            <NearbyGuide location={getLocalizedText(hotel.location)} coordinates={hotel.coordinates} />
           </div>
 
-          <RelatedArticles location={hotel.location.split(',')[0].trim()} />
+          <RelatedArticles location={getLocalizedText(hotel.location).split(',')[0].trim()} />
         </div>
       </div>
 

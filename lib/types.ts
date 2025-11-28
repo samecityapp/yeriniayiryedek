@@ -67,16 +67,16 @@ export interface Restaurant {
   id?: string;
   category_id?: string;
   location?: string;
-  name: LocalizedString;
+  name: LocalizedString | string;
   image?: string;
   image_url?: string;
-  description: LocalizedString;
+  description: LocalizedString | string;
   google_rating?: number;
   googleRating?: number;
   review_count?: string;
   reviewCount?: string;
-  order_suggestion?: LocalizedString;
-  orderSuggestion?: LocalizedString;
+  order_suggestion?: LocalizedString | string;
+  orderSuggestion?: LocalizedString | string;
   display_order?: number;
   notes?: RestaurantNote[];
 }
@@ -85,13 +85,13 @@ export interface RestaurantNote {
   id?: string;
   restaurant_id?: string;
   emoji: string;
-  text: LocalizedString;
+  text: LocalizedString | string;
   display_order?: number;
 }
 
 export interface RestaurantCategory {
   id?: string;
-  title: LocalizedString;
+  title: LocalizedString | string;
   display_order?: number;
   restaurants?: Restaurant[];
   places?: Restaurant[];

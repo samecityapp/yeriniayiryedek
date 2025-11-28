@@ -400,12 +400,12 @@ export default function RestaurantsAdminPage() {
               {restaurants.map(restaurant => (
                 <div key={restaurant.id} className="border rounded-lg p-4 flex justify-between items-start">
                   <div className="flex-1">
-                    <h3 className="font-bold text-lg">{restaurant.name}</h3>
-                    <p className="text-sm text-gray-600 mt-1">{restaurant.description}</p>
+                    <h3 className="font-bold text-lg">{getLocalizedText(restaurant.name)}</h3>
+                    <p className="text-sm text-gray-600 mt-1">{getLocalizedText(restaurant.description)}</p>
                     <div className="flex gap-4 mt-2 text-sm">
                       <span>⭐ {restaurant.google_rating}</span>
                       <span>📝 {restaurant.review_count} yorum</span>
-                      <span>🍽️ {restaurant.order_suggestion}</span>
+                      <span>🍽️ {getLocalizedText(restaurant.order_suggestion)}</span>
                     </div>
                     {restaurant.notes && restaurant.notes.length > 0 && (
                       <div className="mt-2 text-sm text-gray-500">

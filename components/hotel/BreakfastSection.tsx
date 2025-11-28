@@ -2,13 +2,16 @@
 
 import { useState } from 'react';
 import { Coffee } from 'lucide-react';
+import { LocalizedString } from '@/lib/types';
+import { getLocalizedText } from '@/lib/localization';
 
 interface BreakfastSectionProps {
-  description: string;
+  description: LocalizedString | string;
   images: string[];
 }
 
 export function BreakfastSection({ description, images }: BreakfastSectionProps) {
+  const descriptionText = typeof description === 'string' ? description : getLocalizedText(description);
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
 
   if (!description && (!images || images.length === 0)) {
@@ -55,9 +58,9 @@ export function BreakfastSection({ description, images }: BreakfastSectionProps)
           )}
         </div>
 
-        {description && (
+        {descriptionText && (
           <p className="text-gray-700 leading-relaxed text-sm sm:text-base">
-            {description}
+            {descriptionText}
           </p>
         )}
       </div>

@@ -67,7 +67,7 @@ export function HotelDetails({ features, tabs, mapImageUrl, location, websiteUrl
                         className="flex items-center gap-2.5 p-3 bg-white shadow-lg rounded-2xl"
                       >
                         <IconComponent className="w-5 h-5 text-gray-400 flex-shrink-0" strokeWidth={1.5} />
-                        <span className="text-gray-600 font-medium text-[14px] leading-snug">{tag.name}</span>
+                        <span className="text-gray-600 font-medium text-[14px] leading-snug">{getLocalizedText(tag.name)}</span>
                       </div>
                     );
                   })}

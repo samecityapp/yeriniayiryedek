@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { Restaurant } from '@/lib/types';
-import { getLocalizedText } from '@/lib/localization';
 import { Info, Star } from 'lucide-react';
+import { getLocalizedText } from '@/lib/localization';
 
 type RestaurantCardProps = {
   restaurant: Restaurant;
@@ -26,7 +26,7 @@ export function RestaurantCard({ restaurant, onViewDetails }: RestaurantCardProp
       </div>
       <div className="p-4">
         <h3 className="text-lg font-bold mb-2">{getLocalizedText(restaurant.name)}</h3>
-        <p className="text-gray-600 text-sm mb-4 line-clamp-3">{restaurant.description}</p>
+        <p className="text-gray-600 text-sm mb-4 line-clamp-3">{getLocalizedText(restaurant.description)}</p>
         <div className="flex justify-between items-center">
           <button
             onClick={onViewDetails}

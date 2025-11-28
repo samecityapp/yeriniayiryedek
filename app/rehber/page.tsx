@@ -2,6 +2,7 @@ import { db } from '@/lib/db';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Clock, ArrowRight } from 'lucide-react';
+import { getLocalizedText } from '@/lib/localization';
 
 export const revalidate = 3600;
 
@@ -40,7 +41,7 @@ export default async function GuidePage() {
                   <div className="relative overflow-hidden aspect-[4/3] rounded-xl mb-4">
                     <Image
                       src={article.cover_image_url || 'https://placehold.co/800x600/e5e5e5/666666?text=GNK'}
-                      alt={article.title}
+                      alt={getLocalizedText(article.title)}
                       fill
                       sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                       className="object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out"
@@ -49,7 +50,7 @@ export default async function GuidePage() {
 
                   <div className="flex items-center gap-3 mb-3">
                     <span className="text-xs font-medium uppercase tracking-wide text-zinc-400">
-                      {article.location || 'Fethiye'}
+                      {getLocalizedText(article.location) || 'Fethiye'}
                     </span>
                     <span className="text-zinc-300">•</span>
                     <div className="flex items-center gap-1.5 text-xs text-zinc-400">
@@ -59,11 +60,11 @@ export default async function GuidePage() {
                   </div>
 
                   <h2 className="text-xl font-bold text-foreground mb-2 line-clamp-2 group-hover:underline decoration-2 underline-offset-4 leading-tight tracking-tight">
-                    {article.title}
+                    {getLocalizedText(article.title)}
                   </h2>
 
                   <p className="text-sm text-zinc-500 line-clamp-3 leading-relaxed flex-grow">
-                    {article.meta_description}
+                    {getLocalizedText(article.meta_description)}
                   </p>
 
                   <div className="mt-4 flex items-center gap-2 text-foreground">

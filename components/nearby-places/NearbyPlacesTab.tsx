@@ -10,6 +10,7 @@ import { sapancaPlaces } from '@/data/sapancaPlaces';
 import { bodrumPlaces } from '@/data/bodrumPlaces';
 import { antalyaPlaces } from '@/data/antalyaPlaces';
 import { kapadokyaPlaces } from '@/data/kapadokyaPlaces';
+import { getLocalizedText } from '@/lib/localization';
 
 const RestaurantDetailsModal = dynamic(() =>
   import('./RestaurantDetailsModal').then(mod => ({ default: mod.RestaurantDetailsModal }))
@@ -41,7 +42,7 @@ export function NearbyPlacesTab({ location, coordinates }: NearbyPlacesTabProps)
         }));
         setCategories(normalizedCategories);
         if (normalizedCategories.length > 0) {
-          setActiveCategory(normalizedCategories[0].title);
+          setActiveCategory(getLocalizedText(normalizedCategories[0].title));
         }
         setLoading(false);
         return;
@@ -54,7 +55,7 @@ export function NearbyPlacesTab({ location, coordinates }: NearbyPlacesTabProps)
         }));
         setCategories(normalizedCategories);
         if (normalizedCategories.length > 0) {
-          setActiveCategory(normalizedCategories[0].title);
+          setActiveCategory(getLocalizedText(normalizedCategories[0].title));
         }
         setLoading(false);
         return;
@@ -67,7 +68,7 @@ export function NearbyPlacesTab({ location, coordinates }: NearbyPlacesTabProps)
         }));
         setCategories(normalizedCategories);
         if (normalizedCategories.length > 0) {
-          setActiveCategory(normalizedCategories[0].title);
+          setActiveCategory(getLocalizedText(normalizedCategories[0].title));
         }
         setLoading(false);
         return;
@@ -80,7 +81,7 @@ export function NearbyPlacesTab({ location, coordinates }: NearbyPlacesTabProps)
         }));
         setCategories(normalizedCategories);
         if (normalizedCategories.length > 0) {
-          setActiveCategory(normalizedCategories[0].title);
+          setActiveCategory(getLocalizedText(normalizedCategories[0].title));
         }
         setLoading(false);
         return;
@@ -127,7 +128,7 @@ export function NearbyPlacesTab({ location, coordinates }: NearbyPlacesTabProps)
       setCategories(categoriesWithRestaurants);
 
       if (categoriesWithRestaurants.length > 0) {
-        setActiveCategory(categoriesWithRestaurants[0].title);
+        setActiveCategory(getLocalizedText(categoriesWithRestaurants[0].title));
       }
     } catch (error) {
       console.error('Error fetching restaurants:', error);
@@ -152,12 +153,12 @@ export function NearbyPlacesTab({ location, coordinates }: NearbyPlacesTabProps)
     );
   }
 
-  const activePlaces = categories.find(cat => cat.title === activeCategory)?.restaurants || [];
+  const activePlaces = categories.find(cat => getLocalizedText(cat.title) === activeCategory)?.restaurants || [];
 
   return (
     <>
       <CategoryFilters
-        categories={categories.map(cat => cat.title)}
+        categories={categories.map(cat => getLocalizedText(cat.title))}
         activeCategory={activeCategory}
         onSelectCategory={setActiveCategory}
       />
