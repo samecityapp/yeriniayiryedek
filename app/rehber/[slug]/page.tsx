@@ -7,6 +7,7 @@ import { ArrowLeft, Calendar, Clock } from 'lucide-react';
 import { getLocalizedText } from '@/lib/localization';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { generateArticleSchema, generateBreadcrumbSchema } from '@/lib/schema-generator';
+import { QuickSummary } from '@/components/blog/QuickSummary';
 
 type Props = { params: { slug: string } };
 
@@ -130,6 +131,13 @@ export default async function ArticlePage({ params }: Props) {
           </div>
 
           <div className="max-w-3xl mx-auto">
+            <QuickSummary items={[
+              `${getLocalizedText(article.location)} bölgesinde gezilecek en iyi yerler`,
+              'Yerel restoran ve kafe önerileri',
+              'Konaklama seçenekleri ve fiyat aralıkları',
+              'Ulaşım bilgileri ve ipuçları',
+            ]} />
+
             <div
               className="prose prose-lg prose-zinc
                 prose-headings:font-bold prose-headings:tracking-tight prose-headings:text-zinc-900

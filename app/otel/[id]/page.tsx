@@ -11,6 +11,8 @@ import { HotelFeatures } from '@/components/hotel/HotelFeatures';
 import { HotelDescription } from '@/components/hotel/HotelDescription';
 import { NearbyGuide } from '@/components/hotel/NearbyGuide';
 import { BreakfastSection } from '@/components/hotel/BreakfastSection';
+import { HotelHighlights } from '@/components/hotel/HotelHighlights';
+import { HotelFAQ } from '@/components/hotel/HotelFAQ';
 import PremiumClassic from '@/components/hotel/ScoreCard/PremiumClassic';
 import { getLocalizedText } from '@/lib/localization';
 import { JsonLd } from '@/components/seo/JsonLd';
@@ -151,15 +153,26 @@ export default async function HotelDetailPage({ params }: Props) {
 
         <div className="px-5 flex flex-col space-y-1.5">
           <div className="order-1">
-            <HotelFeatures tags={hotelTagsWithIcons} isMobile={true} />
+            <HotelHighlights highlights={[
+              hotel.tags?.includes('denize-sifir') ? 'Denize Sıfır Konum' : '',
+              hotel.tags?.includes('yetiskin-oteli') ? 'Yalnızca Yetişkinler' : '',
+              hotel.price < 2000 ? 'Uygun Fiyat' : hotel.price < 5000 ? 'Orta Segment' : 'Lüks Segment',
+              hotel.amenities?.includes('Havuz') ? 'Havuz Mevcut' : '',
+              hotel.amenities?.includes('WiFi') ? 'Ücretsiz Wi-Fi' : '',
+              hotel.amenities?.includes('Spa') ? 'Spa & Wellness' : '',
+            ].filter(Boolean)} />
           </div>
 
           <div className="order-2">
+            <HotelFeatures tags={hotelTagsWithIcons} isMobile={true} />
+          </div>
+
+          <div className="order-3">
             <HotelDescription about={hotel.about || ''} isMobile={true} />
           </div>
 
           {hotel.breakfast_description && (
-            <div className="order-3">
+            <div className="order-4">
               <BreakfastSection
                 description={hotel.breakfast_description}
                 images={hotel.breakfast_images || []}
@@ -167,15 +180,44 @@ export default async function HotelDetailPage({ params }: Props) {
             </div>
           )}
 
-          <div className="order-4">
-            <LocationCard latitude={hotel.latitude} longitude={hotel.longitude} address={getLocalizedText(hotel.location)} />
-          </div>
-
           <div className="order-5">
-            <NearbyGuide location={getLocalizedText(hotel.location)} coordinates={hotel.coordinates} isMobile={true} />
+            <HotelFAQ faqs={[
+              {
+                question: 'Bu otel çocuk kabul ediyor mu?',
+                answer: hotel.tags?.includes('yetiskin-oteli')
+                  ? 'Hayır, bu otel yalnızca yetişkinlere hizmet vermektedir.'
+                  : 'Evet, bu otel çocuk misafir kabul etmektedir.',
+              },
+              {
+                question: 'Otelde havuz var mı?',
+                answer: hotel.amenities?.includes('Havuz')
+                  ? 'Evet, otelde havuz bulunmaktadır.'
+                  : 'Otel tesislerinde havuz bulunmamaktadır.',
+              },
+              {
+                question: 'Ücretsiz Wi-Fi var mı?',
+                answer: hotel.amenities?.includes('WiFi')
+                  ? 'Evet, otel genelinde ücretsiz Wi-Fi hizmeti sunulmaktadır.'
+                  : 'Wi-Fi hizmeti hakkında bilgi için otelle iletişime geçiniz.',
+              },
+              {
+                question: 'Denize uzaklık ne kadar?',
+                answer: hotel.tags?.includes('denize-sifir')
+                  ? 'Otel denize sıfır konumda yer almaktadır.'
+                  : 'Denize uzaklık bilgisi için otel detaylarını inceleyiniz.',
+              },
+            ]} />
           </div>
 
           <div className="order-6">
+            <LocationCard latitude={hotel.latitude} longitude={hotel.longitude} address={getLocalizedText(hotel.location)} />
+          </div>
+
+          <div className="order-7">
+            <NearbyGuide location={getLocalizedText(hotel.location)} coordinates={hotel.coordinates} isMobile={true} />
+          </div>
+
+          <div className="order-8">
             <RelatedArticles location={getLocalizedText(hotel.location).split(',')[0].trim()} />
           </div>
         </div>
@@ -241,6 +283,14 @@ export default async function HotelDetailPage({ params }: Props) {
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
             <div className="lg:col-span-2 space-y-6">
+              <HotelHighlights highlights={[
+                hotel.tags?.includes('denize-sifir') ? 'Denize Sıfır Konum' : '',
+                hotel.tags?.includes('yetiskin-oteli') ? 'Yalnızca Yetişkinler' : '',
+                hotel.price < 2000 ? 'Uygun Fiyat' : hotel.price < 5000 ? 'Orta Segment' : 'Lüks Segment',
+                hotel.amenities?.includes('Havuz') ? 'Havuz Mevcut' : '',
+                hotel.amenities?.includes('WiFi') ? 'Ücretsiz Wi-Fi' : '',
+                hotel.amenities?.includes('Spa') ? 'Spa & Wellness' : '',
+              ].filter(Boolean)} />
               <HotelFeatures tags={hotelTagsWithIcons} />
               <HotelDescription about={hotel.about || ''} />
               {hotel.breakfast_description && (
@@ -249,6 +299,32 @@ export default async function HotelDetailPage({ params }: Props) {
                   images={hotel.breakfast_images || []}
                 />
               )}
+              <HotelFAQ faqs={[
+                {
+                  question: 'Bu otel çocuk kabul ediyor mu?',
+                  answer: hotel.tags?.includes('yetiskin-oteli')
+                    ? 'Hayır, bu otel yalnızca yetişkinlere hizmet vermektedir.'
+                    : 'Evet, bu otel çocuk misafir kabul etmektedir.',
+                },
+                {
+                  question: 'Otelde havuz var mı?',
+                  answer: hotel.amenities?.includes('Havuz')
+                    ? 'Evet, otelde havuz bulunmaktadır.'
+                    : 'Otel tesislerinde havuz bulunmamaktadır.',
+                },
+                {
+                  question: 'Ücretsiz Wi-Fi var mı?',
+                  answer: hotel.amenities?.includes('WiFi')
+                    ? 'Evet, otel genelinde ücretsiz Wi-Fi hizmeti sunulmaktadır.'
+                    : 'Wi-Fi hizmeti hakkında bilgi için otelle iletişime geçiniz.',
+                },
+                {
+                  question: 'Denize uzaklık ne kadar?',
+                  answer: hotel.tags?.includes('denize-sifir')
+                    ? 'Otel denize sıfır konumda yer almaktadır.'
+                    : 'Denize uzaklık bilgisi için otel detaylarını inceleyiniz.',
+                },
+              ]} />
             </div>
             <div className="lg:col-span-1">
               <LocationCard latitude={hotel.latitude} longitude={hotel.longitude} address={getLocalizedText(hotel.location)} />
