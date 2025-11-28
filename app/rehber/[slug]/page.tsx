@@ -5,6 +5,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowLeft, Calendar, Clock } from 'lucide-react';
 import { getLocalizedText } from '@/lib/localization';
+import { JsonLd } from '@/components/seo/JsonLd';
+import { generateArticleSchema, generateBreadcrumbSchema } from '@/lib/schema-generator';
 
 type Props = { params: { slug: string } };
 
@@ -14,14 +16,32 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const article = await db.articles.getBySlug(params.slug);
   if (!article) {
     return {
-      title: 'Yazı Bulunamadı | GNK',
+      title: 'Yazı Bulunamadı',
       description: 'Aradığınız rehber yazısı sistemimizde mevcut değil.',
     };
   }
 
+  const title = getLocalizedText(article.title);
+  const description = getLocalizedText(article.meta_description);
+  const location = getLocalizedText(article.location);
+
   return {
-    title: `${getLocalizedText(article.title)} | GNK Rehber`,
-    description: getLocalizedText(article.meta_description),
+    title: `${title}`,
+    description: description,
+    keywords: [title, location, 'rehber', 'gezi', 'otel', 'türkiye'],
+    openGraph: {
+      title: title,
+      description: description,
+      images: article.cover_image_url ? [article.cover_image_url] : [],
+      type: 'article',
+      publishedTime: article.published_at,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: title,
+      description: description,
+      images: article.cover_image_url ? [article.cover_image_url] : [],
+    },
   };
 }
 
@@ -38,8 +58,30 @@ export default async function ArticlePage({ params }: Props) {
     day: 'numeric',
   });
 
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.gnkhotels.com';
+  const articleSchema = generateArticleSchema({
+    title: getLocalizedText(article.title),
+    description: getLocalizedText(article.meta_description),
+    content: article.content,
+    slug: article.slug,
+    coverImage: article.cover_image_url,
+    createdAt: article.created_at,
+    updatedAt: article.updated_at,
+    author: 'GNK Otel Rehberi',
+  });
+
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: 'Ana Sayfa', url: baseUrl },
+    { name: 'Rehber', url: `${baseUrl}/rehber` },
+    { name: getLocalizedText(article.title), url: `${baseUrl}/rehber/${article.slug}` },
+  ]);
+
   return (
-    <div className="min-h-screen bg-background">
+    <>
+      <JsonLd data={articleSchema} />
+      <JsonLd data={breadcrumbSchema} />
+
+      <div className="min-h-screen bg-background">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <Link
           href="/rehber"
@@ -122,6 +164,7 @@ export default async function ArticlePage({ params }: Props) {
           </div>
         </article>
       </div>
-    </div>
+      </div>
+    </>
   );
 }

@@ -4,6 +4,8 @@ import HotelCardSkeleton from '@/components/skeletons/HotelCardSkeleton';
 import SearchFilters from '@/components/SearchFilters';
 import { Suspense } from 'react';
 import { AlertCircle } from 'lucide-react';
+import { JsonLd } from '@/components/seo/JsonLd';
+import { generateOrganizationSchema } from '@/lib/schema-generator';
 
 export const revalidate = 600;
 
@@ -95,20 +97,26 @@ function HomePageSkeleton() {
 }
 
 export default function HomePage() {
-  return (
-    <main className="container mx-auto px-4 pt-2 pb-8">
-      <div className="text-center mt-2 mb-6">
-        <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6 tracking-tight">
-          Türkiye'nin En Seçkin Otellerini Keşfedin
-        </h1>
-        <Suspense fallback={<div className="h-24" />}>
-          <SearchFilters />
-        </Suspense>
-      </div>
+  const organizationSchema = generateOrganizationSchema();
 
-      <Suspense fallback={<HomePageSkeleton />}>
-        <HotelGroups />
-      </Suspense>
-    </main>
+  return (
+    <>
+      <JsonLd data={organizationSchema} />
+
+      <main className="container mx-auto px-4 pt-2 pb-8">
+        <div className="text-center mt-2 mb-6">
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6 tracking-tight">
+            Türkiye'nin En Seçkin Otellerini Keşfedin
+          </h1>
+          <Suspense fallback={<div className="h-24" />}>
+            <SearchFilters />
+          </Suspense>
+        </div>
+
+        <Suspense fallback={<HomePageSkeleton />}>
+          <HotelGroups />
+        </Suspense>
+      </main>
+    </>
   );
 }
