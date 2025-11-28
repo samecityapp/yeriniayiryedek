@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
-import { Hotel, Tag } from '@/lib/types';
+import { Hotel, Tag, LocalizedString } from '@/lib/types';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -16,6 +16,8 @@ import { GalleryUpload } from '@/components/GalleryUpload';
 import VideoUpload from '@/components/VideoUpload';
 import LocationSelect from '@/components/LocationSelect';
 import { getLocalizedText } from '@/lib/localization';
+import { LocalizedInput } from '@/components/admin/LocalizedInput';
+import { LocalizedTextarea } from '@/components/admin/LocalizedTextarea';
 
 export default function OtelEklePage() {
   const router = useRouter();
@@ -23,8 +25,8 @@ export default function OtelEklePage() {
   const hotelId = searchParams.get('id');
   const isEdit = !!hotelId;
 
-  const [name, setName] = useState('');
-  const [location, setLocation] = useState('');
+  const [name, setName] = useState<LocalizedString>({ tr: '', en: '', de: '' });
+  const [location, setLocation] = useState<LocalizedString>({ tr: '', en: '', de: '' });
   const [latitude, setLatitude] = useState<string>('');
   const [longitude, setLongitude] = useState<string>('');
   const [gnkScore, setGnkScore] = useState<number>(0);
@@ -33,13 +35,13 @@ export default function OtelEklePage() {
   const [coverImageUrl, setCoverImageUrl] = useState('');
   const [galleryUrls, setGalleryUrls] = useState<string[]>([]);
   const [selectedAmenities, setSelectedAmenities] = useState<string[]>([]);
-  const [about, setAbout] = useState('');
+  const [about, setAbout] = useState<LocalizedString>({ tr: '', en: '', de: '' });
   const [videoUrl, setVideoUrl] = useState('');
   const [videoThumbnailUrl, setVideoThumbnailUrl] = useState('');
   const [websiteUrl, setWebsiteUrl] = useState('');
   const [instagramUrl, setInstagramUrl] = useState('');
   const [googleMapsUrl, setGoogleMapsUrl] = useState('');
-  const [breakfastDescription, setBreakfastDescription] = useState('');
+  const [breakfastDescription, setBreakfastDescription] = useState<LocalizedString>({ tr: '', en: '', de: '' });
   const [breakfastImages, setBreakfastImages] = useState<string[]>([]);
 
   const [allTags, setAllTags] = useState<Tag[]>([]);
@@ -67,8 +69,8 @@ export default function OtelEklePage() {
             .maybeSingle();
 
           if (!hotelError && hotelData) {
-            setName(hotelData.name || '');
-            setLocation(hotelData.location || '');
+            setName(typeof hotelData.name === 'string' ? { tr: hotelData.name, en: '', de: '' } : hotelData.name || { tr: '', en: '', de: '' });
+            setLocation(typeof hotelData.location === 'string' ? { tr: hotelData.location, en: '', de: '' } : hotelData.location || { tr: '', en: '', de: '' });
             setLatitude(hotelData.latitude?.toString() || '');
             setLongitude(hotelData.longitude?.toString() || '');
             setGnkScore(hotelData.rating || 0);
@@ -77,13 +79,15 @@ export default function OtelEklePage() {
             setCoverImageUrl(hotelData.image_url || '');
             setGalleryUrls(hotelData.gallery_images || []);
             setSelectedAmenities(hotelData.amenities || []);
-            setAbout(hotelData.about || hotelData.description || '');
+            const aboutData = hotelData.about || hotelData.description || '';
+            setAbout(typeof aboutData === 'string' ? { tr: aboutData, en: '', de: '' } : aboutData || { tr: '', en: '', de: '' });
             setVideoUrl(hotelData.video_url || '');
             setVideoThumbnailUrl(hotelData.video_thumbnail_url || '');
             setWebsiteUrl(hotelData.website_url || '');
             setInstagramUrl(hotelData.instagram_url || '');
             setGoogleMapsUrl(hotelData.google_maps_url || '');
-            setBreakfastDescription(hotelData.breakfast_description || '');
+            const breakfastData = hotelData.breakfast_description || '';
+            setBreakfastDescription(typeof breakfastData === 'string' ? { tr: breakfastData, en: '', de: '' } : breakfastData || { tr: '', en: '', de: '' });
             setBreakfastImages(hotelData.breakfast_images || []);
           }
         }
@@ -106,8 +110,8 @@ export default function OtelEklePage() {
   };
 
   const handleSave = async () => {
-    if (!name.trim() || !location.trim()) {
-      alert('Otel ismi ve konum zorunludur!');
+    if (!name.tr.trim() || !location.tr.trim()) {
+      alert('Otel ismi ve konum (Türkçe) zorunludur!');
       return;
     }
 
@@ -134,8 +138,8 @@ export default function OtelEklePage() {
     setIsLoading(true);
 
     const hotelData = {
-      name: name.trim(),
-      location: location.trim(),
+      name: name,
+      location: location,
       latitude: lat,
       longitude: lng,
       rating: validatedRating,
@@ -144,14 +148,14 @@ export default function OtelEklePage() {
       image_url: coverImageUrl.trim() || '',
       gallery_images: galleryUrls,
       amenities: selectedAmenities,
-      about: about.trim() || '',
-      description: about.trim() || '',
+      about: about,
+      description: about,
       video_url: videoUrl.trim() || null,
       video_thumbnail_url: videoThumbnailUrl.trim() || null,
       website_url: websiteUrl.trim() || null,
       instagram_url: instagramUrl.trim() || null,
       google_maps_url: googleMapsUrl.trim() || null,
-      breakfast_description: breakfastDescription.trim() || null,
+      breakfast_description: breakfastDescription,
       breakfast_images: breakfastImages.length > 0 ? breakfastImages : null
     };
 
@@ -221,29 +225,25 @@ export default function OtelEklePage() {
 
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
           <div className="p-8 space-y-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="space-y-2">
-                <Label htmlFor="name" className="text-sm font-semibold">
-                  Otel İsmi <span className="text-red-500">*</span>
-                </Label>
-                <Input
-                  id="name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  placeholder="Örn: Paloma Finesse"
-                  className="h-11"
-                />
-              </div>
+            <div className="space-y-6">
+              <LocalizedInput
+                label="Otel İsmi"
+                value={name}
+                onChange={setName}
+                placeholder="Örn: Paloma Finesse"
+                required
+              />
 
-              <div className="space-y-2">
-                <Label htmlFor="location" className="text-sm font-semibold">
-                  Konum <span className="text-red-500">*</span>
-                </Label>
-                <LocationSelect
-                  value={location}
-                  onChange={setLocation}
-                />
-              </div>
+              <LocalizedInput
+                label="Konum"
+                value={location}
+                onChange={setLocation}
+                placeholder="Örn: Sapanca, Sakarya"
+                required
+              />
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
               <div className="space-y-2">
                 <Label htmlFor="score" className="text-sm font-semibold">
@@ -405,15 +405,12 @@ export default function OtelEklePage() {
             </div>
 
             <div className="border-t pt-6">
-              <Label htmlFor="about" className="text-sm font-semibold mb-3 block">
-                Neden Bu Otel
-              </Label>
-              <Textarea
-                id="about"
+              <LocalizedTextarea
+                label="Neden Bu Otel"
                 value={about}
-                onChange={(e) => setAbout(e.target.value)}
+                onChange={setAbout}
                 placeholder="Bu oteli neden seçmeliyim? Otelin öne çıkan özellikleri..."
-                className="min-h-[120px]"
+                rows={5}
               />
             </div>
 
@@ -425,18 +422,13 @@ export default function OtelEklePage() {
                 Bu bölüm opsiyoneldir. Doldurmadığınız takdirde otel detay sayfasında görünmez.
               </p>
               <div className="space-y-4">
-                <div className="space-y-2">
-                  <Label htmlFor="breakfast" className="text-sm font-semibold">
-                    Kahvaltı Açıklaması
-                  </Label>
-                  <Textarea
-                    id="breakfast"
-                    value={breakfastDescription}
-                    onChange={(e) => setBreakfastDescription(e.target.value)}
-                    placeholder="Otelin kahvaltısı hakkında açıklama yazın..."
-                    className="min-h-[100px]"
-                  />
-                </div>
+                <LocalizedTextarea
+                  label="Kahvaltı Açıklaması"
+                  value={breakfastDescription}
+                  onChange={setBreakfastDescription}
+                  placeholder="Otelin kahvaltısı hakkında açıklama yazın..."
+                  rows={4}
+                />
                 <div className="space-y-2">
                   <Label className="text-sm font-semibold">
                     Kahvaltı Fotoğrafları (Maksimum 3)
