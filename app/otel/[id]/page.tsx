@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import dynamic from 'next/dynamic';
+import { Suspense } from 'react';
 import { MapPin } from 'lucide-react';
 import { db } from '@/lib/db';
 import { ImageGallery } from '@/components/ImageGallery';
@@ -217,11 +218,33 @@ export default async function HotelDetailPage({ params }: Props) {
           </div>
 
           <div className="order-7">
-            <NearbyGuide location={getLocalizedText(hotel.location)} coordinates={hotel.coordinates} isMobile={true} />
+            <Suspense fallback={
+              <div className="bg-white p-5 rounded-xl border border-gray-200">
+                <div className="h-6 w-40 bg-gray-200 rounded animate-pulse mb-4" />
+                <div className="space-y-3">
+                  <div className="h-32 bg-gray-100 rounded-lg animate-pulse" />
+                  <div className="h-32 bg-gray-100 rounded-lg animate-pulse" />
+                </div>
+              </div>
+            }>
+              <NearbyGuide location={getLocalizedText(hotel.location)} coordinates={hotel.coordinates} isMobile={true} />
+            </Suspense>
           </div>
 
           <div className="order-8">
-            <RelatedArticles location={getLocalizedText(hotel.location).split(',')[0].trim()} />
+            <Suspense fallback={
+              <div className="mt-4 bg-white rounded-2xl border border-gray-200 overflow-hidden">
+                <div className="p-6 border-b border-gray-200">
+                  <div className="h-6 w-48 bg-gray-200 rounded animate-pulse" />
+                </div>
+                <div className="p-5 space-y-4">
+                  <div className="h-24 bg-gray-100 rounded-lg animate-pulse" />
+                  <div className="h-24 bg-gray-100 rounded-lg animate-pulse" />
+                </div>
+              </div>
+            }>
+              <RelatedArticles location={getLocalizedText(hotel.location).split(',')[0].trim()} />
+            </Suspense>
           </div>
         </div>
       </div>
@@ -335,10 +358,48 @@ export default async function HotelDetailPage({ params }: Props) {
           </div>
 
           <div className="mb-6">
-            <NearbyGuide location={getLocalizedText(hotel.location)} coordinates={hotel.coordinates} />
+            <Suspense fallback={
+              <div className="bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden">
+                <div className="p-6 sm:p-8 lg:p-10">
+                  <div className="h-8 w-56 bg-gray-200 rounded animate-pulse mb-6" />
+                  <div className="space-y-4">
+                    <div className="h-48 bg-gray-100 rounded-xl animate-pulse" />
+                    <div className="h-48 bg-gray-100 rounded-xl animate-pulse" />
+                  </div>
+                </div>
+              </div>
+            }>
+              <NearbyGuide location={getLocalizedText(hotel.location)} coordinates={hotel.coordinates} />
+            </Suspense>
           </div>
 
-          <RelatedArticles location={getLocalizedText(hotel.location).split(',')[0].trim()} />
+          <Suspense fallback={
+            <div className="mt-12 bg-white rounded-2xl border border-gray-200 overflow-hidden">
+              <div className="p-6 border-b border-gray-200">
+                <div className="h-6 w-64 bg-gray-200 rounded animate-pulse" />
+              </div>
+              <div className="divide-y divide-gray-200">
+                <div className="p-5 flex gap-4">
+                  <div className="w-24 h-24 bg-gray-200 rounded-lg animate-pulse" />
+                  <div className="flex-1 space-y-3">
+                    <div className="h-5 bg-gray-100 rounded animate-pulse w-3/4" />
+                    <div className="h-4 bg-gray-100 rounded animate-pulse w-full" />
+                    <div className="h-3 bg-gray-100 rounded animate-pulse w-1/4" />
+                  </div>
+                </div>
+                <div className="p-5 flex gap-4">
+                  <div className="w-24 h-24 bg-gray-200 rounded-lg animate-pulse" />
+                  <div className="flex-1 space-y-3">
+                    <div className="h-5 bg-gray-100 rounded animate-pulse w-3/4" />
+                    <div className="h-4 bg-gray-100 rounded animate-pulse w-full" />
+                    <div className="h-3 bg-gray-100 rounded animate-pulse w-1/4" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          }>
+            <RelatedArticles location={getLocalizedText(hotel.location).split(',')[0].trim()} />
+          </Suspense>
         </div>
       </div>
 
