@@ -150,6 +150,7 @@ export default async function HotelDetailPage({ params }: Props) {
             googleMapsUrl={hotel.google_maps_url}
             websiteUrl={hotel.website_url}
             instagramUrl={hotel.instagram_url}
+            hotelId={hotel.id}
           />
         </div>
 
@@ -259,7 +260,7 @@ export default async function HotelDetailPage({ params }: Props) {
               <div className="flex flex-col gap-3 w-full sm:w-auto">
                 {hotel.website_url && (
                   <a
-                    href={hotel.website_url}
+                    href={`/api/go?hotelId=${hotel.id}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center justify-center gap-2 bg-white border-2 border-gray-900 hover:bg-gray-900 text-gray-900 hover:text-white font-semibold py-3 px-6 rounded-xl transition-colors whitespace-nowrap"
