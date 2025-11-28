@@ -5,14 +5,15 @@ export function generateHotelSchema(hotel: Hotel) {
   const hotelName = getLocalizedText(hotel.name);
   const location = getLocalizedText(hotel.location);
   const description = getLocalizedText(hotel.description);
+  const about = getLocalizedText(hotel.about);
 
   const [city, country] = location.split(',').map(s => s.trim());
 
-  return {
+  const schema: Record<string, any> = {
     '@context': 'https://schema.org',
-    '@type': 'Hotel',
+    '@type': 'LodgingBusiness',
     name: hotelName,
-    description: description || hotel.about || `${hotelName} - Konforlu konaklama imkanı`,
+    description: about || description || `${hotelName} - Konforlu konaklama imkanı`,
     image: hotel.galleryImages && hotel.galleryImages.length > 0
       ? hotel.galleryImages
       : hotel.coverImageUrl
@@ -22,32 +23,53 @@ export function generateHotelSchema(hotel: Hotel) {
       '@type': 'PostalAddress',
       addressLocality: city || location,
       addressCountry: country || 'TR',
-    },
-    ...(hotel.latitude && hotel.longitude && {
-      geo: {
-        '@type': 'GeoCoordinates',
-        latitude: hotel.latitude,
-        longitude: hotel.longitude,
-      },
-    }),
-    ...(hotel.gnkScore && {
-      aggregateRating: {
-        '@type': 'AggregateRating',
-        ratingValue: hotel.gnkScore.toString(),
-        bestRating: '10',
-        worstRating: '1',
-      },
-    }),
-    ...(hotel.price && {
-      priceRange: hotel.price < 2000 ? '$' : hotel.price < 5000 ? '$$' : '$$$',
-    }),
-    ...(hotel.amenities && hotel.amenities.length > 0 && {
-      amenityFeature: hotel.amenities.map(amenity => ({
-        '@type': 'LocationFeatureSpecification',
-        name: amenity,
-      })),
-    }),
+    }
   };
+
+  if (hotel.latitude && hotel.longitude) {
+    schema.geo = {
+      '@type': 'GeoCoordinates',
+      latitude: hotel.latitude,
+      longitude: hotel.longitude,
+    };
+  }
+
+  if (hotel.gnkScore) {
+    schema.starRating = {
+      '@type': 'Rating',
+      ratingValue: hotel.gnkScore.toString(),
+      bestRating: '10',
+      worstRating: '1',
+    };
+    schema.aggregateRating = {
+      '@type': 'AggregateRating',
+      ratingValue: hotel.gnkScore.toString(),
+      bestRating: '10',
+      worstRating: '1',
+      reviewCount: '1',
+    };
+  }
+
+  if (hotel.price) {
+    schema.priceRange = hotel.price < 2000 ? '$' : hotel.price < 5000 ? '$$' : '$$$';
+  }
+
+  if (hotel.amenities && hotel.amenities.length > 0) {
+    schema.amenityFeature = hotel.amenities.map(amenity => ({
+      '@type': 'LocationFeatureSpecification',
+      name: amenity,
+    }));
+  }
+
+  if (hotel.website_url) {
+    schema.url = hotel.website_url;
+  }
+
+  if (hotel.google_maps_url) {
+    schema.hasMap = hotel.google_maps_url;
+  }
+
+  return schema;
 }
 
 export function generateArticleSchema(article: {
