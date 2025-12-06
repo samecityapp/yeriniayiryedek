@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Inter, Quicksand } from 'next/font/google';
 import './globals.css';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
@@ -64,19 +64,28 @@ export const metadata: Metadata = {
       ],
     },
   },
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 1,
+    userScalable: false,
+    viewportFit: "cover",
+  },
 };
 
-export const viewport = {
-  width: "device-width",
-  initialScale: 1,
-  maximumScale: 1,
-  userScalable: false,
-  viewportFit: "cover",
-};
+import Script from 'next/script';
+
+// ... existing imports
+
+const quicksand = Quicksand({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-quicksand',
+});
 
 export default function RootLayout({ children }: { children: React.ReactNode; }) {
   return (
-    <html lang="tr" className={inter.variable}>
+    <html lang="tr" className={`${inter.variable} ${quicksand.variable}`}>
       <head>
         <link rel="preconnect" href="https://aknhkpevrlpsrfxzqtop.supabase.co" />
         <link rel="preconnect" href="https://images.pexels.com" />
@@ -90,6 +99,15 @@ export default function RootLayout({ children }: { children: React.ReactNode; })
           <Footer />
           <CookieBanner />
         </Providers>
+        <Script id="microsoft-clarity" strategy="lazyOnload">
+          {`
+            (function(c,l,a,r,i,t,y){
+                c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+                t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+                y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+            })(window, document, "clarity", "script", "ufxa278rg4");
+          `}
+        </Script>
       </body>
     </html>
   );

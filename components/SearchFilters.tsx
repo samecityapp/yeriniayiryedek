@@ -19,6 +19,7 @@ type SearchSuggestion = {
 export default function SearchFilters() {
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useState('');
+  const [debouncedQuery, setDebouncedQuery] = useState('');
   const [featuredTags, setFeaturedTags] = useState<Tag[]>([]);
   const [priceTags, setPriceTags] = useState<PriceTag[]>([]);
   const [suggestions, setSuggestions] = useState<SearchSuggestion[]>([]);
@@ -29,18 +30,23 @@ export default function SearchFilters() {
   const [loading, setLoading] = useState(true);
   const searchRef = useRef<HTMLDivElement>(null);
 
+  // Debounce search query
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedQuery(searchQuery);
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }, [searchQuery]);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        console.log('[SearchFilters] Starting fetch...');
-
         const { data: tagsData, error: tagsError } = await supabase
           .from('tags')
           .select('*')
           .is('deleted_at', null)
           .order('name', { ascending: true });
-
-        console.log('[SearchFilters] Tags response:', { tagsData, tagsError });
 
         if (tagsError) {
           console.error('[SearchFilters] Tags error:', tagsError);
@@ -56,7 +62,6 @@ export default function SearchFilters() {
           }));
 
           const featured = mapped.filter(t => t.isFeatured);
-          console.log('[SearchFilters] Featured tags:', featured);
 
           setAllTags(mapped);
           setFeaturedTags(featured);
@@ -67,8 +72,6 @@ export default function SearchFilters() {
           .select('*')
           .is('deleted_at', null)
           .order('min_price', { ascending: true });
-
-        console.log('[SearchFilters] Price tags response:', { priceTagsData, priceError });
 
         if (priceError) {
           console.error('[SearchFilters] Price tags error:', priceError);
@@ -116,13 +119,13 @@ export default function SearchFilters() {
   }, []);
 
   useEffect(() => {
-    if (!searchQuery.trim() || searchQuery.length < 2) {
+    if (!debouncedQuery.trim() || debouncedQuery.length < 2) {
       setSuggestions([]);
       setShowSuggestions(false);
       return;
     }
 
-    const query = searchQuery.toLowerCase();
+    const query = debouncedQuery.toLowerCase();
     const newSuggestions: SearchSuggestion[] = [];
 
     allHotels
@@ -164,7 +167,7 @@ export default function SearchFilters() {
 
     setSuggestions(newSuggestions);
     setShowSuggestions(newSuggestions.length > 0);
-  }, [searchQuery, allHotels, allTags]);
+  }, [debouncedQuery, allHotels, allTags]);
 
   const handleSearch = () => {
     if (searchQuery.trim()) {
@@ -206,14 +209,6 @@ export default function SearchFilters() {
     return TagIcon;
   };
 
-  useEffect(() => {
-    console.log('[SearchFilters RENDER] State:', {
-      loading,
-      featuredTagsLength: featuredTags.length,
-      priceTagsLength: priceTags.length
-    });
-  }, [loading, featuredTags.length, priceTags.length]);
-
   return (
     <div className="w-full max-w-5xl mx-auto px-4">
       <div className="bg-white rounded-full shadow-xl border border-gray-200 hover:shadow-2xl transition-all duration-300">
@@ -252,9 +247,8 @@ export default function SearchFilters() {
                     <button
                       key={`${suggestion.type}-${suggestion.value}-${index}`}
                       onClick={() => handleSuggestionClick(suggestion)}
-                      className={`w-full flex items-center gap-4 px-6 py-4 text-left transition-all duration-150 ${
-                        index === selectedIndex ? 'bg-blue-50' : 'hover:bg-gray-50'
-                      }`}
+                      className={`w-full flex items-center gap-4 px-6 py-4 text-left transition-all duration-150 ${index === selectedIndex ? 'bg-blue-50' : 'hover:bg-gray-50'
+                        }`}
                     >
                       <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center flex-shrink-0">
                         <IconComponent className="w-5 h-5 text-gray-600" />

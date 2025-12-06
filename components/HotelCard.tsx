@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { Star, MapPin, Heart, Wifi, Wind, Droplets, Play } from 'lucide-react';
 import { Hotel } from '@/lib/types';
@@ -24,6 +25,7 @@ const amenityIcons: Record<string, JSX.Element> = {
 };
 
 export default function HotelCard({ hotel, priority = false }: HotelCardProps) {
+  const router = useRouter();
   const [isVideoOpen, setIsVideoOpen] = useState(false);
   const formattedPrice = new Intl.NumberFormat('tr-TR').format(hotel.price);
   const featuredAmenities = hotel.amenities?.slice(0, 3) || [];
@@ -35,8 +37,8 @@ export default function HotelCard({ hotel, priority = false }: HotelCardProps) {
   };
 
   return (
-    <>
-      <Link href={`/otel/${hotel.id}`} className="block group">
+    <div className="relative group mb-32">
+      <Link href={`/otel/${hotel.id}`} className="block">
         <div className="relative overflow-hidden bg-white rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300">
 
           {/* FOTOĞRAF ALANI */}
@@ -153,6 +155,25 @@ export default function HotelCard({ hotel, priority = false }: HotelCardProps) {
         </div>
       </Link>
 
+      {/* --- BAĞIMSIZ YUVARLAK BUTON (KARTIN DIŞINDA) --- */}
+      <div className="absolute -bottom-28 left-1/2 transform -translate-x-1/2 z-30">
+        <Link
+          href={`/otel/${hotel.id}#yeme-icme-rehberi`}
+          className="flex flex-col items-center justify-center w-24 h-24 bg-white shadow-[0_15px_30px_rgba(0,0,0,0.2)] rounded-full border border-gray-100 hover:scale-110 hover:shadow-orange-500/40 transition-all duration-300 ease-out cursor-pointer"
+        >
+          {/* Üst Kısım: Şehir */}
+          <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-0.5">
+            {getLocalizedText(hotel.location).split(',')[0].trim()}&apos;DE
+          </span>
+          {/* Orta Kısım: NE YENİR */}
+          <span className="text-sm font-black text-gray-800 leading-none text-center">
+            NE<br />YENİR?
+          </span>
+          {/* Alt Kısım: İkon */}
+          <span className="text-xs mt-1 text-orange-500">🍽️</span>
+        </Link>
+      </div>
+
       {hotel.video_url && (
         <VideoPlayer
           videoUrl={hotel.video_url}
@@ -160,6 +181,6 @@ export default function HotelCard({ hotel, priority = false }: HotelCardProps) {
           onClose={() => setIsVideoOpen(false)}
         />
       )}
-    </>
+    </div>
   );
 }

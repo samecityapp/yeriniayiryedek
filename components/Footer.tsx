@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { Hotel, Mail, Phone, MapPin, Instagram, Globe } from 'lucide-react';
 import { db } from '@/lib/db';
 import { getLocalizedText } from '@/lib/localization';
+import { Article } from '@/lib/types';
 
 export async function Footer() {
   const currentYear = new Date().getFullYear();
@@ -51,7 +52,7 @@ export async function Footer() {
             <h3 className="text-white font-semibold text-lg mb-4">Son Yazılar</h3>
             <ul className="space-y-2">
               {latestArticles.length > 0 ? (
-                latestArticles.map((article: any) => (
+                latestArticles.map((article: Article) => (
                   <li key={article.slug}>
                     <Link
                       href={`/rehber/${article.slug}`}
@@ -142,14 +143,18 @@ export async function Footer() {
             </div>
             <div className="flex gap-4">
               <a
-                href="#"
+                href="https://instagram.com/gnkoteller"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full bg-gray-800 hover:bg-gray-700 flex items-center justify-center transition-colors"
                 aria-label="Instagram"
               >
                 <Instagram className="w-5 h-5" />
               </a>
               <a
-                href="#"
+                href="https://gnkoteller.com"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full bg-gray-800 hover:bg-gray-700 flex items-center justify-center transition-colors"
                 aria-label="Website"
               >

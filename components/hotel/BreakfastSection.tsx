@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Coffee } from 'lucide-react';
+import Image from 'next/image';
 import { LocalizedString } from '@/lib/types';
 import { getLocalizedText } from '@/lib/localization';
 
@@ -47,9 +48,11 @@ export function BreakfastSection({ description, images }: BreakfastSectionProps)
                   onClick={() => setSelectedImageIndex(index)}
                   className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg overflow-hidden border-2 border-white shadow-sm hover:shadow-md hover:scale-105 transition-all duration-200 flex-shrink-0"
                 >
-                  <img
+                  <Image
                     src={image}
                     alt={`Kahvaltı ${index + 1}`}
+                    width={40}
+                    height={40}
                     className="w-full h-full object-cover"
                   />
                 </button>

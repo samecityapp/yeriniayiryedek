@@ -1,72 +1,65 @@
 import { MetadataRoute } from 'next';
-import { supabase } from '@/lib/supabase';
-
-const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.gnkhotels.com';
-const MAX_URLS = 50000;
+import { db } from '@/lib/db';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  try {
-    const { data: hotels } = await supabase
-      .from('hotels')
-      .select('id, updated_at')
-      .is('deleted_at', null)
-      .order('updated_at', { ascending: false })
-      .limit(Math.floor(MAX_URLS * 0.7));
+  const baseUrl = 'https://www.gnkhotels.com';
 
-    const { data: articles } = await supabase
-      .from('articles')
-      .select('slug, updated_at')
-      .order('updated_at', { ascending: false })
-      .limit(Math.floor(MAX_URLS * 0.3));
+  // Get all hotels
+  const hotels = await db.hotels.getAll();
+  const hotelUrls = hotels.map((hotel) => ({
+    url: `${baseUrl}/otel/${hotel.id}`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly' as const,
+    priority: 0.8,
+  }));
 
-    const staticUrls: MetadataRoute.Sitemap = [
-      {
-        url: BASE_URL,
-        lastModified: new Date(),
-        changeFrequency: 'daily',
-        priority: 1.0,
-      },
-      {
-        url: `${BASE_URL}/search`,
-        lastModified: new Date(),
-        changeFrequency: 'daily',
-        priority: 0.9,
-      },
-      {
-        url: `${BASE_URL}/rehber`,
-        lastModified: new Date(),
-        changeFrequency: 'weekly',
-        priority: 0.8,
-      }
-    ];
+  // Get all articles
+  const articles = await db.articles.getAll();
+  const articleUrls = articles.map((article) => ({
+    url: `${baseUrl}/blog/${article.slug}`,
+    lastModified: new Date(article.published_at),
+    changeFrequency: 'monthly' as const,
+    priority: 0.7,
+  }));
 
-    const hotelUrls: MetadataRoute.Sitemap = (hotels || []).map(hotel => ({
-      url: `${BASE_URL}/otel/${hotel.id}`,
-      lastModified: hotel.updated_at ? new Date(hotel.updated_at) : new Date(),
+  return [
+    {
+      url: baseUrl,
+      lastModified: new Date(),
+      changeFrequency: 'daily',
+      priority: 1,
+    },
+    {
+      url: `${baseUrl}/search`,
+      lastModified: new Date(),
+      changeFrequency: 'daily',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/rehber`,
+      lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.8,
-    }));
-
-    const articleUrls: MetadataRoute.Sitemap = (articles || []).map(article => ({
-      url: `${BASE_URL}/rehber/${article.slug}`,
-      lastModified: article.updated_at ? new Date(article.updated_at) : new Date(),
+    },
+    {
+      url: `${baseUrl}/hakkimizda`,
+      lastModified: new Date(),
       changeFrequency: 'monthly',
-      priority: 0.7,
-    }));
-
-    const allUrls = [...staticUrls, ...hotelUrls, ...articleUrls];
-
-    return allUrls.slice(0, MAX_URLS);
-  } catch (error) {
-    console.error('Error generating sitemap:', error);
-
-    return [
-      {
-        url: BASE_URL,
-        lastModified: new Date(),
-        changeFrequency: 'daily',
-        priority: 1.0,
-      }
-    ];
-  }
+      priority: 0.5,
+    },
+    {
+      url: `${baseUrl}/gizlilik-politikasi`,
+      lastModified: new Date(),
+      changeFrequency: 'yearly',
+      priority: 0.3,
+    },
+    {
+      url: `${baseUrl}/kullanim-kosullari`,
+      lastModified: new Date(),
+      changeFrequency: 'yearly',
+      priority: 0.3,
+    },
+    ...hotelUrls,
+    ...articleUrls,
+  ];
 }

@@ -7,7 +7,9 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Plus, Edit, Trash2, Star, Loader2, Search } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { getLocalizedText } from '@/lib/localization';
+import { ReportGenerator } from '@/components/admin/ReportGenerator';
 
 export default function OtelListesiPage() {
   const [hotels, setHotels] = useState<Hotel[]>([]);
@@ -161,10 +163,11 @@ export default function OtelListesiPage() {
                 <div className="flex flex-col md:flex-row">
                   <div className="md:w-48 h-32 md:h-auto bg-gray-200 flex-shrink-0">
                     {hotel.coverImageUrl ? (
-                      <img
+                      <Image
                         src={hotel.coverImageUrl}
                         alt={getLocalizedText(hotel.name)}
-                        className="w-full h-full object-cover"
+                        fill
+                        className="object-cover"
                       />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center text-gray-400 text-sm">
@@ -214,6 +217,7 @@ export default function OtelListesiPage() {
                           Düzenle
                         </Button>
                       </Link>
+                      <ReportGenerator hotelId={hotel.id} hotelName={getLocalizedText(hotel.name)} />
                       <Button
                         variant="destructive"
                         size="sm"

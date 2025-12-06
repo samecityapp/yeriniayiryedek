@@ -1,196 +1,109 @@
-import { Metadata } from 'next';
+import React from 'react';
+import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Gizlilik Politikası',
-  description: 'GNK Otel Rehberi gizlilik politikası ve kişisel veri koruma uygulamaları',
+  title: 'Gizlilik Politikası | GNK',
+  description: 'GNK (Gez, Nerede Kal) platformu veri koruma, KVKK ve GDPR uyumluluk politikası.',
 };
 
-export default function PrivacyPolicyPage() {
+export default function PrivacyPolicy() {
+  const lastUpdated = new Date().toLocaleDateString('tr-TR', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+
   return (
-    <article className="prose prose-zinc max-w-none">
-      <h1 className="text-3xl sm:text-4xl font-bold text-zinc-900 mb-8">
-        Gizlilik Politikası
-      </h1>
+    <main className="min-h-screen bg-white py-16 px-4 sm:px-6 lg:px-8">
+      <article className="prose prose-zinc prose-lg max-w-4xl mx-auto">
 
-      <p className="text-zinc-600 text-lg mb-8">
-        Son güncelleme: {new Date().toLocaleDateString('tr-TR')}
-      </p>
-
-      <p className="text-zinc-700 leading-relaxed text-lg">
-        GNK Otel Rehberi (&quot;GNK&quot;, &quot;biz&quot;, &quot;bizim&quot;) olarak kullanıcılarımızın
-        gizliliğine önem veriyoruz. Bu gizlilik politikası, hangi verileri topladığımızı, nasıl kullandığımızı
-        ve haklarınızı açıklamaktadır.
-      </p>
-
-      <section>
-        <h2 className="text-2xl font-bold text-zinc-900 mt-12 mb-4">1. Topladığımız Bilgiler</h2>
-
-        <h3 className="text-xl font-semibold text-zinc-800 mt-8 mb-3">1.1. Otomatik Toplanan Veriler</h3>
-        <p className="text-zinc-700 leading-relaxed">
-          Sitemizi ziyaret ettiğinizde, aşağıdaki bilgiler otomatik olarak toplanabilir:
-        </p>
-        <ul className="text-zinc-700 space-y-2 my-4">
-          <li><strong>Teknik Bilgiler:</strong> IP adresi, tarayıcı türü, işletim sistemi, cihaz bilgileri</li>
-          <li><strong>Kullanım Bilgileri:</strong> Ziyaret edilen sayfalar, tıklama verileri, oturum süresi</li>
-          <li><strong>Lokasyon Bilgileri:</strong> Genel coğrafi konum (şehir/ülke seviyesi)</li>
-          <li><strong>Referans Bilgileri:</strong> Sitemize hangi kaynaktan geldiğiniz</li>
-        </ul>
-
-        <h3 className="text-xl font-semibold text-zinc-800 mt-8 mb-3">1.2. Gönüllü Olarak Sağlanan Veriler</h3>
-        <p className="text-zinc-700 leading-relaxed">
-          Bazı hizmetleri kullanırken şu bilgileri isteyebiliriz:
-        </p>
-        <ul className="text-zinc-700 space-y-2 my-4">
-          <li><strong>İletişim Bilgileri:</strong> E-posta adresi (bülten kayıtları için)</li>
-          <li><strong>İletişim Mesajları:</strong> İletişim formları üzerinden gönderilen mesajlar</li>
-        </ul>
-
-        <div className="bg-blue-50 border-l-4 border-blue-500 p-6 my-6 rounded-r-lg">
-          <p className="text-blue-900 mb-0">
-            <strong>Önemli:</strong> GNK bir rezervasyon platformu olmadığı için ödeme bilgileri,
-            kredi kartı bilgileri veya rezervasyon detayları toplamaz ve saklamaz.
-          </p>
-        </div>
-      </section>
-
-      <section>
-        <h2 className="text-2xl font-bold text-zinc-900 mt-12 mb-4">2. Verilerin Kullanım Amaçları</h2>
-        <p className="text-zinc-700 leading-relaxed">
-          Topladığımız verileri şu amaçlarla kullanırız:
-        </p>
-        <ul className="text-zinc-700 space-y-2 my-4">
-          <li><strong>Site İyileştirme:</strong> Kullanıcı deneyimini analiz etmek ve geliştirmek</li>
-          <li><strong>İçerik Optimizasyonu:</strong> Hangi otellerin ve bölgelerin popüler olduğunu anlamak</li>
-          <li><strong>Teknik Bakım:</strong> Hataları tespit etmek ve performansı iyileştirmek</li>
-          <li><strong>İletişim:</strong> Sorularınızı yanıtlamak ve destek sağlamak (iletişim formları için)</li>
-          <li><strong>Bülten:</strong> İzin vermeniz halinde otel önerileri ve güncellemeler göndermek</li>
-        </ul>
-      </section>
-
-      <section>
-        <h2 className="text-2xl font-bold text-zinc-900 mt-12 mb-4">3. Üçüncü Taraflarla Paylaşım</h2>
-
-        <div className="bg-green-50 border-l-4 border-green-500 p-6 my-6 rounded-r-lg">
-          <p className="text-green-900 mb-0">
-            <strong>Kesin Garanti:</strong> Kişisel verileriniz satılmaz, kiralanmaz veya pazarlama
-            amacıyla üçüncü taraflara aktarılmaz.
+        {/* Başlık Alanı */}
+        <div className="border-b border-zinc-200 pb-8 mb-10">
+          <h1 className="text-4xl font-bold text-zinc-900 mb-4 tracking-tight">
+            Gizlilik Politikası
+          </h1>
+          <p className="text-base text-zinc-500 font-medium">
+            Son Güncelleme: {lastUpdated}
           </p>
         </div>
 
-        <p className="text-zinc-700 leading-relaxed">
-          Ancak, aşağıdaki durumlarda sınırlı veri paylaşımı olabilir:
+        {/* Giriş */}
+        <p>
+          GNK (Gez, Nerede Kal) ("Platform", "Biz") olarak, kullanıcılarımızın kişisel verilerinin güvenliğini en yüksek standartlarda korumayı taahhüt ediyoruz.
+          Bu Gizlilik Politikası; <strong>6698 sayılı Kişisel Verilerin Korunması Kanunu ("KVKK")</strong>, Avrupa Birliği <strong>Genel Veri Koruma Tüzüğü ("GDPR")</strong> ve ilgili diğer mevzuata uygun olarak hazırlanmıştır.
         </p>
 
-        <h3 className="text-xl font-semibold text-zinc-800 mt-8 mb-3">3.1. Analitik Hizmetler</h3>
-        <ul className="text-zinc-700 space-y-2 my-4">
-          <li><strong>Google Analytics:</strong> Anonim site trafiği ve kullanım istatistikleri</li>
-          <li><strong>Vercel Analytics:</strong> Performans ve hata izleme</li>
+        {/* 1. Veri Toplama */}
+        <h3>1. Topladığımız Kişisel Veriler</h3>
+        <p>Platformu kullanırken doğrudan veya dolaylı olarak aşağıdaki verileri toplayabiliriz:</p>
+        <ul>
+          <li><strong>Otomatik Toplanan Veriler:</strong> IP adresi, tarayıcı türü, cihaz bilgisi, işletim sistemi ve site içi gezinme hareketleri (Tıklamalar, sayfada kalma süreleri).</li>
+          <li><strong>İletişim Verileri:</strong> Bültenimize (Newsletter) abone olmanız durumunda e-posta adresiniz.</li>
+          <li><strong>Kullanım Verileri:</strong> Arama terimleri ve filtreleme tercihleri.</li>
         </ul>
-        <p className="text-zinc-700 leading-relaxed">
-          Bu servisler sizi şahsen tanımlayamaz, sadece toplu istatistikler üretir.
-        </p>
-
-        <h3 className="text-xl font-semibold text-zinc-800 mt-8 mb-3">3.2. Yasal Yükümlülükler</h3>
-        <p className="text-zinc-700 leading-relaxed">
-          Yasal bir zorunluluk, mahkeme kararı veya resmi talep olması durumunda bilgi paylaşabiliriz.
-        </p>
-      </section>
-
-      <section>
-        <h2 className="text-2xl font-bold text-zinc-900 mt-12 mb-4">4. Çerezler (Cookies)</h2>
-        <p className="text-zinc-700 leading-relaxed">
-          Sitemiz çerezler kullanır. Çerez kullanımı hakkında detaylı bilgi için{' '}
-          <a href="/cerez-politikasi" className="text-zinc-900 font-semibold hover:underline">
-            Çerez Politikası
-          </a>
-          {' '}sayfasını inceleyebilirsiniz.
-        </p>
-      </section>
-
-      <section>
-        <h2 className="text-2xl font-bold text-zinc-900 mt-12 mb-4">5. Veri Güvenliği</h2>
-        <p className="text-zinc-700 leading-relaxed">
-          Verilerinizin güvenliği için teknik ve idari önlemler alıyoruz:
-        </p>
-        <ul className="text-zinc-700 space-y-2 my-4">
-          <li>SSL şifreleme (HTTPS protokolü)</li>
-          <li>Güvenli sunucu altyapısı</li>
-          <li>Düzenli güvenlik güncellemeleri</li>
-          <li>Sınırlı erişim yetkilendirmesi</li>
-        </ul>
-        <p className="text-zinc-700 leading-relaxed">
-          Ancak, internet üzerinden veri aktarımının %100 güvenli olmadığını unutmayın.
-        </p>
-      </section>
-
-      <section>
-        <h2 className="text-2xl font-bold text-zinc-900 mt-12 mb-4">6. Veri Saklama Süresi</h2>
-        <p className="text-zinc-700 leading-relaxed">
-          Verilerinizi yalnızca gerekli olduğu sürece saklarız:
-        </p>
-        <ul className="text-zinc-700 space-y-2 my-4">
-          <li><strong>Analitik Veriler:</strong> Genellikle 14-26 ay</li>
-          <li><strong>Bülten E-postaları:</strong> Abonelikten çıkana kadar</li>
-          <li><strong>İletişim Kayıtları:</strong> Yasal sürelere uygun olarak</li>
-        </ul>
-      </section>
-
-      <section>
-        <h2 className="text-2xl font-bold text-zinc-900 mt-12 mb-4">7. Kullanıcı Hakları</h2>
-        <p className="text-zinc-700 leading-relaxed">
-          Kişisel verileriniz ile ilgili aşağıdaki haklara sahipsiniz:
-        </p>
-        <ul className="text-zinc-700 space-y-2 my-4">
-          <li><strong>Erişim Hakkı:</strong> Hangi verilerinizin saklandığını öğrenme</li>
-          <li><strong>Düzeltme Hakkı:</strong> Yanlış verilerin düzeltilmesini isteme</li>
-          <li><strong>Silme Hakkı:</strong> Verilerinizin silinmesini talep etme</li>
-          <li><strong>İtiraz Hakkı:</strong> Veri işlemeye itiraz etme</li>
-          <li><strong>Taşınabilirlik Hakkı:</strong> Verilerinizi başka bir platforma aktarma</li>
-        </ul>
-        <p className="text-zinc-700 leading-relaxed">
-          Bu haklarınızı kullanmak için{' '}
-          <a href="mailto:info@gnkoteller.com" className="text-zinc-900 font-semibold hover:underline">
-            info@gnkoteller.com
-          </a>
-          {' '}adresinden iletişime geçebilirsiniz.
-        </p>
-      </section>
-
-      <section>
-        <h2 className="text-2xl font-bold text-zinc-900 mt-12 mb-4">8. Çocukların Gizliliği</h2>
-        <p className="text-zinc-700 leading-relaxed">
-          Sitemiz 18 yaş altı kullanıcılara yönelik değildir. Bilerek 18 yaş altı çocuklardan
-          veri toplamıyoruz.
-        </p>
-      </section>
-
-      <section>
-        <h2 className="text-2xl font-bold text-zinc-900 mt-12 mb-4">9. Politika Değişiklikleri</h2>
-        <p className="text-zinc-700 leading-relaxed">
-          Bu gizlilik politikasını zaman zaman güncelleyebiliriz. Değişiklikler bu sayfada
-          yayınlandığında geçerli olur. Önemli değişikliklerde e-posta ile bilgilendirebiliriz.
-        </p>
-      </section>
-
-      <section>
-        <h2 className="text-2xl font-bold text-zinc-900 mt-12 mb-4">10. İletişim</h2>
-        <p className="text-zinc-700 leading-relaxed">
-          Gizlilik politikamız veya verileriniz hakkında sorularınız için:
-        </p>
-        <div className="bg-zinc-100 p-4 rounded-lg my-4">
-          <p className="text-zinc-900 font-semibold mb-1">E-posta:</p>
-          <a href="mailto:info@gnkoteller.com" className="text-zinc-900 hover:underline">
-            info@gnkoteller.com
-          </a>
+        <div className="bg-zinc-50 p-4 rounded-lg border-l-4 border-zinc-900 text-sm my-6">
+          <strong>Önemli Not:</strong> GNK bir rezervasyon acentesi değildir. Sitemiz üzerinden doğrudan ödeme alınmaz, kredi kartı bilgisi işlenmez ve saklanmaz. Tüm rezervasyon işlemleri yönlendirilen otelin veya partner sitenin sorumluluğundadır.
         </div>
-      </section>
 
-      <div className="border-t border-zinc-200 mt-12 pt-8">
-        <p className="text-sm text-zinc-500 italic">
-          Bu gizlilik politikası, 6698 sayılı Kişisel Verilerin Korunması Kanunu (KVKK) ve
-          GDPR (Genel Veri Koruma Yönetmeliği) gerekliliklerine uygun olarak hazırlanmıştır.
+        {/* 2. İşleme Amaçları */}
+        <h3>2. Verilerinizi Neden İşliyoruz?</h3>
+        <p>Toplanan veriler şu meşru amaçlarla işlenir:</p>
+        <ul>
+          <li><strong>Hizmet İyileştirme:</strong> Sitemizin performansını ölçmek ve kullanıcı deneyimini (UX) geliştirmek.</li>
+          <li><strong>Güvenlik:</strong> Siber saldırıları önlemek, bot trafiğini engellemek ve sistem güvenliğini sağlamak (Rate Limiting).</li>
+          <li><strong>Analitik:</strong> Hangi bölgelerin popüler olduğunu anlamak ve içerik stratejimizi buna göre belirlemek.</li>
+          <li><strong>Yasal Yükümlülük:</strong> 5651 sayılı kanun gereği zorunlu trafik loglarını tutmak.</li>
+        </ul>
+
+        {/* 3. Üçüncü Taraflar */}
+        <h3>3. Verilerin Paylaşımı ve Altyapı Sağlayıcıları</h3>
+        <p>Kişisel verileriniz asla pazarlama amacıyla üçüncü şahıslara satılmaz. Ancak hizmeti sunabilmek için aşağıdaki küresel altyapı sağlayıcıları ile çalışıyoruz:</p>
+        <ul>
+          <li><strong>Vercel Inc. (ABD):</strong> Hosting ve sunucu hizmetleri.</li>
+          <li><strong>Supabase (Singapur/ABD):</strong> Veritabanı ve kimlik doğrulama hizmetleri.</li>
+          <li><strong>Google Analytics (ABD):</strong> Site trafiği analizi.</li>
+          <li><strong>Microsoft Clarity (ABD):</strong> Kullanıcı davranış analizi (Isı haritaları).</li>
+          <li><strong>Upstash (ABD):</strong> Güvenlik ve hız sınırlaması (DDoS koruması).</li>
+        </ul>
+        <p>Bu sağlayıcılar, verilerinizi uluslararası veri aktarımı standartlarına (GDPR Standard Contractual Clauses) uygun olarak işler.</p>
+
+        {/* 4. Çerezler */}
+        <h3>4. Çerezler (Cookies)</h3>
+        <p>
+          Sitemizde deneyiminizi geliştirmek için zorunlu ve analitik çerezler kullanıyoruz. Tarayıcı ayarlarınızdan çerezleri dilediğiniz zaman silebilirsiniz.
+          Detaylar için <a href="/cerez-politikasi">Çerez Politikamızı</a> inceleyin.
         </p>
-      </div>
-    </article>
+
+        {/* 5. Haklarınız */}
+        <h3>5. Kullanıcı Hakları (KVKK & GDPR)</h3>
+        <p>Kullanıcı olarak aşağıdaki haklara sahipsiniz:</p>
+        <ul>
+          <li>Verilerinizin işlenip işlenmediğini öğrenme,</li>
+          <li>Verilerinizin düzeltilmesini veya silinmesini ("Unutulma Hakkı") talep etme,</li>
+          <li>Verilerinizin işlenmesine itiraz etme.</li>
+        </ul>
+
+        {/* 6. Güvenlik */}
+        <h3>6. Veri Güvenliği</h3>
+        <p>
+          Verileriniz; <strong>SSL/TLS şifreleme</strong>, <strong>RLS (Row Level Security)</strong> politikaları ve <strong>Güvenlik Duvarları</strong> ile korunmaktadır.
+          Verilerinize yetkisiz erişimi engellemek için "En Az Yetki" (Least Privilege) prensibi uygulanır.
+        </p>
+
+        {/* 7. İletişim */}
+        <div className="mt-12 pt-8 border-t border-zinc-200">
+          <h3>7. İletişim</h3>
+          <p>
+            Gizlilik veya veri güvenliği ile ilgili sorularınız için bizimle iletişime geçebilirsiniz:
+          </p>
+          <p className="font-medium text-zinc-900">
+            GNK Veri Koruma Birimi<br />
+            E-posta: info@gnkotel.com<br />
+            Konum: İstanbul, Türkiye
+          </p>
+        </div>
+
+      </article>
+    </main>
   );
 }

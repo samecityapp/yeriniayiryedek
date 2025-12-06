@@ -6,8 +6,18 @@ import { Suspense } from 'react';
 import { AlertCircle } from 'lucide-react';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { generateOrganizationSchema } from '@/lib/schema-generator';
+import { Metadata } from 'next';
+import { Hotel } from '@/lib/types';
 
 export const revalidate = 3600;
+
+export const metadata: Metadata = {
+  title: 'GNK Otel Rehberi - Türkiye\'nin En Seçkin Otelleri',
+  description: 'Türkiye\'nin en iyi otellerini keşfedin. Bodrum, Antalya, Çeşme ve daha fazlası için detaylı otel rehberi ve öneriler.',
+  alternates: {
+    canonical: 'https://www.gnkhotels.com',
+  },
+};
 
 async function HotelGroups() {
   try {
@@ -34,7 +44,7 @@ async function HotelGroups() {
             {/* Mobil: Yan yana kaydırılabilir */}
             <div className="sm:hidden overflow-x-auto -mx-4 px-4 pb-2 scrollbar-hide">
               <div className="flex gap-4" style={{ width: 'fit-content' }}>
-                {group.hotels.map((hotel: any, hotelIndex: number) => (
+                {group.hotels.map((hotel: Hotel, hotelIndex: number) => (
                   <div key={hotel.id} className="w-[calc(100vw-7rem)]" style={{ minWidth: 'calc(100vw - 7rem)' }}>
                     <HotelCard key={hotel.id} hotel={hotel} priority={groupIndex === 0 && hotelIndex === 0} />
                   </div>
@@ -44,7 +54,7 @@ async function HotelGroups() {
 
             {/* Desktop: Grid görünümü */}
             <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-              {group.hotels.map((hotel: any, hotelIndex: number) => (
+              {group.hotels.map((hotel: Hotel, hotelIndex: number) => (
                 <HotelCard key={hotel.id} hotel={hotel} priority={groupIndex === 0 && hotelIndex === 0} />
               ))}
             </div>

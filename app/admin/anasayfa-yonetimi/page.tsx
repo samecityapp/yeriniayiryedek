@@ -8,6 +8,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Plus, Trash2, Eye, EyeOff, Save, Loader2 } from 'lucide-react';
+import Image from 'next/image';
 import { getLocalizedText } from '@/lib/localization';
 
 export default function AnasayfaYonetimiPage() {
@@ -172,11 +173,10 @@ export default function AnasayfaYonetimiPage() {
                   {hotels.map(hotel => (
                     <div
                       key={hotel.id}
-                      className={`flex items-center gap-3 p-4 rounded-lg border-2 cursor-pointer transition-all ${
-                        selectedHotelIds.includes(hotel.id)
-                          ? 'border-blue-500 bg-blue-50'
-                          : 'border-gray-200 hover:border-gray-300'
-                      }`}
+                      className={`flex items-center gap-3 p-4 rounded-lg border-2 cursor-pointer transition-all ${selectedHotelIds.includes(hotel.id)
+                        ? 'border-blue-500 bg-blue-50'
+                        : 'border-gray-200 hover:border-gray-300'
+                        }`}
                       onClick={() => handleToggleHotel(hotel.id)}
                     >
                       <Checkbox
@@ -188,9 +188,11 @@ export default function AnasayfaYonetimiPage() {
                         <p className="text-sm text-gray-600">{getLocalizedText(hotel.location)}</p>
                       </div>
                       {hotel.coverImageUrl && (
-                        <img
+                        <Image
                           src={hotel.coverImageUrl}
                           alt={getLocalizedText(hotel.name)}
+                          width={64}
+                          height={64}
                           className="w-16 h-16 object-cover rounded-lg"
                         />
                       )}
@@ -267,10 +269,11 @@ export default function AnasayfaYonetimiPage() {
                       <div key={hotel.id} className="border rounded-lg overflow-hidden">
                         <div className="aspect-video bg-gray-200">
                           {hotel.coverImageUrl ? (
-                            <img
+                            <Image
                               src={hotel.coverImageUrl}
                               alt={getLocalizedText(hotel.name)}
-                              className="w-full h-full object-cover"
+                              fill
+                              className="object-cover"
                             />
                           ) : (
                             <div className="w-full h-full flex items-center justify-center text-gray-400 text-sm">

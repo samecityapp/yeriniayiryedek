@@ -96,3 +96,17 @@ export interface RestaurantCategory {
   restaurants?: Restaurant[];
   places?: Restaurant[];
 }
+
+export interface Article {
+  id: string;
+  title: LocalizedString | string;
+  slug: string;
+  cover_image_url?: string;
+  meta_description?: LocalizedString | string;
+  content?: LocalizedString | string;
+  location?: string;
+  is_published?: boolean;
+  published_at?: string;
+  created_at?: string;
+  updated_at?: string;
+}

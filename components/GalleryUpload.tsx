@@ -2,6 +2,7 @@
 
 import { useState, useRef } from 'react';
 import { Upload, X, Loader2, Image as ImageIcon } from 'lucide-react';
+import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { uploadImage, deleteImage, validateImageFile } from '@/lib/storage';
 
@@ -95,9 +96,11 @@ export function GalleryUpload({ value, onChange, maxImages = 10 }: GalleryUpload
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
         {value.map((url, index) => (
           <div key={index} className="relative group">
-            <img
+            <Image
               src={url}
               alt={`Gallery ${index + 1}`}
+              width={300}
+              height={200}
               className="w-full h-auto rounded-xl border-2 border-gray-200 object-contain"
             />
             <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all rounded-xl flex items-center justify-center">

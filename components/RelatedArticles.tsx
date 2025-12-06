@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Sparkles, ChevronRight, Clock } from 'lucide-react';
 import { getLocalizedText } from '@/lib/localization';
+import { Article } from '@/lib/types';
 
 export async function RelatedArticles({ location }: { location: string }) {
   const articles = await db.articles.getAllByLocation(location);
@@ -19,7 +20,7 @@ export async function RelatedArticles({ location }: { location: string }) {
       </div>
 
       <div className="divide-y divide-border/40">
-        {articles.map((article: any) => (
+        {articles.map((article: Article) => (
           <Link
             key={article.id}
             href={`/rehber/${article.slug}`}

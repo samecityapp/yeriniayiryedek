@@ -2,6 +2,7 @@
 
 import { useState, useRef } from 'react';
 import { Upload, X, Loader2, Image as ImageIcon } from 'lucide-react';
+import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { uploadImage, deleteImage, validateImageFile } from '@/lib/storage';
 
@@ -79,9 +80,11 @@ export function ImageUpload({ value, onChange, label, description }: ImageUpload
 
       {value ? (
         <div className="relative group max-w-md">
-          <img
+          <Image
             src={value}
             alt="Upload preview"
+            width={500}
+            height={300}
             className="w-full h-auto rounded-xl border-2 border-gray-200 object-contain"
           />
           <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-all rounded-xl flex items-center justify-center">
