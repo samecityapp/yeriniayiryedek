@@ -1,157 +1,95 @@
-import { Metadata } from 'next';
+import React from 'react';
+import type { Metadata } from 'next';
 import { Instagram } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Hakkımızda',
-  description: 'GNK Otel Rehberi - Türkiye\'nin en seçkin butik otel kürasyon platformu',
+  title: 'Hakkımızda | GNK',
+  description: '10 yıllık deneyimle Türkiye\'nin en özel otellerini keşfediyoruz. GNK (Gez, Nerede Kal) hikayesi.',
 };
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-zinc-50">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 py-16 sm:py-24">
-        <article className="prose prose-zinc max-w-none">
-          <h1 className="text-4xl sm:text-5xl font-bold text-zinc-900 mb-8">
-            Biz Kimiz?
-          </h1>
+    <main className="min-h-screen bg-white py-20 px-4 sm:px-6 lg:px-8">
+      <article className="max-w-3xl mx-auto">
 
-          <div className="bg-white rounded-xl p-8 shadow-sm border border-zinc-200 mb-8">
-            <div className="flex flex-col md:flex-row gap-8 items-start">
-              <div className="flex-1">
-                <p className="text-lg text-zinc-700 leading-relaxed mb-6">
-                  Hikayemiz, sosyal medyada yüz binlerce seyahatsevere ilham veren{' '}
-                  <a
-                    href="https://www.instagram.com/geceligi.ne.kadar/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-zinc-900 font-semibold hover:underline inline-flex items-center gap-1"
-                  >
-                    <Instagram className="w-4 h-4" />
-                    @geceligi.ne.kadar
-                  </a>
-                  {' '}ve{' '}
-                  <a
-                    href="https://www.instagram.com/turkeyandhotels/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-zinc-900 font-semibold hover:underline inline-flex items-center gap-1"
-                  >
-                    <Instagram className="w-4 h-4" />
-                    @turkeyandhotels
-                  </a>
-                  {' '}platformlarıyla başladı.
-                </p>
+        {/* Başlık */}
+        <h1 className="text-4xl sm:text-5xl font-bold text-zinc-900 mb-8 tracking-tight">
+          Biz Kimiz?
+        </h1>
 
-                <p className="text-lg text-zinc-700 leading-relaxed mb-0">
-                  Tam <strong className="text-zinc-900">10 yıldır</strong>, Türkiye&apos;nin en prestijli,
-                  butik ve özel otellerini bizzat yerinde deneyimliyor, sadece &quot;en iyileri&quot; titizlikle
-                  seçiyor ve tanıtıyoruz. Bu on yıllık birikimi ve güveni, şimdi dijital bir kürasyon
-                  platformuna dönüştürmenin heyecanını yaşıyoruz.
-                </p>
-              </div>
+        {/* Giriş Hikayesi */}
+        <div className="prose prose-zinc prose-lg text-zinc-600 mb-12">
+          <p>
+            Hikayemiz, sosyal medyada seyahat etmeyi seven dostlarımızla paylaştığımız
+            <a href="https://www.instagram.com/geceligi.ne.kadar/" target="_blank" rel="noopener noreferrer" className="font-semibold text-zinc-900 mx-1 hover:text-black hover:underline transition-colors">@geceligi.ne.kadar</a>
+            ve
+            <a href="https://www.instagram.com/turkeyandhotels/" target="_blank" rel="noopener noreferrer" className="font-semibold text-zinc-900 mx-1 hover:text-black hover:underline transition-colors">@turkeyandhotels</a>
+            sayfalarıyla başladı.
+          </p>
+          <p>
+            Tam <strong>10 yıldır</strong>, Türkiye'nin dört bir yanındaki butik ve özel otelleri bizzat yerinde deneyimliyor, sadece güvendiğimiz ve sevdiğimiz yerleri sizlerle paylaşıyoruz. Bu on yıllık birikimi, şimdi daha kapsamlı bir rehbere dönüştürmenin heyecanını yaşıyoruz.
+          </p>
+        </div>
 
-              <div className="w-full md:w-48 shrink-0">
-                <div className="aspect-square rounded-xl overflow-hidden bg-gradient-to-br from-zinc-100 to-zinc-200 border border-zinc-300">
-                  <div className="w-full h-full flex items-center justify-center">
-                    <div className="text-center p-6">
-                      <svg
-                        className="w-16 h-16 mx-auto mb-3 text-zinc-400"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={1.5}
-                          d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                        />
-                      </svg>
-                      <p className="text-xs text-zinc-500 font-medium">
-                        Kurucumuz
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+        <hr className="border-zinc-100 my-12" />
 
-          <section className="mb-12">
-            <h3 className="text-2xl font-bold text-zinc-900 mb-4">
-              GNK (Gez, Nerede Kal) Nedir?
+        {/* Misyon & Vizyon */}
+        <div className="grid gap-10 md:grid-cols-2">
+          <div>
+            <h3 className="text-xl font-bold text-zinc-900 mb-3 flex items-center gap-2">
+              <span className="w-8 h-1 bg-black rounded-full"></span>
+              GNK Nedir?
             </h3>
-
-            <p className="text-lg text-zinc-600 leading-relaxed mb-6">
-              GNK, sıradan bir otel rezervasyon sitesi değildir. Burası,{' '}
-              <strong className="text-zinc-900">seçilmiş</strong> bir koleksiyondur.
-            </p>
-
-            <div className="bg-zinc-100 rounded-lg p-6 mb-6">
-              <h4 className="text-xl font-semibold text-zinc-900 mb-3">Misyonumuz:</h4>
-              <p className="text-zinc-700 leading-relaxed mb-0">
-                Kalabalıkların değil, &quot;bilenlerin&quot; tercih ettiği yerleri keşfetmek.
-                Yüzlerce vasat otel arasında kaybolmanızı engellemek; sadece karakteri, hikayesi
-                ve ruhu olan işletmeleri listelemek. Algoritmaların değil,{' '}
-                <strong className="text-zinc-900">gerçek deneyimin</strong> küratörlüğünü sunmak.
-              </p>
-            </div>
-
-            <div className="bg-zinc-100 rounded-lg p-6 mb-6">
-              <h4 className="text-xl font-semibold text-zinc-900 mb-3">Vizyonumuz:</h4>
-              <p className="text-zinc-700 leading-relaxed mb-0">
-                Türkiye&apos;nin turizm potansiyelini modern, şık ve güvenilir bir arayüzle dünyaya sunmak.
-                Seyahat planı yapan herkesin <em>&quot;Acaba nerede kalsam?&quot;</em> sorusuna,
-                en doğru ve en rafine cevabı veren tek adres olmak.
-              </p>
-            </div>
-          </section>
-
-          <div className="border-t border-zinc-200 pt-8">
-            <p className="text-lg text-zinc-600 leading-relaxed text-center italic">
-              Bizi takip ettiğiniz ve güvendiğiniz için teşekkürler.
+            <p className="text-zinc-600 leading-relaxed">
+              GNK (Gez, Nerede Kal), bir otel rezervasyon sitesi değildir. Biz, binlerce seçenek arasında kaybolmamanız için hazırlanmış <strong>seçkin bir otel keşif platformuyuz.</strong> Amacımız satış yapmak değil, size en doğru deneyimi önermektir.
             </p>
           </div>
 
-          <div className="mt-12 bg-zinc-900 rounded-xl p-8 text-center">
-            <h4 className="text-xl font-semibold text-white mb-4">
-              Sosyal Medyada Bizi Takip Edin
-            </h4>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a
-                href="https://www.instagram.com/geceligi.ne.kadar/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 bg-white hover:bg-zinc-100 text-zinc-900 font-medium py-3 px-6 rounded-lg transition-colors"
-              >
-                <Instagram className="w-5 h-5" />
-                @geceligi.ne.kadar
-              </a>
-              <a
-                href="https://www.instagram.com/turkeyandhotels/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 bg-white hover:bg-zinc-100 text-zinc-900 font-medium py-3 px-6 rounded-lg transition-colors"
-              >
-                <Instagram className="w-5 h-5" />
-                @turkeyandhotels
-              </a>
-            </div>
-          </div>
-
-          <div className="mt-12 text-center">
-            <p className="text-zinc-600 mb-4">
-              Bizimle iletişime geçmek ister misiniz?
+          <div>
+            <h3 className="text-xl font-bold text-zinc-900 mb-3 flex items-center gap-2">
+              <span className="w-8 h-1 bg-black rounded-full"></span>
+              Amacımız
+            </h3>
+            <p className="text-zinc-600 leading-relaxed">
+              Kalabalıkların değil, "bilenlerin" tercih ettiği yerleri keşfetmek. Binlerce otel arasından sadece karakteri, hikayesi ve ruhu olan işletmeleri listelemek. Algoritmaların değil, <strong>gerçek deneyimin</strong> küratörlüğünü sunmak.
             </p>
+          </div>
+        </div>
+
+        <div className="mt-10 bg-zinc-50 p-6 rounded-2xl border border-zinc-100">
+          <p className="text-zinc-800 font-medium text-center italic">
+            "Türkiye'nin turizm potansiyelini modern ve güvenilir bir arayüzle sunmak; seyahat planı yapan herkesin 'Acaba nerede kalsam?' sorusuna, en doğru cevabı veren adres olmak için çalışıyoruz."
+          </p>
+        </div>
+
+        {/* Sosyal Medya */}
+        <div className="mt-16 text-center">
+          <p className="text-sm font-semibold text-zinc-400 uppercase tracking-widest mb-4">
+            Bizi Takip Edin
+          </p>
+          <div className="flex justify-center gap-4">
             <a
-              href="mailto:info@gnkoteller.com"
-              className="text-zinc-900 hover:underline font-semibold text-lg"
+              href="https://www.instagram.com/geceligi.ne.kadar/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 px-5 py-3 bg-zinc-900 text-white rounded-full font-medium hover:bg-zinc-800 transition-all hover:scale-105"
             >
-              info@gnkoteller.com
+              <Instagram size={18} />
+              @geceligi.ne.kadar
+            </a>
+            <a
+              href="https://www.instagram.com/turkeyandhotels/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 px-5 py-3 border border-zinc-200 text-zinc-900 rounded-full font-medium hover:bg-zinc-50 transition-all hover:scale-105"
+            >
+              <Instagram size={18} />
+              @turkeyandhotels
             </a>
           </div>
-        </article>
-      </div>
-    </div>
+        </div>
+
+      </article>
+    </main>
   );
 }

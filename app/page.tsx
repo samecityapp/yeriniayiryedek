@@ -10,6 +10,7 @@ import { Metadata } from 'next';
 import { Hotel } from '@/lib/types';
 
 export const revalidate = 3600;
+export const dynamic = 'force-static';
 
 export const metadata: Metadata = {
   title: 'GNK Otel Rehberi - Türkiye\'nin En Seçkin Otelleri',

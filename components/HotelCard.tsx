@@ -50,22 +50,22 @@ export default function HotelCard({ hotel, priority = false }: HotelCardProps) {
                     src={hotel.video_thumbnail_url}
                     alt={getLocalizedText(hotel.name)}
                     fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    sizes={priority ? "100vw" : "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"}
                     className="object-cover transition-transform duration-300 group-hover:scale-105"
                     priority={priority}
                     loading={priority ? undefined : "lazy"}
-                    quality={75}
+                    quality={priority ? 85 : 75}
                   />
                 ) : hotel.coverImageUrl ? (
                   <Image
                     src={hotel.coverImageUrl}
                     alt={getLocalizedText(hotel.name)}
                     fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    sizes={priority ? "100vw" : "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"}
                     className="object-cover transition-transform duration-300 group-hover:scale-105"
                     priority={priority}
                     loading={priority ? undefined : "lazy"}
-                    quality={75}
+                    quality={priority ? 85 : 75}
                   />
                 ) : (
                   <div className="absolute inset-0 w-full h-full flex items-center justify-center bg-gray-100">
@@ -87,10 +87,11 @@ export default function HotelCard({ hotel, priority = false }: HotelCardProps) {
                 alt={getLocalizedText(hotel.name)}
                 width={400}
                 height={533}
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                sizes={priority ? "100vw" : "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"}
                 className="w-full aspect-[3/4] object-cover transition-transform duration-300 group-hover:scale-105"
                 priority={priority}
                 loading={priority ? undefined : "lazy"}
+                quality={priority ? 85 : 75}
               />
             ) : (
               <div className="w-full aspect-[3/4] flex items-center justify-center bg-gray-100">
