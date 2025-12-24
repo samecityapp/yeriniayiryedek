@@ -23,7 +23,7 @@ async function run() {
         .from('articles')
         .update({ is_published: false, slug: `deleted-${slugToDelete}-${Date.now()}` })
         .eq('slug', slugToDelete)
-        .select('*', { count: 'exact' });
+        .select();
 
     if (error) {
         console.error('Error updating:', error.message);
