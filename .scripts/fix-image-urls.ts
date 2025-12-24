@@ -38,7 +38,7 @@ async function run() {
     // 1. Fetch articles with bad URLs
     const { data: articles, error } = await supabase
         .from('articles')
-        .select('*')
+        .select();
         .or('cover_image_url.ilike.%YOUR_IMAGE_URL_HERE%,content.ilike.%YOUR_IMAGE_URL_HERE%');
 
     if (error) {

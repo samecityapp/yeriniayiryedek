@@ -22,7 +22,7 @@ async function run() {
     // Check count
     const { count, error: countError } = await supabase
         .from('articles')
-        .select('*', { count: 'exact', head: true })
+        .select();
         .eq('slug', slugToDelete);
 
     console.log(`Initial count: ${count}`);
