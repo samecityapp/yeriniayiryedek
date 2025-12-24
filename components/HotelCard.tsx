@@ -51,7 +51,7 @@ export default function HotelCard({ hotel, priority = false }: HotelCardProps) {
                     src={hotel.video_thumbnail_url}
                     alt={getLocalizedText(hotel.name)}
                     fill
-                    sizes={priority ? "100vw" : "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"}
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
                     className="object-cover transition-transform duration-300 group-hover:scale-105"
                     priority={priority}
                     loading={priority ? undefined : "lazy"}
@@ -63,7 +63,7 @@ export default function HotelCard({ hotel, priority = false }: HotelCardProps) {
                     src={hotel.coverImageUrl}
                     alt={getLocalizedText(hotel.name)}
                     fill
-                    sizes={priority ? "100vw" : "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"}
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
                     className="object-cover transition-transform duration-300 group-hover:scale-105"
                     priority={priority}
                     loading={priority ? undefined : "lazy"}
@@ -90,7 +90,7 @@ export default function HotelCard({ hotel, priority = false }: HotelCardProps) {
                 alt={getLocalizedText(hotel.name)}
                 width={400}
                 height={533}
-                sizes={priority ? "100vw" : "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"}
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
                 className="w-full aspect-[3/4] object-cover transition-transform duration-300 group-hover:scale-105"
                 priority={priority}
                 loading={priority ? undefined : "lazy"}

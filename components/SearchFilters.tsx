@@ -212,7 +212,7 @@ export default function SearchFilters() {
   };
 
   return (
-    <div className="w-full max-w-5xl mx-auto px-4">
+    <div className="w-full max-w-5xl mx-auto px-4 min-h-[160px]">
       <div className="bg-white rounded-full shadow-xl border border-gray-200 hover:shadow-2xl transition-all duration-300">
         <div ref={searchRef} className="relative z-20">
           <form onSubmit={(e) => { e.preventDefault(); handleSearch(); }} className="flex items-center">

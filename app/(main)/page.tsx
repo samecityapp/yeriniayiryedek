@@ -122,7 +122,7 @@ export default function HomePage() {
           <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6 tracking-tight">
             Türkiye'nin En Seçkin Otellerini Keşfedin
           </h1>
-          <Suspense fallback={<div className="h-24" />}>
+          <Suspense fallback={<div className="h-40" />}>
             <SearchFilters />
           </Suspense>
         </div>
