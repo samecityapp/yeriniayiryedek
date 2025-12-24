@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
@@ -11,7 +11,7 @@ import { getLocalizedText } from '@/lib/localization';
 import HotelListSkeleton from '@/components/skeletons/HotelListSkeleton';
 import * as LucideIcons from 'lucide-react';
 
-export default function SearchPage() {
+function SearchContent() {
   const searchParams = useSearchParams();
   const query = searchParams.get('q') || '';
   const locationQuery = searchParams.get('location') || '';
@@ -228,8 +228,8 @@ export default function SearchPage() {
             return (
               <label key={tag.id} className="flex items-center gap-2 cursor-pointer group py-1 px-1.5 rounded-md hover:bg-gray-50 transition-colors">
                 <div className={`relative flex items-center justify-center w-4 h-4 rounded border-2 transition-all ${isSelected
-                    ? 'bg-gray-900 border-gray-900'
-                    : 'border-gray-300 group-hover:border-gray-400'
+                  ? 'bg-gray-900 border-gray-900'
+                  : 'border-gray-300 group-hover:border-gray-400'
                   }`}>
                   <input
                     type="checkbox"
@@ -380,5 +380,13 @@ export default function SearchPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function SearchPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-gray-50"><div className="container mx-auto px-6 py-8"><HotelListSkeleton /></div></div>}>
+      <SearchContent />
+    </Suspense>
   );
 }
