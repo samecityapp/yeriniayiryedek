@@ -18,8 +18,7 @@ export async function Footer() {
           {/* Brand Section */}
           <div className="space-y-4">
             <div className="flex items-center gap-2">
-              <BrandLogo className="w-8 h-8" />
-              <span className="text-2xl font-bold text-gray-900">Yerini Ayır</span>
+              <BrandLogo className="h-8 w-auto aspect-[3.5/1]" />
             </div>
             <p className="text-sm text-gray-500">
               Kalabalıkların değil, &quot;bilenlerin&quot; tercih ettiği yerleri keşfet

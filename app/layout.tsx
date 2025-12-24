@@ -1,10 +1,7 @@
 import type { Metadata } from 'next';
 import { Inter, Quicksand } from 'next/font/google';
 import './globals.css';
-import { Header } from '@/components/Header';
-import { Footer } from '@/components/Footer';
 import { Providers } from '@/components/Providers';
-import { CookieBanner } from '@/components/ui/CookieBanner';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -95,10 +92,7 @@ export default function RootLayout({ children }: { children: React.ReactNode; })
       </head>
       <body className="font-sans">
         <Providers>
-          <Header />
-          <main className="min-h-[100dvh]">{children}</main>
-          <Footer />
-          <CookieBanner />
+          {children}
         </Providers>
         <Script id="microsoft-clarity" strategy="lazyOnload">
           {`

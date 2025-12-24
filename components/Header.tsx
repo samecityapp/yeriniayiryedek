@@ -13,9 +13,8 @@ export function Header() {
     <header className="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b">
       <nav className="container mx-auto px-6 py-3">
         <div className="flex justify-between items-center">
-          <Link href="/" className="flex items-center gap-2 text-2xl font-bold text-gray-800">
-            <BrandLogo className="w-10 h-10" />
-            <span>YeriniAyır</span>
+          <Link href="/" className="flex items-center gap-2">
+            <BrandLogo className="h-10 w-auto aspect-[3.5/1]" />
           </Link>
 
           {/* Desktop Menu */}
@@ -26,11 +25,7 @@ export function Header() {
 
           </div>
 
-          <div className="hidden md:block">
-            <Button asChild>
-              <Link href="/admin/dashboard">Panel</Link>
-            </Button>
-          </div>
+          {/* Panel Link Removed */}
 
           {/* Mobile Menu Button */}
           <button
@@ -67,11 +62,7 @@ export function Header() {
               Hakkımızda
             </Link>
 
-            <div className="pt-2">
-              <Button asChild className="w-full">
-                <Link href="/admin/dashboard" onClick={() => setIsMenuOpen(false)}>Panel</Link>
-              </Button>
-            </div>
+            {/* Panel Link Removed */}
           </div>
         )}
       </nav>

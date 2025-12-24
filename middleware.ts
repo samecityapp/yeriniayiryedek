@@ -91,7 +91,7 @@ export async function middleware(req: NextRequest) {
     return NextResponse.next();
   }
 
-  if (path.startsWith("/admin")) {
+  if (path.startsWith("/jilinrime")) {
     const isAdmin = await checkAdminAccess(req);
 
     if (!isAdmin) {

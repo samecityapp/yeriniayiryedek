@@ -8,7 +8,7 @@ export function BrandLogo({ className = "w-8 h-8" }: { className?: string; color
     return (
         <div className={`relative ${className}`}>
             <Image
-                src="/logo.png"
+                src="/images/yeriniayir-logo.png"
                 alt="YeriniAyır Logo"
                 fill
                 className="object-contain" // Ensures the logo fits within the dimensions without distortion
