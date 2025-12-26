@@ -158,7 +158,7 @@ export default function OtelListesiPage() {
         <div className="mb-8">
           <div className="flex items-center justify-between mb-6">
             <h1 className="text-4xl font-bold text-gray-900">Otel Listesi</h1>
-            <Link href="/admin/otel-ekle">
+            <Link href="/jilinrime/otel-ekle">
               <Button size="lg">
                 <Plus className="mr-2" size={18} />
                 Yeni Otel Ekle
@@ -180,7 +180,7 @@ export default function OtelListesiPage() {
         {filteredHotels.length === 0 && hotels.length === 0 ? (
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-12 text-center">
             <p className="text-gray-500 text-lg mb-4">Henüz otel eklenmemiş</p>
-            <Link href="/admin/otel-ekle">
+            <Link href="/jilinrime/otel-ekle">
               <Button>
                 <Plus className="mr-2" size={18} />
                 İlk Oteli Ekle
@@ -249,7 +249,7 @@ export default function OtelListesiPage() {
                     )}
 
                     <div className="flex gap-2 mt-3">
-                      <Link href={`/admin/otel-ekle?id=${hotel.id}`} className="flex-1">
+                      <Link href={`/jilinrime/otel-ekle?id=${hotel.id}`} className="flex-1">
                         <Button variant="outline" size="sm" className="w-full">
                           <Edit className="mr-1.5" size={14} />
                           Düzenle

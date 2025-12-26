@@ -127,9 +127,9 @@ VALUES (
 <div class="bg-blue-50 p-6 rounded-lg my-8">
     <h3 class="font-bold text-gray-800 mb-4">İlgili Diğer Rehberler</h3>
     <ul class="space-y-2 text-sm">
-        <li><a href="/blog/izmirden-sirinceye-arabasiz-ulasim-izban-selcuk-dolmus" class="text-blue-600 hover:underline">İzmir’den Şirince’ye Arabasız Ulaşım: İZBAN, Selçuk Dolmuşları</a></li>
-        <li><a href="/blog/sirince-sarap-rehberi-meyve-sarabi-uzum" class="text-blue-600 hover:underline">Şirince Şarap Rehberi: Meyve Şarabı mı, Gerçek Üzüm Mü?</a></li>
-        <li><a href="/blog/efes-sirince-ayni-gun-rota" class="text-blue-600 hover:underline">Efes ve Şirince Aynı Günde Nasıl Gezilir?</a></li>
+        <li><a href="/rehber/izmirden-sirinceye-arabasiz-ulasim-izban-selcuk-dolmus" class="text-blue-600 hover:underline">İzmir’den Şirince’ye Arabasız Ulaşım: İZBAN, Selçuk Dolmuşları</a></li>
+        <li><a href="/rehber/sirince-sarap-rehberi-meyve-sarabi-uzum" class="text-blue-600 hover:underline">Şirince Şarap Rehberi: Meyve Şarabı mı, Gerçek Üzüm Mü?</a></li>
+        <li><a href="/rehber/efes-sirince-ayni-gun-rota" class="text-blue-600 hover:underline">Efes ve Şirince Aynı Günde Nasıl Gezilir?</a></li>
     </ul>
 </div>
 

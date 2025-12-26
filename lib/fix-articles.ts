@@ -1,25 +1,24 @@
--- Migration: Add "Nesin Matematik Köyü Ziyaretçi Rehberi" Article
+import { createClient } from '@supabase/supabase-js';
+import dotenv from 'dotenv';
+dotenv.config({ path: '.env.local' });
 
-INSERT INTO public.articles (
-    id,
-    title,
-    slug,
-    content,
-    cover_image_url,
-    location,
-    meta_description,
-    is_published,
-    published_at,
-    created_at,
-    updated_at
-)
-VALUES (
-    uuid_generate_v4(),
-    'Nesin Matematik Köyü Ziyaretçi Rehberi: Şirince’de Gezginler İçeri Girebilir mi?',
-    'nesin-matematik-koyu-ziyaret-rehberi-sirince',
-    '<h1>Nesin Matematik Köyü Ziyaretçi Rehberi: Şirince’de Gezginler İçeri Girebilir mi?</h1>
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
 
-<p>Şirince''nin o meşhur kalabalığından ve dar sokaklarından biraz uzaklaşıp başınızı yukarı kaldırdığınızda, zeytin ağaçlarının arasında gizlenmiş taş yapıları fark edeceksiniz. İşte orası, sadece Türkiye''nin değil dünyanın da en özel eğitim alanlarından biri: Nesin Matematik Köyü ve hemen yanı başındaki Tiyatro Medresesi.</p>
+if (!supabaseUrl || !supabaseKey) {
+    console.error('❌ Missing Supabase environment variables');
+    process.exit(1);
+}
+
+const supabase = createClient(supabaseUrl, supabaseKey);
+
+async function fixArticles() {
+    console.log('🔄 Starting article fixes...');
+
+    // 1. Nesin Matematik Köyü - Rewrite Content
+    const nesinContent = `<h1>Nesin Matematik Köyü Ziyaretçi Rehberi: Şirince’de Gezginler İçeri Girebilir mi?</h1>
+
+<p>Şirince'nin o meşhur kalabalığından ve dar sokaklarından biraz uzaklaşıp başınızı yukarı kaldırdığınızda, zeytin ağaçlarının arasında gizlenmiş taş yapıları fark edeceksiniz. İşte orası, sadece Türkiye'nin değil dünyanın da en özel eğitim alanlarından biri: Nesin Matematik Köyü ve hemen yanı başındaki Tiyatro Medresesi.</p>
 
 <p>Burası klasik bir "gezilecek yer" veya bilet alıp girebileceğiniz bir müze değil. Burası; öğrencilerin, akademisyenlerin ve düşünürlerin bir arada yaşadığı, ürettiği ve hayatı paylaştığı canlı bir kampüs. Bu yüzden burayı ziyaret etmek isterseniz, turist kimliğinizi bir kenara bırakıp "sessiz bir misafir" gibi davranmanız gerekiyor.</p>
 
@@ -28,8 +27,8 @@ VALUES (
 </div>
 
 <div class="bg-blue-50 p-6 rounded-lg my-6">
-    <h3 class="font-bold text-blue-800 mb-2">Konum: Şirince''ye Ne Kadar Uzak?</h3>
-    <p>Köy, Şirince merkezinden sadece 15-20 dakikalık (yaklaşık 800m-1km) hafif yokuşlu bir yürüyüş mesafesinde. Hemen Kayser Dağı''nın eteklerinde yer alıyor. Yani Şirince gezinize burayı dahil etmek isterseniz, ekstra bir araç ayarlamanıza gerek yok; keyifli bir yürüyüşle ulaşabilirsiniz.</p>
+    <h3 class="font-bold text-blue-800 mb-2">Konum: Şirince'ye Ne Kadar Uzak?</h3>
+    <p>Köy, Şirince merkezinden sadece 15-20 dakikalık (yaklaşık 800m-1km) hafif yokuşlu bir yürüyüş mesafesinde. Hemen Kayser Dağı'nın eteklerinde yer alıyor. Yani Şirince gezinize burayı dahil etmek isterseniz, ekstra bir araç ayarlamanıza gerek yok; keyifli bir yürüyüşle ulaşabilirsiniz.</p>
 </div>
 
 <h2>İçeri Girebilir miyim?</h2>
@@ -58,7 +57,7 @@ VALUES (
 <hr class="my-8" />
 
 <h2>İçeride Sizi Neler Bekliyor?</h2>
-<p>Matematik Köyü''ne adım attığınızda sizi karşılayan manzara, modern dünyadan çok uzak:</p>
+<p>Matematik Köyü'ne adım attığınızda sizi karşılayan manzara, modern dünyadan çok uzak:</p>
 
 <div class="grid md:grid-cols-2 gap-6 my-6">
     <div>
@@ -106,15 +105,15 @@ VALUES (
 <p>Burası hakkındaki en önemli pratik bilgiye geldik: Otopark.</p>
 
 <div class="my-6">
-    <img src="/images/blog/sirince_yuruyus_yolu.png" alt="Şirince''den Köye Yürüyüş Yolu" class="w-full h-auto rounded-lg shadow-md" />
+    <img src="/images/blog/sirince_yuruyus_yolu.png" alt="Şirince'den Köye Yürüyüş Yolu" class="w-full h-auto rounded-lg shadow-md" />
 </div>
 
 <p>Köy yolunda ve girişinde ziyaretçiler için ayrılmış geniş bir otopark alanı <strong>yoktur</strong>. Daracık yolda aracınızla manevra yapmaya çalışmak veya park yeri aramak hem sizi hem de köy trafiğini zora sokar.</p>
 
 <h3 class="font-bold text-gray-800 mt-4">Ne Yapmalısınız?</h3>
 <ol class="list-decimal pl-6 space-y-2 mt-2">
-    <li>Aracınızı Şirince''de bırakın. Köy meydanından 15-20 dakikalık yürüyüşle çıkmak en sağlıklısı.</li>
-    <li>Yürümek istemiyorsanız Şirince''den geçen taksileri veya varsa dolmuşları kullanabilirsiniz.</li>
+    <li>Aracınızı Şirince'de bırakın. Köy meydanından 15-20 dakikalık yürüyüşle çıkmak en sağlıklısı.</li>
+    <li>Yürümek istemiyorsanız Şirince'den geçen taksileri veya varsa dolmuşları kullanabilirsiniz.</li>
 </ol>
 
 <div class="bg-gray-50 p-6 rounded-lg my-8">
@@ -151,15 +150,82 @@ VALUES (
     </div>
 
     <div>
-        <h4 class="font-bold text-gray-900 text-lg">Şirince''ye ne kadar uzaklıkta?</h4>
+        <h4 class="font-bold text-gray-900 text-lg">Şirince'ye ne kadar uzaklıkta?</h4>
         <p class="text-gray-700 mt-1">Şirince merkezden sadece 1 km kadar yukarıda. Yürüyerek 15-20 dakikada rahatça ulaşabilirsiniz.</p>
     </div>
-</div>',
-    '/images/blog/nesin_matematik_koyu_cover.png',
-    'Şirince, Selçuk',
-    'Nesin Matematik Köyü ziyaret edilir mi? Şirince’de sessizlik kuralları, Tiyatro Medresesi, fotoğraf etiği ve Şirince’den yürüyerek ulaşım tüyoları.',
-    TRUE,
-    CURRENT_TIMESTAMP + INTERVAL '19 seconds',
-    now(),
-    now()
-);
+</div>`;
+
+    const { error: nesinError } = await supabase
+        .from('articles')
+        .update({ content: nesinContent })
+        .eq('slug', 'nesin-matematik-koyu-ziyaret-rehberi-sirince');
+
+    if (nesinError) console.error('❌ Failed to update Nesin:', nesinError);
+    else console.log('✅ Updated Nesin content');
+
+
+    // 2. Fix St John Links
+    // Fetch old content
+    const { data: stJohn, error: stJohnFetchError } = await supabase
+        .from('articles')
+        .select('content')
+        .eq('slug', 'sirince-st-john-kilisesi-dilek-havuzu-cirkince-efsane')
+        .single();
+
+    if (stJohn && !stJohnFetchError) {
+        let newContent = stJohn.content
+            .replace(/\/blog\//g, '/rehber/')
+            .replace(/<li><a href="\/rehber\/sirince-sokak-lezzetleri-rehberi".*?<\/a><\/li>/g, '');
+
+        const { error: stJohnUpdateError } = await supabase
+            .from('articles')
+            .update({ content: newContent })
+            .eq('slug', 'sirince-st-john-kilisesi-dilek-havuzu-cirkince-efsane');
+
+        if (stJohnUpdateError) console.error('❌ Failed to update St John:', stJohnUpdateError);
+        else console.log('✅ Updated St John links');
+    }
+
+
+    // 3. Fix Budget Links
+    const { data: budget, error: budgetFetchError } = await supabase
+        .from('articles')
+        .select('content')
+        .eq('slug', 'sirince-pahali-mi-butce-rehberi-2025')
+        .single();
+
+    if (budget && !budgetFetchError) {
+        let newContent = budget.content.replace(/\/blog\//g, '/rehber/');
+        const { error: budgetUpdateError } = await supabase
+            .from('articles')
+            .update({ content: newContent })
+            .eq('slug', 'sirince-pahali-mi-butce-rehberi-2025');
+
+        if (budgetUpdateError) console.error('❌ Failed to update Budget:', budgetUpdateError);
+        else console.log('✅ Updated Budget links');
+    }
+
+
+    // 4. Fix Efes Links
+    const { data: efes, error: efesFetchError } = await supabase
+        .from('articles')
+        .select('content')
+        .eq('slug', 'efes-sirince-ayni-gun-rota')
+        .single();
+
+    if (efes && !efesFetchError) {
+        let newContent = efes.content
+            .replace(/\/blog\//g, '/rehber/')
+            .replace(/<li><a href="\/rehber\/sirince-sokak-lezzetleri-rehberi".*?<\/a><\/li>/g, '');
+
+        const { error: efesUpdateError } = await supabase
+            .from('articles')
+            .update({ content: newContent })
+            .eq('slug', 'efes-sirince-ayni-gun-rota');
+
+        if (efesUpdateError) console.error('❌ Failed to update Efes:', efesUpdateError);
+        else console.log('✅ Updated Efes links');
+    }
+}
+
+fixArticles();

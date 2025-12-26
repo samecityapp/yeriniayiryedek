@@ -1,23 +1,10 @@
--- Migration: Add "Nesin Matematik Köyü Ziyaretçi Rehberi" Article
+-- Migration: Fix content and links for multiple articles
+-- 1. Nesin Math Village: Full rewrite (original content) + Link fixes
+-- 2. St John, Budget, Efes: Link fixes (/blog -> /rehber) + Remove dead links
 
-INSERT INTO public.articles (
-    id,
-    title,
-    slug,
-    content,
-    cover_image_url,
-    location,
-    meta_description,
-    is_published,
-    published_at,
-    created_at,
-    updated_at
-)
-VALUES (
-    uuid_generate_v4(),
-    'Nesin Matematik Köyü Ziyaretçi Rehberi: Şirince’de Gezginler İçeri Girebilir mi?',
-    'nesin-matematik-koyu-ziyaret-rehberi-sirince',
-    '<h1>Nesin Matematik Köyü Ziyaretçi Rehberi: Şirince’de Gezginler İçeri Girebilir mi?</h1>
+-- 1. Fix Nesin Math Village Content & Links
+UPDATE public.articles
+SET content = '<h1>Nesin Matematik Köyü Ziyaretçi Rehberi: Şirince’de Gezginler İçeri Girebilir mi?</h1>
 
 <p>Şirince''nin o meşhur kalabalığından ve dar sokaklarından biraz uzaklaşıp başınızı yukarı kaldırdığınızda, zeytin ağaçlarının arasında gizlenmiş taş yapıları fark edeceksiniz. İşte orası, sadece Türkiye''nin değil dünyanın da en özel eğitim alanlarından biri: Nesin Matematik Köyü ve hemen yanı başındaki Tiyatro Medresesi.</p>
 
@@ -154,12 +141,48 @@ VALUES (
         <h4 class="font-bold text-gray-900 text-lg">Şirince''ye ne kadar uzaklıkta?</h4>
         <p class="text-gray-700 mt-1">Şirince merkezden sadece 1 km kadar yukarıda. Yürüyerek 15-20 dakikada rahatça ulaşabilirsiniz.</p>
     </div>
-</div>',
-    '/images/blog/nesin_matematik_koyu_cover.png',
-    'Şirince, Selçuk',
-    'Nesin Matematik Köyü ziyaret edilir mi? Şirince’de sessizlik kuralları, Tiyatro Medresesi, fotoğraf etiği ve Şirince’den yürüyerek ulaşım tüyoları.',
-    TRUE,
-    CURRENT_TIMESTAMP + INTERVAL '19 seconds',
-    now(),
-    now()
-);
+</div>'
+WHERE slug = 'nesin-matematik-koyu-ziyaret-rehberi-sirince';
+
+-- 2. Fix St John Links
+UPDATE public.articles
+SET content = REPLACE(content, '/blog/izmirden-sirinceye-arabasiz-ulasim-izban-selcuk-dolmus', '/rehber/izmirden-sirinceye-arabasiz-ulasim-izban-selcuk-dolmus')
+WHERE slug = 'sirince-st-john-kilisesi-dilek-havuzu-cirkince-efsane';
+
+UPDATE public.articles
+SET content = REPLACE(content, '/blog/sirince-sarap-rehberi-meyve-sarabi-uzum', '/rehber/sirince-sarap-rehberi-meyve-sarabi-uzum')
+WHERE slug = 'sirince-st-john-kilisesi-dilek-havuzu-cirkince-efsane';
+
+-- Remove dead link from St John
+UPDATE public.articles
+SET content = REPLACE(content, '<li><a href="/blog/sirince-sokak-lezzetleri-rehberi" class="text-blue-600 hover:underline">Şirince Sokak Lezzetleri Rehberi</a></li>', '')
+WHERE slug = 'sirince-st-john-kilisesi-dilek-havuzu-cirkince-efsane';
+
+
+-- 3. Fix Budget Links
+UPDATE public.articles
+SET content = REPLACE(content, '/blog/izmirden-sirinceye-arabasiz-ulasim-izban-selcuk-dolmus', '/rehber/izmirden-sirinceye-arabasiz-ulasim-izban-selcuk-dolmus')
+WHERE slug = 'sirince-pahali-mi-butce-rehberi-2025';
+
+UPDATE public.articles
+SET content = REPLACE(content, '/blog/sirince-sarap-rehberi-meyve-sarabi-uzum', '/rehber/sirince-sarap-rehberi-meyve-sarabi-uzum')
+WHERE slug = 'sirince-pahali-mi-butce-rehberi-2025';
+
+UPDATE public.articles
+SET content = REPLACE(content, '/blog/efes-sirince-ayni-gun-rota', '/rehber/efes-sirince-ayni-gun-rota')
+WHERE slug = 'sirince-pahali-mi-butce-rehberi-2025';
+
+
+-- 4. Fix Efes Links
+UPDATE public.articles
+SET content = REPLACE(content, '/blog/izmirden-sirinceye-arabasiz-ulasim-izban-selcuk-dolmus', '/rehber/izmirden-sirinceye-arabasiz-ulasim-izban-selcuk-dolmus')
+WHERE slug = 'efes-sirince-ayni-gun-rota';
+
+UPDATE public.articles
+SET content = REPLACE(content, '/blog/nesin-matematik-koyu-ziyaret-rehberi-sirince', '/rehber/nesin-matematik-koyu-ziyaret-rehberi-sirince')
+WHERE slug = 'efes-sirince-ayni-gun-rota';
+
+-- Remove dead link from Efes
+UPDATE public.articles
+SET content = REPLACE(content, '<li><a href="/blog/sirince-sokak-lezzetleri-rehberi" class="text-blue-600 hover:underline">Şirince Sokak Lezzetleri Rehberi</a></li>', '')
+WHERE slug = 'efes-sirince-ayni-gun-rota';

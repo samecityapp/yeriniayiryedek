@@ -121,9 +121,8 @@ VALUES (
 <div class="bg-blue-50 p-6 rounded-lg my-8">
     <h3 class="font-bold text-gray-800 mb-4">Antigravity Önerileri</h3>
     <ul class="space-y-2 text-sm">
-        <li><a href="/blog/izmirden-sirinceye-arabasiz-ulasim-izban-selcuk-dolmus" class="text-blue-600 hover:underline">İzmir’den Şirince’ye Arabasız Ulaşım: İZBAN, Selçuk Dolmuşları</a></li>
-        <li><a href="/blog/sirince-sokak-lezzetleri-rehberi" class="text-blue-600 hover:underline">Şirince Sokak Lezzetleri Rehberi</a></li>
-        <li><a href="/blog/nesin-matematik-koyu-ziyaret-rehberi-sirince" class="text-blue-600 hover:underline">Nesin Matematik Köyü Ziyaretçi Rehberi (Vaktin kalırsa ek rota)</a></li>
+        <li><a href="/rehber/izmirden-sirinceye-arabasiz-ulasim-izban-selcuk-dolmus" class="text-blue-600 hover:underline">İzmir’den Şirince’ye Arabasız Ulaşım: İZBAN, Selçuk Dolmuşları</a></li>
+        <li><a href="/rehber/nesin-matematik-koyu-ziyaret-rehberi-sirince" class="text-blue-600 hover:underline">Nesin Matematik Köyü Ziyaretçi Rehberi (Vaktin kalırsa ek rota)</a></li>
     </ul>
 </div>
 

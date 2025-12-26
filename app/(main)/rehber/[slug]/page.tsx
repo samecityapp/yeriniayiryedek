@@ -13,6 +13,8 @@ import { RelatedArticles } from '@/components/RelatedArticles';
 import { LOCATIONS } from '@/lib/constants';
 import { ArticleList } from '@/components/ArticleList';
 import { getRandomAuthor } from '@/lib/authors';
+import { BlogAuthor } from '@/components/blog/BlogAuthor';
+
 
 type Props = { params: { slug: string } };
 
@@ -132,7 +134,7 @@ export default async function ArticlePage({ params }: Props) {
   });
 
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.yeriniayir.com';
-  const author = getRandomAuthor();
+  const author = getRandomAuthor(article.slug);
 
   const articleSchema = generateArticleSchema({
     title: getLocalizedText(article.title),
@@ -228,28 +230,9 @@ export default async function ArticlePage({ params }: Props) {
                 dangerouslySetInnerHTML={{ __html: getLocalizedText(article.content) }}
               />
 
-              {/* Persona Section */}
-              <div className="mt-24 pt-12 border-t border-zinc-100">
-                <div className="flex flex-col md:flex-row items-center md:items-start gap-8 bg-zinc-50/50 rounded-3xl p-8 border border-zinc-100 transition-all hover:bg-zinc-50">
-                  <div className="relative w-24 h-24 rounded-2xl overflow-hidden flex-shrink-0 shadow-lg ring-4 ring-white">
-                    <Image
-                      src={author.image}
-                      alt={author.name}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                  <div className="flex-1 text-center md:text-left">
-                    <p className="text-xs font-bold text-zinc-400 uppercase tracking-widest mb-2">Editörün Kaleminden</p>
-                    <h3 className="text-xl font-bold text-zinc-900 mb-1">{author.name}</h3>
-                    <p className="text-sm font-medium text-emerald-600 mb-4">{author.role}</p>
-                    <p className="text-zinc-600 leading-relaxed max-w-2xl">
-                      {author.bio}
-                    </p>
-                  </div>
-                </div>
-              </div>
+              <BlogAuthor author={author} />
             </div>
+
 
             <div className="mt-20">
               <RelatedHotels location={getLocalizedText(article.location)} />

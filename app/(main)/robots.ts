@@ -5,7 +5,7 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: '*',
       allow: '/',
-      disallow: ['/admin/', '/api/'],
+      disallow: ['/jilinrime/', '/api/'],
     },
     sitemap: 'https://www.yeriniayir.com/sitemap.xml',
   };

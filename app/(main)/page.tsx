@@ -10,7 +10,7 @@ import { generateOrganizationSchema } from '@/lib/schema-generator';
 import { Metadata } from 'next';
 import { Hotel } from '@/lib/types';
 
-export const revalidate = 3600;
+export const revalidate = 60;
 export const dynamic = 'force-static';
 
 export const metadata: Metadata = {

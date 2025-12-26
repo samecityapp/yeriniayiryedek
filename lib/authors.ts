@@ -30,9 +30,20 @@ export const AUTHORS: Author[] = [
     }
 ];
 
-export function getRandomAuthor(): Author {
+export function getRandomAuthor(seed?: string): Author {
     // Return Selin or Melis for now
     const candidates = AUTHORS.filter(a => a.id !== 'elif');
+
+    if (seed) {
+        // Deterministic selection based on seed string
+        let hash = 0;
+        for (let i = 0; i < seed.length; i++) {
+            hash = seed.charCodeAt(i) + ((hash << 5) - hash);
+        }
+        const index = Math.abs(hash) % candidates.length;
+        return candidates[index];
+    }
+
     return candidates[Math.floor(Math.random() * candidates.length)];
 }
 

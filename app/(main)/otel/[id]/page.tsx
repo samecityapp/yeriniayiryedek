@@ -20,7 +20,6 @@ import PremiumClassic from '@/components/hotel/ScoreCard/PremiumClassic';
 import { getLocalizedText } from '@/lib/localization';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { generateHotelSchema, generateBreadcrumbSchema } from '@/lib/schema-generator';
-import { getRandomAuthor } from '@/lib/authors';
 
 const LocationCard = dynamic(() => import('@/components/hotel/LocationCard'), {
   ssr: false,
@@ -122,8 +121,6 @@ export default async function HotelDetailPage({ params }: Props) {
     reviewCount: 0,
     text: 'İyi',
   };
-
-  const author = getRandomAuthor();
 
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.yeriniayir.com';
   const hotelSchema = generateHotelSchema(hotel);
@@ -244,6 +241,7 @@ export default async function HotelDetailPage({ params }: Props) {
             />
           </div>
 
+
           <MobileHotelInfo
             hotelName={getLocalizedText(hotel.name)}
             price={hotel.price}
@@ -345,30 +343,6 @@ export default async function HotelDetailPage({ params }: Props) {
             altPrefix={`${getLocalizedText(hotel.name)} - ${getLocalizedText(hotel.location)}`}
           />
 
-          {/* Editör İncelemesi Section */}
-          <div className="my-8 bg-emerald-50/30 border border-emerald-100 rounded-2xl p-6 sm:p-8 shadow-sm">
-            <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6">
-              <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden flex-shrink-0 shadow-md ring-4 ring-white">
-                <Image
-                  src={author.image}
-                  alt={author.name}
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <div className="flex-1 text-center sm:text-left">
-                <div className="flex flex-col sm:flex-row sm:items-baseline gap-2 mb-3 justify-center sm:justify-start">
-                  <h3 className="text-lg font-bold text-gray-900">{author.name}</h3>
-                  <span className="text-xs font-semibold text-emerald-600 bg-emerald-100 px-2.5 py-0.5 rounded-full uppercase tracking-wider">
-                    Editör İncelemesi
-                  </span>
-                </div>
-                <p className="text-gray-700 leading-relaxed italic text-[15px]">
-                  "{getLocalizedText(hotel.about) || `${getLocalizedText(hotel.name)}, ${getLocalizedText(hotel.location)} bölgesinde huzurlu ve kaliteli bir konaklama arayanlar için titizlikle seçtiğimiz, detaylardaki kalitesiyle bizi etkileyen bir nokta.`}"
-                </p>
-              </div>
-            </div>
-          </div>
 
           <div className="my-6 sm:my-8 bg-white border border-gray-200 rounded-2xl p-6 sm:p-8 shadow-sm">
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">

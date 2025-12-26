@@ -265,7 +265,7 @@ export default function OtelEklePage() {
         if (error) throw error;
         alert('Otel eklendi!');
       }
-      router.push('/admin/otel-listesi');
+      router.push('/jilinrime/otel-listesi');
     } catch (error: any) {
       console.error('Kaydetme hatası:', error);
       alert('Bir hata oluştu: ' + error.message);
@@ -292,7 +292,7 @@ export default function OtelEklePage() {
       <div className="container mx-auto px-4 max-w-5xl">
         <div className="flex items-center justify-between mb-8">
           <div>
-            <Link href="/admin/otel-listesi">
+            <Link href="/jilinrime/otel-listesi">
               <Button variant="ghost" className="mb-2">
                 <ArrowLeft className="mr-2" size={18} />
                 Geri

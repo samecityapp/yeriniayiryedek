@@ -221,6 +221,16 @@ export const holidayRegions = [
 
   // --- KAPADOKYA & İÇ ANADOLU ---
   {
+    city: "Kapadokya",
+    districts: [
+      { name: "Göreme", areas: [] },
+      { name: "Uçhisar", areas: [] },
+      { name: "Ürgüp", areas: [] },
+      { name: "Avanos", areas: [] },
+      { name: "Ortahisar", areas: [] }
+    ]
+  },
+  {
     city: "Nevşehir",
     districts: [
       {

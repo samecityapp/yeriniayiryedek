@@ -111,9 +111,8 @@ Köyün güzelliği çok konuşulmasın, nazar değmesin, dışarıdan gelenler 
 <div class="bg-gray-50 p-6 rounded-lg my-8">
     <h3 class="font-bold text-gray-800 mb-4">Önerilen Şirince Rehberleri</h3>
     <ul class="space-y-2 text-sm">
-        <li><a href="/blog/izmirden-sirinceye-arabasiz-ulasim-izban-selcuk-dolmus" class="text-blue-600 hover:underline">İzmir’den Şirince’ye Arabasız Ulaşım Rehberi</a></li>
-        <li><a href="/blog/sirince-sokak-lezzetleri-rehberi" class="text-blue-600 hover:underline">Şirince Sokak Lezzetleri Rehberi</a></li>
-        <li><a href="/blog/sirince-sarap-rehberi-meyve-sarabi-uzum" class="text-blue-600 hover:underline">Şirince Şarap Rehberi</a></li>
+        <li><a href="/rehber/izmirden-sirinceye-arabasiz-ulasim-izban-selcuk-dolmus" class="text-blue-600 hover:underline">İzmir’den Şirince’ye Arabasız Ulaşım Rehberi</a></li>
+        <li><a href="/rehber/sirince-sarap-rehberi-meyve-sarabi-uzum" class="text-blue-600 hover:underline">Şirince Şarap Rehberi</a></li>
     </ul>
 </div>
 
