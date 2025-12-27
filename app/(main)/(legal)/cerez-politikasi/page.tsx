@@ -1,84 +1,90 @@
 import React from 'react';
-import type { Metadata } from 'next';
 
-export const metadata: Metadata = {
+export const metadata = {
   title: 'Çerez Politikası | Yerini Ayır',
-  description: 'Yerini Ayır platformu çerez kullanım politikası ve tercih yönetimi.',
+  description: 'Yerini Ayır çerez kullanım politikası ve tercihlerinizi nasıl yönetebileceğiniz hakkında bilgiler.',
 };
 
-export default function CookiePolicy() {
-  const lastUpdated = new Date().toLocaleDateString('tr-TR', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  });
-
+export default function CerezPolitikasiPage() {
   return (
-    <main className="min-h-screen bg-white py-16 px-4 sm:px-6 lg:px-8">
-      <article className="prose prose-zinc prose-lg max-w-4xl mx-auto">
+    <div className="container mx-auto px-4 py-8 max-w-4xl">
+      <h1 className="text-3xl font-bold mb-8 text-gray-900">Çerez Politikası (Revize)</h1>
+      <div className="prose prose-lg max-w-none text-gray-700">
+        <p className="font-semibold text-gray-900">Son Güncelleme: 27.12.2025</p>
 
-        {/* Başlık Alanı */}
-        <div className="border-b border-zinc-200 pb-8 mb-10">
-          <h1 className="text-3xl font-bold text-zinc-900 mb-4 tracking-tight">
-            Çerez (Cookie) Politikası
-          </h1>
-          <p className="text-base text-zinc-500 font-medium">
-            Son Güncelleme: {lastUpdated}
-          </p>
-        </div>
-
-        {/* Giriş */}
+        <h3 className="text-xl font-bold text-gray-900 mt-6 mb-3">1. Çerez Nedir?</h3>
         <p>
-          Bu Çerez Politikası, Yerini Ayır ("Biz", "Platform") tarafından kullanılan çerezlerin türlerini, kullanım amaçlarını ve bu çerezleri nasıl yönetebileceğinizi açıklamaktadır.
-          Çerez kullanımımız, <strong>KVKK</strong> ve <strong>GDPR</strong> düzenlemelerine tam uyumlu olarak yürütülmektedir.
+          Çerezler; tarayıcınızda saklanan küçük dosyalardır. Bazıları kişisel veri niteliği taşıyabilir.
         </p>
 
-        <h3>1. Çerez Nedir?</h3>
-        <p>Çerezler, web sitemizi ziyaret ettiğinizde tarayıcınız aracılığıyla cihazınıza (bilgisayar, tablet, telefon) kaydedilen küçük metin dosyalarıdır. Bu dosyalar, site tercihlerinizin hatırlanmasını, oturumunuzun açık kalmasını ve sitenin daha performanslı çalışmasını sağlar.</p>
-
-        <h3>2. Kullandığımız Çerez Türleri</h3>
-        <p>Platformumuzda aşağıdaki kategorilerde çerezler kullanılmaktadır:</p>
-
-        <div className="not-prose grid gap-4 my-8">
-          <div className="bg-zinc-50 p-4 rounded-lg border border-zinc-200">
-            <h4 className="font-bold text-zinc-900 mb-2">🔒 Zorunlu (Gerekli) Çerezler</h4>
-            <p className="text-sm text-zinc-600 mb-0">Sitenin temel fonksiyonlarının (sayfa geçişleri, güvenlik, oturum açma) çalışması için şarttır. Bu çerezler kapatılamaz.</p>
-          </div>
-          <div className="bg-zinc-50 p-4 rounded-lg border border-zinc-200">
-            <h4 className="font-bold text-zinc-900 mb-2">📊 Performans ve Analitik Çerezleri</h4>
-            <p className="text-sm text-zinc-600 mb-0">Ziyaretçi sayısını, en çok okunan sayfaları ve site performansını ölçmemizi sağlar. <strong>Google Analytics</strong> ve <strong>Vercel Analytics</strong> araçları bu amaçla kullanılır. İzninize tabidir.</p>
-          </div>
-          <div className="bg-zinc-50 p-4 rounded-lg border border-zinc-200">
-            <h4 className="font-bold text-zinc-900 mb-2">🔥 Davranışsal Analiz Çerezleri</h4>
-            <p className="text-sm text-zinc-600 mb-0">Kullanıcıların site içindeki tıklama ve gezinme haritalarını oluşturmak için <strong>Microsoft Clarity</strong> kullanılır. Kişisel veriler anonimleştirilir.</p>
-          </div>
-        </div>
-
-        <h3>3. Çerezleri Nasıl Yönetebilirsiniz?</h3>
-        <p>Çerez tercihlerinizi dilediğiniz zaman değiştirebilirsiniz:</p>
-        <ul>
-          <li><strong>Site Üzerinden:</strong> Sitemizin alt kısmında yer alan "Çerez Ayarları" panelini kullanarak onayınızı geri çekebilirsiniz.</li>
-          <li><strong>Tarayıcı Ayarlarından:</strong> Kullandığınız tarayıcının (Chrome, Safari, Firefox vb.) ayarlar menüsünden tüm çerezleri silebilir veya engelleyebilirsiniz.</li>
+        <h3 className="text-xl font-bold text-gray-900 mt-6 mb-3">2. Çerez Kategorileri ve Hukuki Dayanak</h3>
+        <ul className="list-disc pl-5 space-y-1">
+          <li><strong>Zorunlu Çerezler:</strong> Site’nin çalışması için gerekli (onay gerektirmez)</li>
+          <li><strong>Fonksiyonel Çerezler:</strong> Tercihleri hatırlama (tercihe göre)</li>
+          <li><strong>Analitik/Performans Çerezleri:</strong> Trafik ve performans ölçümü (açık rıza)</li>
+          <li><strong>Reklam/Pazarlama Çerezleri:</strong> Davranışsal reklam (açık rıza)</li>
         </ul>
-
-        <h3>4. Veri Güvenliği</h3>
-        <p>
-          Çerezler aracılığıyla toplanan veriler, sadece belirtilen amaçlar doğrultusunda ve yasal saklama süreleri boyunca güvenli sunucularda (Supabase, Vercel) saklanır.
-          Daha fazla bilgi için <a href="/gizlilik-politikasi">Gizlilik Politikamızı</a> inceleyebilirsiniz.
+        <p className="mt-2">
+          KVKK Kurumu’nun güncel rehberlerine göre, özellikle analitik ve davranışsal ölçüm için açık rıza yaklaşımı esas alınmaktadır.
         </p>
 
-        <div className="mt-12 pt-8 border-t border-zinc-200">
-          <h3>5. İletişim</h3>
-          <p>
-            Çerez politikamızla ilgili sorularınız için:
-          </p>
-          <p className="font-medium text-zinc-900">
-            E-posta: privacy@gnkotel.com<br />
-            Konum: İstanbul, Türkiye
-          </p>
-        </div>
+        <h3 className="text-xl font-bold text-gray-900 mt-6 mb-3">3. Çerez Listesi</h3>
+        <p>
+          Web sitemizde kullanılan çerezler aşağıdaki kategorilere ayrılmaktadır:
+        </p>
 
-      </article>
-    </main>
+        <div className="overflow-x-auto mt-4 mb-6">
+          <table className="min-w-full text-sm text-left border rounded-lg overflow-hidden">
+            <thead className="bg-gray-100 text-gray-900 font-bold border-b">
+              <tr>
+                <th className="px-4 py-3">Çerez Kategorisi</th>
+                <th className="px-4 py-3">Amaç</th>
+                <th className="px-4 py-3">Dayanak</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-200">
+              <tr>
+                <td className="px-4 py-3 font-medium">Zorunlu</td>
+                <td className="px-4 py-3">Site güvenliği, oturum yönetimi ve temel fonksiyonların çalışması.</td>
+                <td className="px-4 py-3">Meşru Menfaat</td>
+              </tr>
+              <tr>
+                <td className="px-4 py-3 font-medium">Analitik</td>
+                <td className="px-4 py-3">Ziyaretçi sayıları ve trafik kaynaklarını takip ederek site performansını ölçmek.</td>
+                <td className="px-4 py-3">Açık Rıza</td>
+              </tr>
+              <tr>
+                <td className="px-4 py-3 font-medium">Pazarlama</td>
+                <td className="px-4 py-3">Kullanıcı ilgi alanlarına göre özelleştirilmiş içerik sunmak.</td>
+                <td className="px-4 py-3">Açık Rıza</td>
+              </tr>
+              <tr>
+                <td className="px-4 py-3 font-medium">İşlevsel</td>
+                <td className="px-4 py-3">Dil tercihleri gibi kişiselleştirilmiş ayarların hatırlanması.</td>
+                <td className="px-4 py-3">Açık Rıza / Meşru Menfaat</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p className="text-sm italic text-gray-500">
+          Not: Detaylı çerez listesi ve yönetim seçenekleri için sitemizin alt kısmında yer alan "Çerez Ayarları" panelini kullanabilirsiniz.
+        </p>
+
+        <h3 className="text-xl font-bold text-gray-900 mt-6 mb-3">4. Onay Yönetimi ve Geri Alma</h3>
+        <p>
+          Analitik/pazarlama çerezleri varsayılan olarak kapalı sunulmaktadır; Kullanıcı açıkça seçerek bunları aktif hale getirebilir. Onayınızı dilediğiniz an geri almak veya değiştirmek için <strong>"Çerez Ayarları"</strong> panelini kullanabilirsiniz.
+        </p>
+
+        <h3 className="text-xl font-bold text-gray-900 mt-6 mb-3">5. Tarayıcı Üzerinden Yönetim</h3>
+        <p>
+          Chrome, Safari, Firefox gibi tarayıcıların ayarlar menüsünden çerezleri silebilir veya engelleyebilirsiniz. Ancak zorunlu çerezleri engellemek Site’nin çalışmasını etkileyebilir.
+        </p>
+
+        <h3 className="text-xl font-bold text-gray-900 mt-6 mb-3">6. İletişim</h3>
+        <p>
+          Çerez politikamızla ilgili sorularınız için: <strong>info@yeriniayir.com</strong>
+        </p>
+      </div>
+    </div>
   );
 }

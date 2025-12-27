@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
 import { Tag, PriceTag } from '@/lib/types';
 import { getLocalizedText } from '@/lib/localization';
+import { LOCATIONS } from '@/lib/constants';
 import { Search, MapPin, Tag as TagIcon, Hotel } from 'lucide-react';
 import * as LucideIcons from 'lucide-react';
 
@@ -143,9 +144,17 @@ export default function SearchFilters() {
     // Localize locations first, then deduplicate
     const normalizedLocations = Array.from(new Set(allHotels.map(h => getLocalizedText(h.location))));
 
-    normalizedLocations
+    // Add static locations from constants that match
+    const staticLocations = LOCATIONS
+      .map(l => l.title)
+      .filter(l => l.toLowerCase().includes(query));
+
+    // Merge and deduplicate
+    const combinedLocations = Array.from(new Set([...normalizedLocations, ...staticLocations]));
+
+    combinedLocations
       .filter(loc => loc && loc.toLowerCase().includes(query))
-      .slice(0, 3)
+      .slice(0, 5) // Increased limit
       .forEach(loc => {
         newSuggestions.push({
           type: 'location',

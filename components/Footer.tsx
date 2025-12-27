@@ -13,7 +13,7 @@ export async function Footer() {
   return (
     <footer className="bg-white text-gray-600 mt-20 border-t border-gray-200">
       <div className="max-w-7xl mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-8 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
 
           {/* Brand Section */}
           <div className="space-y-4">
@@ -96,18 +96,7 @@ export async function Footer() {
             </ul>
           </div>
 
-          {/* Contact */}
-          <div>
-            <h3 className="text-gray-900 font-semibold text-lg mb-4">İletişim</h3>
-            <ul className="space-y-3">
-              <li className="flex items-center gap-2 text-sm">
-                <Mail className="w-4 h-4 text-blue-600" />
-                <a href="mailto:hello@yeriniayir.com" className="hover:text-blue-600 transition-colors">
-                  hello@yeriniayir.com
-                </a>
-              </li>
-            </ul>
-          </div>
+
         </div>
 
         {/* Bottom Bar */}
@@ -147,15 +136,7 @@ export async function Footer() {
               >
                 <Instagram className="w-5 h-5" />
               </a>
-              <a
-                href="https://gnkoteller.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 flex items-center justify-center transition-colors"
-                aria-label="Website"
-              >
-                <Globe className="w-5 h-5" />
-              </a>
+
             </div>
           </div>
         </div>

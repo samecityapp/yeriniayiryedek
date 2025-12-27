@@ -23,4 +23,10 @@ export const LOCATIONS = [
         image: '/images/guidemaps/sapanca_card.png?v=2',
         description: 'Doğa ile iç içe, göl kenarında ve orman içinde huzurlu bir kaçamak rotası.',
     },
+    {
+        slug: 'kapadokya',
+        title: 'Kapadokya',
+        image: 'https://images.unsplash.com/photo-1541185933-ef5d8ed016c2?q=80&w=2070&auto=format&fit=crop',
+        description: 'Peri bacaları, balon turları ve yer altı şehirleriyle masalsı bir atmosfer.',
+    },
 ];

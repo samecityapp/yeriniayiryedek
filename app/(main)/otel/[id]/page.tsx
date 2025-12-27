@@ -19,7 +19,7 @@ import { HotelFAQ } from '@/components/hotel/HotelFAQ';
 import PremiumClassic from '@/components/hotel/ScoreCard/PremiumClassic';
 import { getLocalizedText } from '@/lib/localization';
 import { JsonLd } from '@/components/seo/JsonLd';
-import { generateHotelSchema, generateBreadcrumbSchema } from '@/lib/schema-generator';
+import { generateHotelSchema, generateBreadcrumbSchema, generateFAQSchema } from '@/lib/schema-generator';
 
 const LocationCard = dynamic(() => import('@/components/hotel/LocationCard'), {
   ssr: false,
@@ -205,18 +205,7 @@ export default async function HotelDetailPage({ params }: Props) {
     ? hotel.faqs.filter(f => f.answer && f.answer.trim().length > 0)
     : defaultFaqs;
 
-  const faqSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    mainEntity: displayFaqs.map(faq => ({
-      '@type': 'Question',
-      name: faq.question,
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: faq.answer
-      }
-    }))
-  };
+  const faqSchema = generateFAQSchema(displayFaqs);
 
   return (
     <>
@@ -238,6 +227,7 @@ export default async function HotelDetailPage({ params }: Props) {
               videoUrl={hotel.video_url}
               videoThumbnailUrl={hotel.video_thumbnail_url}
               altPrefix={`${getLocalizedText(hotel.name)} - ${getLocalizedText(hotel.location)}`}
+              priority={true}
             />
           </div>
 
@@ -341,6 +331,7 @@ export default async function HotelDetailPage({ params }: Props) {
             videoUrl={hotel.video_url}
             videoThumbnailUrl={hotel.video_thumbnail_url}
             altPrefix={`${getLocalizedText(hotel.name)} - ${getLocalizedText(hotel.location)}`}
+            priority={true}
           />
 
 

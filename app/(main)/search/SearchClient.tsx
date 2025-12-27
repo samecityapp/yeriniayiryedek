@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
-import { MapPin, Star, ListFilter as Filter, SlidersHorizontal, AlertCircle } from 'lucide-react';
+import { MapPin, Star, ListFilter as Filter, SlidersHorizontal, AlertCircle, Search } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 import { Hotel, Tag, PriceTag } from '@/lib/types';
 import { getLocalizedText } from '@/lib/localization';
@@ -110,7 +110,7 @@ export default function SearchClient() {
     if (locationQuery) {
       const locationLower = locationQuery.toLocaleLowerCase('tr-TR');
       processedHotels = processedHotels.filter(hotel =>
-        getLocalizedText(hotel.location).toLocaleLowerCase('tr-TR') === locationLower
+        getLocalizedText(hotel.location).toLocaleLowerCase('tr-TR').includes(locationLower)
       );
     } else {
       const priceQuery = priceTags.find(pt => pt.slug === query);
@@ -361,18 +361,40 @@ export default function SearchClient() {
                   </Link>
                 ))
               ) : (
-                <div className="text-center py-24 bg-white rounded-xl">
-                  <div className="text-6xl mb-6">🔍</div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-2">Sonuç Bulunamadı</h3>
-                  <p className="text-gray-500 mb-6">Filtrelerinize uygun otel bulunamadı.</p>
-                  {selectedTags.length > 0 && (
-                    <button
-                      onClick={clearFilters}
-                      className="px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors"
-                    >
-                      Filtreleri Temizle
-                    </button>
-                  )}
+                <div className="text-center py-24 bg-white rounded-xl shadow-sm border border-gray-100">
+                  <div className="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <Search className="w-10 h-10 text-gray-400" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-3">
+                    {locationQuery
+                      ? `${getSearchTitle()} Bulunamadı`
+                      : 'Sonuç Bulunamadı'}
+                  </h3>
+                  <p className="text-gray-500 mb-8 max-w-md mx-auto">
+                    {locationQuery
+                      ? 'Henüz bu konumdan otel önerimiz bulunmuyor. Ancak diğer harika otellerimize göz atabilirsiniz.'
+                      : 'Arama kriterlerinize uygun otel bulunamadı. Filtreleri temizleyerek veya farklı bir arama yaparak tekrar deneyebilirsiniz.'}
+                  </p>
+
+                  <div className="flex justify-center gap-4">
+                    {locationQuery ? (
+                      <Link
+                        href="/search"
+                        className="px-8 py-3 bg-[#FF385C] hover:bg-[#D90B3E] text-white rounded-full font-semibold transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 active:scale-95"
+                      >
+                        Tüm Otelleri Gör
+                      </Link>
+                    ) : (
+                      selectedTags.length > 0 && (
+                        <button
+                          onClick={clearFilters}
+                          className="px-8 py-3 bg-gray-900 text-white rounded-full font-semibold hover:bg-gray-800 transition-all duration-300 shadow-md hover:shadow-lg hover:scale-105 active:scale-95"
+                        >
+                          Filtreleri Temizle
+                        </button>
+                      )
+                    )}
+                  </div>
                 </div>
               )}
             </div>

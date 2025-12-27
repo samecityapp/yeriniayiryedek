@@ -5,6 +5,7 @@ import { Check, ChevronsUpDown } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
 import { holidayRegions } from '@/lib/constants/regions'
+import { LOCATIONS } from '@/lib/constants'
 
 import { Button } from '@/components/ui/button'
 import {
@@ -100,7 +101,12 @@ export default function LocationSelect({
 
     const options = React.useMemo(() => {
         // client-side güvenli + stable
-        return flattenHolidayRegions(holidayRegions as any)
+        const regions = flattenHolidayRegions(holidayRegions as any)
+        const popularLocations = LOCATIONS.map(l => l.title)
+
+        // Merge and deduplicate
+        const combined = new Set([...regions, ...popularLocations])
+        return Array.from(combined).sort((a, b) => a.localeCompare(b, 'tr-TR'))
     }, [])
 
     // Command'in filter prop'u: 0 dönerse item görünmez

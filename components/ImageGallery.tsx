@@ -15,9 +15,10 @@ type ImageGalleryProps = {
   videoThumbnailUrl?: string | null;
   onClose?: () => void;
   altPrefix?: string;
+  priority?: boolean;
 };
 
-export function ImageGallery({ images, videoUrl, videoThumbnailUrl, onClose, altPrefix = 'Yerini Ayır' }: ImageGalleryProps) {
+export function ImageGallery({ images, videoUrl, videoThumbnailUrl, onClose, altPrefix = 'Yerini Ayır', priority = false }: ImageGalleryProps) {
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
   const [isVideoOpen, setIsVideoOpen] = useState(false);
 
@@ -83,7 +84,7 @@ export function ImageGallery({ images, videoUrl, videoThumbnailUrl, onClose, alt
               fill
               sizes="100vw"
               className="object-cover group-hover:scale-105 transition-transform duration-500"
-              priority
+              priority={priority}
             />
           </div>
         ) : null}
@@ -110,7 +111,7 @@ export function ImageGallery({ images, videoUrl, videoThumbnailUrl, onClose, alt
                   fill
                   sizes="380px"
                   className="object-cover"
-                  priority
+                  priority={priority}
                 />
               ) : displayImages[0] ? (
                 <Image
@@ -119,7 +120,7 @@ export function ImageGallery({ images, videoUrl, videoThumbnailUrl, onClose, alt
                   fill
                   sizes="380px"
                   className="object-cover"
-                  priority
+                  priority={priority}
                 />
               ) : null}
               <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/30 transition-colors">
@@ -136,7 +137,7 @@ export function ImageGallery({ images, videoUrl, videoThumbnailUrl, onClose, alt
                 fill
                 sizes="380px"
                 className="object-cover group-hover:scale-105 transition-transform duration-500"
-                priority
+                priority={priority}
               />
             </div>
           ) : null}

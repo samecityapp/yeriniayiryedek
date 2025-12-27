@@ -1,109 +1,80 @@
 import React from 'react';
-import type { Metadata } from 'next';
 
-export const metadata: Metadata = {
+export const metadata = {
   title: 'Gizlilik Politikası | Yerini Ayır',
-  description: 'Yerini Ayır platformu veri koruma, KVKK ve GDPR uyumluluk politikası.',
+  description: 'Yerini Ayır gizlilik politikası ve kişisel verilerin korunması hakkında bilgilendirme.',
 };
 
-export default function PrivacyPolicy() {
-  const lastUpdated = new Date().toLocaleDateString('tr-TR', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  });
-
+export default function GizlilikPolitikasiPage() {
   return (
-    <main className="min-h-screen bg-white py-16 px-4 sm:px-6 lg:px-8">
-      <article className="prose prose-zinc prose-lg max-w-4xl mx-auto">
+    <div className="container mx-auto px-4 py-8 max-w-4xl">
+      <h1 className="text-3xl font-bold mb-8 text-gray-900">Gizlilik Politikası (Revize)</h1>
+      <div className="prose prose-lg max-w-none text-gray-700">
+        <p className="font-semibold text-gray-900">Son Güncelleme: 27.12.2025</p>
 
-        {/* Başlık Alanı */}
-        <div className="border-b border-zinc-200 pb-8 mb-10">
-          <h1 className="text-4xl font-bold text-zinc-900 mb-4 tracking-tight">
-            Gizlilik Politikası
-          </h1>
-          <p className="text-base text-zinc-500 font-medium">
-            Son Güncelleme: {lastUpdated}
-          </p>
-        </div>
-
-        {/* Giriş */}
+        <h3 className="text-xl font-bold text-gray-900 mt-6 mb-3">1. Veri Sorumlusu</h3>
         <p>
-          Yerini Ayır ("Platform", "Biz") olarak, kullanıcılarımızın kişisel verilerinin güvenliğini en yüksek standartlarda korumayı taahhüt ediyoruz.
-          Bu Gizlilik Politikası; <strong>6698 sayılı Kişisel Verilerin Korunması Kanunu ("KVKK")</strong>, Avrupa Birliği <strong>Genel Veri Koruma Tüzüğü ("GDPR")</strong> ve ilgili diğer mevzuata uygun olarak hazırlanmıştır.
+          KVKK kapsamında veri sorumlusu: <strong>Yerini Ayır</strong><br />
+          MERSİS/Vergi No: [İlgili Bilgiler Eklenecektir] – Adres: [İlgili Bilgiler Eklenecektir]<br />
+          İletişim: info@yeriniayir.com
         </p>
 
-        {/* 1. Veri Toplama */}
-        <h3>1. Topladığımız Kişisel Veriler</h3>
-        <p>Platformu kullanırken doğrudan veya dolaylı olarak aşağıdaki verileri toplayabiliriz:</p>
-        <ul>
-          <li><strong>Otomatik Toplanan Veriler:</strong> IP adresi, tarayıcı türü, cihaz bilgisi, işletim sistemi ve site içi gezinme hareketleri (Tıklamalar, sayfada kalma süreleri).</li>
-          <li><strong>İletişim Verileri:</strong> Bültenimize (Newsletter) abone olmanız durumunda e-posta adresiniz.</li>
-          <li><strong>Kullanım Verileri:</strong> Arama terimleri ve filtreleme tercihleri.</li>
+        <h3 className="text-xl font-bold text-gray-900 mt-6 mb-3">2. Hangi Verileri Topluyoruz?</h3>
+        <p>Platform’u kullandığınızda şu veriler işlenebilir:</p>
+        <ul className="list-disc pl-5 space-y-1">
+          <li><strong>İşlem güvenliği verileri:</strong> IP, cihaz/tarayıcı bilgileri, log kayıtları</li>
+          <li><strong>Kullanım verileri:</strong> sayfa görüntüleme, tıklama, arama/filtre tercihleri</li>
+          <li><strong>İletişim verileri:</strong> bülten aboneliği varsa e-posta</li>
+          <li><strong>Çerez verileri:</strong> tercih/analitik çerezleri (detay: Çerez Politikası)</li>
         </ul>
-        <div className="bg-zinc-50 p-4 rounded-lg border-l-4 border-zinc-900 text-sm my-6">
-          <strong>Önemli Not:</strong> Yerini Ayır bir rezervasyon acentesi değildir. Sitemiz üzerinden doğrudan ödeme alınmaz, kredi kartı bilgisi işlenmez ve saklanmaz. Tüm rezervasyon işlemleri yönlendirilen otelin veya partner sitenin sorumluluğundadır.
-        </div>
-
-        {/* 2. İşleme Amaçları */}
-        <h3>2. Verilerinizi Neden İşliyoruz?</h3>
-        <p>Toplanan veriler şu meşru amaçlarla işlenir:</p>
-        <ul>
-          <li><strong>Hizmet İyileştirme:</strong> Sitemizin performansını ölçmek ve kullanıcı deneyimini (UX) geliştirmek.</li>
-          <li><strong>Güvenlik:</strong> Siber saldırıları önlemek, bot trafiğini engellemek ve sistem güvenliğini sağlamak (Rate Limiting).</li>
-          <li><strong>Analitik:</strong> Hangi bölgelerin popüler olduğunu anlamak ve içerik stratejimizi buna göre belirlemek.</li>
-          <li><strong>Yasal Yükümlülük:</strong> 5651 sayılı kanun gereği zorunlu trafik loglarını tutmak.</li>
-        </ul>
-
-        {/* 3. Üçüncü Taraflar */}
-        <h3>3. Verilerin Paylaşımı ve Altyapı Sağlayıcıları</h3>
-        <p>Kişisel verileriniz asla pazarlama amacıyla üçüncü şahıslara satılmaz. Ancak hizmeti sunabilmek için aşağıdaki küresel altyapı sağlayıcıları ile çalışıyoruz:</p>
-        <ul>
-          <li><strong>Vercel Inc. (ABD):</strong> Hosting ve sunucu hizmetleri.</li>
-          <li><strong>Supabase (Singapur/ABD):</strong> Veritabanı ve kimlik doğrulama hizmetleri.</li>
-          <li><strong>Google Analytics (ABD):</strong> Site trafiği analizi.</li>
-          <li><strong>Microsoft Clarity (ABD):</strong> Kullanıcı davranış analizi (Isı haritaları).</li>
-          <li><strong>Upstash (ABD):</strong> Güvenlik ve hız sınırlaması (DDoS koruması).</li>
-        </ul>
-        <p>Bu sağlayıcılar, verilerinizi uluslararası veri aktarımı standartlarına (GDPR Standard Contractual Clauses) uygun olarak işler.</p>
-
-        {/* 4. Çerezler */}
-        <h3>4. Çerezler (Cookies)</h3>
-        <p>
-          Sitemizde deneyiminizi geliştirmek için zorunlu ve analitik çerezler kullanıyoruz. Tarayıcı ayarlarınızdan çerezleri dilediğiniz zaman silebilirsiniz.
-          Detaylar için <a href="/cerez-politikasi">Çerez Politikamızı</a> inceleyin.
+        <p className="mt-2">
+          Platform üzerinden ödeme alınmaz; kredi kartı verisi işlenmez.
         </p>
 
-        {/* 5. Haklarınız */}
-        <h3>5. Kullanıcı Hakları (KVKK & GDPR)</h3>
-        <p>Kullanıcı olarak aşağıdaki haklara sahipsiniz:</p>
-        <ul>
-          <li>Verilerinizin işlenip işlenmediğini öğrenme,</li>
-          <li>Verilerinizin düzeltilmesini veya silinmesini ("Unutulma Hakkı") talep etme,</li>
-          <li>Verilerinizin işlenmesine itiraz etme.</li>
+        <h3 className="text-xl font-bold text-gray-900 mt-6 mb-3">3. Amaçlar ve Hukuki Sebepler (KVKK m.5)</h3>
+        <p>Verilerinizi aşağıdaki amaçlarla işleriz:</p>
+        <ul className="list-disc pl-5 space-y-1">
+          <li>Platform’un çalışması, güvenliği, dolandırıcılık/saldırı önleme (meşru menfaat)</li>
+          <li>Analiz/iyileştirme (analitik) (açık rıza gerektiren haller dahil)</li>
+          <li>Hukuki yükümlülüklerin yerine getirilmesi (kanuni yükümlülük/kanunda öngörülme)</li>
+          <li>Bülten gönderimi (ticari elektronik ileti onayı/açık rıza)</li>
         </ul>
 
-        {/* 6. Güvenlik */}
-        <h3>6. Veri Güvenliği</h3>
+        <h3 className="text-xl font-bold text-gray-900 mt-6 mb-3">4. Çerezler ve Benzeri Teknolojiler</h3>
         <p>
-          Verileriniz; <strong>SSL/TLS şifreleme</strong>, <strong>RLS (Row Level Security)</strong> politikaları ve <strong>Güvenlik Duvarları</strong> ile korunmaktadır.
-          Verilerinize yetkisiz erişimi engellemek için "En Az Yetki" (Least Privilege) prensibi uygulanır.
+          Zorunlu çerezler Platform’un çalışması için kullanılır. Analitik/performans ve benzeri çerezler için tercih panelinden onay alınır; onayınızı dilediğiniz an geri çekebilirsiniz. (Detay: Çerez Politikası)
         </p>
 
-        {/* 7. İletişim */}
-        <div className="mt-12 pt-8 border-t border-zinc-200">
-          <h3>7. İletişim</h3>
-          <p>
-            Gizlilik veya veri güvenliği ile ilgili sorularınız için bizimle iletişime geçebilirsiniz:
-          </p>
-          <p className="font-medium text-zinc-900">
-            Yerini Ayır Veri Koruma Birimi<br />
-            E-posta: info@gnkotel.com<br />
-            Konum: İstanbul, Türkiye
-          </p>
-        </div>
+        <h3 className="text-xl font-bold text-gray-900 mt-6 mb-3">5. Kimlerle Paylaşıyoruz?</h3>
+        <p>
+          Kişisel verileriniz satılmaz. Ancak hizmetin sunulması için veri işleyen konumundaki altyapı/analitik sağlayıcılarla paylaşılabilir (ör. barındırma, veritabanı, güvenlik, analiz hizmetleri). Mevzuat gereği yetkili kurumlara aktarım yapılabilir.
+        </p>
 
-      </article>
-    </main>
+        <h3 className="text-xl font-bold text-gray-900 mt-6 mb-3">6. Yurt Dışına Veri Aktarımı</h3>
+        <p>
+          Bazı hizmet sağlayıcılar yurt dışında bulunabilir; bu durumda kişisel veriler KVKK m.9 kapsamındaki güncel aktarım rejimine göre aktarılır (ör. yeterlilik kararı veya uygun güvenceler/standart sözleşmeler gibi mekanizmalar ve gerekli hallerde açık rıza).
+        </p>
+
+        <h3 className="text-xl font-bold text-gray-900 mt-6 mb-3">7. Saklama Süreleri</h3>
+        <p>
+          Veriler; amaç için gerekli süre boyunca ve mevzuatta öngörülen süreler kadar saklanır. Trafik/log kayıtları, 5651 sayılı kanun çerçevesinde ilgili sürelerde saklanabilir.
+        </p>
+
+        <h3 className="text-xl font-bold text-gray-900 mt-6 mb-3">8. Veri Güvenliği</h3>
+        <p>
+          Uygun teknik ve idari tedbirler (erişim kontrolü, şifreleme, yetkilendirme, loglama, yedekleme vb.) uygulanır. Buna rağmen internet üzerinden iletimde %100 güvenlik garanti edilemez.
+        </p>
+
+        <h3 className="text-xl font-bold text-gray-900 mt-6 mb-3">9. Haklarınız (KVKK m.11)</h3>
+        <p>
+          KVKK m.11 kapsamındaki haklarınızı kullanabilirsiniz (işlenip işlenmediğini öğrenme, bilgi talebi, düzeltme, silme/yok etme, aktarılan üçüncü kişileri bilme, itiraz, zararın giderilmesini talep vb.). Başvurularınızı <strong>info@yeriniayir.com</strong> üzerinden iletebilirsiniz.
+        </p>
+
+        <h3 className="text-xl font-bold text-gray-900 mt-6 mb-3">10. Değişiklikler</h3>
+        <p>
+          Politika güncellenebilir; güncel metin Platform’da yayımlanır.
+        </p>
+      </div>
+    </div>
   );
 }

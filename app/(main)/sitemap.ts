@@ -22,6 +22,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8,
   }));
 
+  // Get all location pages
+  const locationUrls = (require('@/lib/constants').LOCATIONS as any[]).map((loc) => ({
+    url: `${baseUrl}/otel/${loc.slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly' as const,
+    priority: 0.9,
+  }));
+
   return [
     {
       url: baseUrl,
@@ -61,5 +69,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
     ...hotelUrls,
     ...articleUrls,
+    ...locationUrls,
   ];
 }

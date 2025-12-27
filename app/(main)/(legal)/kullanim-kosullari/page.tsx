@@ -1,162 +1,91 @@
-import { Metadata } from 'next';
+import React from 'react';
 
-export const metadata: Metadata = {
-  title: 'Kullanım Koşulları',
-  description: 'Yerini Ayır kullanım koşulları ve sorumluluk bildirimi',
+export const metadata = {
+  title: 'Kullanım Koşulları | Yerini Ayır',
+  description: 'Yerini Ayır kullanım koşulları, hizmet şartları ve yasal sorumluluklar hakkında bilgilendirme.',
 };
 
-export default function TermsOfUsePage() {
+export default function KullanimKosullariPage() {
   return (
-    <article className="prose prose-zinc max-w-none">
-      <h1 className="text-3xl sm:text-4xl font-bold text-zinc-900 mb-8">
-        Kullanım Koşulları
-      </h1>
+    <div className="container mx-auto px-4 py-8 max-w-4xl">
+      <h1 className="text-3xl font-bold mb-8 text-gray-900">Kullanım Koşulları (Revize)</h1>
+      <div className="prose prose-lg max-w-none text-gray-700">
+        <p className="font-semibold text-gray-900">Son Güncelleme: 27.12.2025</p>
 
-      <p className="text-zinc-600 text-lg mb-8">
-        Son güncelleme: {new Date().toLocaleDateString('tr-TR')}
-      </p>
+        <h3 className="text-xl font-bold text-gray-900 mt-6 mb-3">1. Taraflar ve Kapsam</h3>
+        <p>
+          Bu Kullanım Koşulları ("Koşullar"), YeriniAyir.com alan adlı internet sitesinin ("Platform") kullanımına ilişkindir. Platform’un sahibi ve işleteni <strong>Yerini Ayır</strong>’dır ("Şirket", "Biz"). Platform’u ziyaret eden veya kullanan herkes ("Kullanıcı") bu Koşulları okumuş ve kabul etmiş sayılır.
+        </p>
 
-      <div className="bg-amber-50 border-l-4 border-amber-500 p-6 my-8 rounded-r-lg">
-        <h3 className="text-lg font-semibold text-amber-900 mt-0 mb-2">Önemli Uyarı</h3>
-        <p className="text-amber-800 mb-0">
-          Yerini Ayır, bir rezervasyon acentesi, tur operatörü veya otel işletmecisi değildir.
-          Sitemizde yer alan oteller, fiyatlar ve diğer bilgiler, bilgilendirme amaçlıdır ve
-          doğruluğu üçüncü taraf sağlayıcılara (oteller, rezervasyon siteleri) bağlıdır.
+        <h3 className="text-xl font-bold text-gray-900 mt-6 mb-3">2. Platform’un Niteliği – Rezervasyon Hizmeti Sunmuyoruz</h3>
+        <p>
+          Platform; otel/konaklama seçeneklerini keşif ve listeleme amacıyla tanıtır. Platform rezervasyon acentesi, tur operatörü veya otel işletmecisi değildir; Platform üzerinden ödeme alınmaz, kredi kartı bilgisi işlenmez. Rezervasyon, ödeme, iptal, iade ve değişiklik süreçleri; Kullanıcı’nın yönlendirildiği otel veya üçüncü taraf rezervasyon platformu koşullarına tabidir.
+        </p>
+
+        <h3 className="text-xl font-bold text-gray-900 mt-6 mb-3">3. Bilgilerin Doğruluğu – Sorumluluk Sınırı</h3>
+        <p>
+          Fiyat, müsaitlik, puan, fotoğraf ve açıklamalar bilgilendirme amaçlıdır; gerçek zamanlı olmayabilir ve üçüncü taraf kaynaklara bağlıdır. Şirket;
+        </p>
+        <ul className="list-disc pl-5 space-y-1">
+          <li>fiyat/müsaitlik değişikliklerinden,</li>
+          <li>yönlendirilen sitelerdeki hatalardan,</li>
+          <li>konaklama deneyiminizin niteliğinden,</li>
+          <li>üçüncü tarafların sözleşme/politikalarından</li>
+        </ul>
+        <p className="mt-2">sorumlu değildir.</p>
+
+        <h3 className="text-xl font-bold text-gray-900 mt-6 mb-3">4. Yönlendirme ve Üçüncü Taraf Bağlantılar</h3>
+        <p>
+          Platform’da üçüncü taraf sitelere bağlantılar bulunabilir. Bu sitelerin içerik ve uygulamalarından Şirket sorumlu değildir. Kullanıcı, yönlendirildiği sitelerin şartlarını ayrıca kabul etmiş olur.
+        </p>
+
+        <h3 className="text-xl font-bold text-gray-900 mt-6 mb-3">5. Kullanıcı Yükümlülükleri</h3>
+        <p>Kullanıcı;</p>
+        <ul className="list-disc pl-5 space-y-1">
+          <li>rezervasyon yapmadan önce ilgili platformun koşullarını okumayı,</li>
+          <li>fiyat/koşulları yönlendirildiği sitede yeniden kontrol etmeyi,</li>
+          <li>Platform’u hukuka aykırı amaçlarla kullanmamayı,</li>
+          <li>Platform’un işleyişini bozacak/zarar verecek işlemler (bot, scraping, saldırı vb.) yapmamayı</li>
+        </ul>
+        <p className="mt-2">kabul eder.</p>
+
+        <h3 className="text-xl font-bold text-gray-900 mt-6 mb-3">6. Yasaklı Kullanım</h3>
+        <p>
+          Kullanıcı; hukuka aykırı, yanıltıcı, hakaret içeren, fikri mülkiyet ihlali yaratan içerik/işlem yapamaz; Platform’un güvenliğini tehlikeye sokamaz.
+        </p>
+
+        <h3 className="text-xl font-bold text-gray-900 mt-6 mb-3">7. Fikri Mülkiyet</h3>
+        <p>
+          Platform’daki marka, logo, tasarım, metin, görsel ve yazılım dahil tüm içerikler Şirket’e veya lisans verenlerine aittir. Yazılı izin olmaksızın kopyalanamaz, çoğaltılamaz, dağıtılamaz.
+        </p>
+
+        <h3 className="text-xl font-bold text-gray-900 mt-6 mb-3">8. Sponsorluk/Affiliate Şeffaflığı</h3>
+        <p>
+          Bazı bağlantılar yönlendirme/iş ortaklığı (affiliate) içerebilir ve Şirket bu yönlendirmelerden gelir elde edebilir. Bu durum Kullanıcı’nın ödeyeceği bedeli değiştirmeyebilir; yine de nihai koşullar üçüncü tarafta belirlenir.
+        </p>
+
+        <h3 className="text-xl font-bold text-gray-900 mt-6 mb-3">9. Hizmetin Kesintiye Uğraması</h3>
+        <p>
+          Bakım, güncelleme, mücbir sebep veya teknik nedenlerle Platform geçici olarak durabilir. Şirket, kesintisiz erişim taahhüdü vermez.
+        </p>
+
+        <h3 className="text-xl font-bold text-gray-900 mt-6 mb-3">10. Koşullarda Değişiklik</h3>
+        <p>
+          Şirket, Koşulları güncelleyebilir. Güncel metin Platform’da yayımlandığı anda yürürlüğe girer.
+        </p>
+
+        <h3 className="text-xl font-bold text-gray-900 mt-6 mb-3">11. Uygulanacak Hukuk ve Yetki</h3>
+        <p>
+          Koşullar Türkiye Cumhuriyeti hukukuna tabidir. Tüketici işlemlerinde tüketici hakem heyetleri/tüketici mahkemeleri saklı kalmak kaydıyla; diğer uyuşmazlıklarda İstanbul mahkemeleri ve icra daireleri yetkilidir.
+        </p>
+
+        <h3 className="text-xl font-bold text-gray-900 mt-6 mb-3">12. İletişim</h3>
+        <p>
+          <strong>Şirket:</strong> Yerini Ayır<br />
+          <strong>E-posta:</strong> info@yeriniayir.com<br />
+          <strong>Adres:</strong> [İlgili Bilgiler Eklenecektir]
         </p>
       </div>
-
-      <section>
-        <h2 className="text-xl font-semibold mb-3">1. Hizmetin Tanımı</h2>
-        <p className="mb-4">
-          Yerini Ayır (&quot;Yerini Ayır&quot;, &quot;biz&quot;, &quot;bizim&quot;), kullanıcılara Türkiye&apos;deki
-          oteller hakkında bilgi sağlayan bir keşif ve listeleme platformudur. Sitemiz:
-        </p>
-        <ul className="text-zinc-700 space-y-2 my-4">
-          <li>Otel bilgileri, fotoğrafları ve özellikleri sunar</li>
-          <li>Kullanıcıları otellerin resmi websitelerine veya rezervasyon platformlarına yönlendirir</li>
-          <li>Otel puanları ve değerlendirmeleri paylaşır</li>
-          <li>Gezi rehberleri ve seyahat tavsiyeleri yayınlar</li>
-        </ul>
-      </section>
-
-      <section>
-        <h2 className="text-2xl font-bold text-zinc-900 mt-12 mb-4">2. Rezervasyon ve Ödeme Sorumluluğu</h2>
-
-        <div className="bg-red-50 border-l-4 border-red-500 p-6 my-6 rounded-r-lg">
-          <h3 className="text-lg font-semibold text-red-900 mt-0 mb-2">Kritik Madde</h3>
-          <p className="text-red-800 mb-0">
-            <strong>Yerini Ayır bir rezervasyon acentesi değildir.</strong> Sitede yer alan fiyatlar, müsaitlik bilgileri
-            ve otel özellikleri tamamen bilgilendirme amaçlıdır.
-          </p>
-        </div>
-
-        <p className="text-zinc-700 leading-relaxed">
-          Yerini Ayır üzerinden bir otele tıkladığınızda:
-        </p>
-        <ul className="text-zinc-700 space-y-2 my-4">
-          <li>Otelin resmi websitesine veya Booking.com, Hotels.com gibi üçüncü taraf rezervasyon sitelerine yönlendirilirsiniz</li>
-          <li>Rezervasyon işlemi o platformda tamamlanır</li>
-          <li>Ödeme bilgileriniz o platforma girilir, Yerini Ayır&apos;a değil</li>
-          <li>İptal, değişiklik ve iade süreçleri o platformun politikalarına tabidir</li>
-        </ul>
-      </section>
-
-      <section>
-        <h2 className="text-2xl font-bold text-zinc-900 mt-12 mb-4">3. Sorumluluk Reddi</h2>
-
-        <h3 className="text-xl font-semibold text-zinc-800 mt-8 mb-3">3.1. Fiyat ve Müsaitlik Değişiklikleri</h3>
-        <p className="text-zinc-700 leading-relaxed">
-          Sitemizde gösterilen fiyatlar ve müsaitlik bilgileri, otel veya rezervasyon platformları tarafından
-          güncel tutulmaya çalışılsa da, gerçek zamanlı olmayabilir. <strong>Yerini Ayır, yönlendirilen sitelerdeki
-            fiyat hatalarından veya değişikliklerinden sorumlu tutulamaz.</strong>
-        </p>
-
-        <h3 className="text-xl font-semibold text-zinc-800 mt-8 mb-3">3.2. Hizmet Kalitesi ve İçerik Doğruluğu</h3>
-        <p className="text-zinc-700 leading-relaxed">
-          Otel açıklamaları, fotoğrafları ve özellikleri iyi niyetle derlenmiş olsa da, Yerini Ayır:
-        </p>
-        <ul className="text-zinc-700 space-y-2 my-4">
-          <li>Otellerin sunduğu hizmetlerin kalitesini garanti etmez</li>
-          <li>Otellerdeki konaklama deneyiminizden sorumlu değildir</li>
-          <li>Otel fotoğraflarının veya açıklamalarının %100 güncel olduğunu garanti etmez</li>
-          <li>Üçüncü taraf rezervasyon platformlarının politikalarından sorumlu tutulamaz</li>
-        </ul>
-
-        <h3 className="text-xl font-semibold text-zinc-800 mt-8 mb-3">3.3. İptal ve İade</h3>
-        <p className="text-zinc-700 leading-relaxed">
-          Rezervasyon iptalleri, değişiklikleri ve iadeler tamamen yönlendirilen platformun veya otelin
-          kendi politikalarına tabidir. <strong>Yerini Ayır bu süreçlerde aracı değildir ve iptal/iade taleplerinde
-            muhatap kabul edilemez.</strong> Lütfen rezervasyon yaptığınız sitenin koşullarını inceleyiniz.
-        </p>
-      </section>
-
-      <section>
-        <h2 className="text-2xl font-bold text-zinc-900 mt-12 mb-4">4. Kullanıcı Sorumlulukları</h2>
-        <p className="text-zinc-700 leading-relaxed">
-          Sitemizi kullanarak şunları kabul edersiniz:
-        </p>
-        <ul className="text-zinc-700 space-y-2 my-4">
-          <li>Rezervasyon yapmadan önce ilgili platformun şartlarını okuyacağınızı</li>
-          <li>Fiyat ve koşulları yönlendirildiğiniz sitede tekrar kontrol edeceğinizi</li>
-          <li>Yerini Ayır&apos;nin bir aracı kurum olmadığını anladığınızı</li>
-          <li>Rezervasyon sorunlarında (iptal, iade, yanlış oda vb.) tek muhatabın rezervasyon
-            sitesi veya otel olduğunu kabul ettiğinizi
-          </li>
-        </ul>
-        <p className="mt-4">
-          beyan etmiş olursunuz.
-        </p>
-      </section>
-
-      <section>
-        <h2 className="text-2xl font-bold text-zinc-900 mt-12 mb-4">5. Fikri Mülkiyet Hakları</h2>
-        <p className="text-zinc-700 leading-relaxed">
-          Site içeriği (logo, tasarım, metin, fotoğraflar) Yerini Ayır&apos;nin veya lisans verenlerin mülkiyetindedir.
-          İzinsiz kopyalama, çoğaltma veya dağıtım yasaktır.
-        </p>
-      </section>
-
-      <section>
-        <h2 className="text-2xl font-bold text-zinc-900 mt-12 mb-4">6. Bağlantı Politikası</h2>
-        <p className="text-zinc-700 leading-relaxed">
-          Sitemiz üçüncü taraf websitelerine bağlantılar içerir. Bu sitelerin içeriği, gizlilik politikaları
-          veya uygulamalarından Yerini Ayır sorumlu değildir. Bağlantılara tıkladığınızda o sitenin şartlarını kabul
-          etmiş sayılırsınız.
-        </p>
-      </section>
-
-      <section>
-        <h2 className="text-2xl font-bold text-zinc-900 mt-12 mb-4">7. Değişiklikler</h2>
-        <p className="text-zinc-700 leading-relaxed">
-          Yerini Ayır, bu kullanım koşullarını önceden haber vermeksizin değiştirme hakkını saklı tutar.
-          Sitede yayınlandığı andan itibaren yeni koşullar geçerli olur.
-        </p>
-      </section>
-
-      <section>
-        <h2 className="text-2xl font-bold text-zinc-900 mt-12 mb-4">8. Uygulanacak Hukuk</h2>
-        <p className="text-zinc-700 leading-relaxed">
-          Bu koşullar Türkiye Cumhuriyeti yasalarına tabidir. Ortaya çıkabilecek anlaşmazlıklarda
-          Türkiye mahkemeleri yetkilidir.
-        </p>
-      </section>
-
-      <section>
-        <h2 className="text-2xl font-bold text-zinc-900 mt-12 mb-4">9. İletişim</h2>
-        <p className="text-zinc-700 leading-relaxed">
-          Kullanım koşulları hakkında sorularınız için:{' '}
-          <a href="mailto:info@gnkoteller.com" className="text-zinc-900 font-semibold hover:underline">
-            info@gnkoteller.com
-          </a>
-        </p>
-      </section>
-
-      <div className="border-t border-zinc-200 mt-12 pt-8">
-        <p className="text-sm text-zinc-500 italic">
-          Bu kullanım koşullarını kabul ederek, GNK&apos;nin bir bilgilendirme platformu olduğunu
-          ve rezervasyon/ödeme süreçlerinde taraf olmadığını onaylamış sayılırsınız.
-        </p>
-      </div>
-    </article>
+    </div>
   );
 }
