@@ -39,7 +39,7 @@ export function Header({ lang: propLang }: { lang?: string }) {
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-8">
             <Link href={`/${lang}/search`} className="text-gray-600 hover:text-primary transition font-medium">{navLabels.hotels}</Link>
-            <Link href={`/${lang}/rehber`} className="text-gray-600 hover:text-primary transition font-medium">{navLabels.guide}</Link>
+            <Link href={`/${lang}/${lang === 'en' ? 'guide' : 'rehber'}`} className="text-gray-600 hover:text-primary transition font-medium">{navLabels.guide}</Link>
             <Link href={`/${lang}/hakkimizda`} className="text-gray-600 hover:text-primary transition font-medium">{navLabels.about}</Link>
 
             <div className="flex items-center gap-2 pl-4 border-l ml-4 h-6">
@@ -88,7 +88,7 @@ export function Header({ lang: propLang }: { lang?: string }) {
               {navLabels.hotels}
             </Link>
             <Link
-              href={`/${lang}/rehber`}
+              href={`/${lang}/${lang === 'en' ? 'guide' : 'rehber'}`}
               className="text-gray-600 hover:text-primary transition font-medium py-2"
               onClick={() => setIsMenuOpen(false)}
             >

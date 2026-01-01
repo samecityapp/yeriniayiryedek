@@ -15,12 +15,25 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // Get all articles
   const articles = await db.articles.getAll();
-  const articleUrls = articles.map((article) => ({
-    url: `${baseUrl}/rehber/${article.slug}`,
-    lastModified: new Date(article.published_at || article.updated_at),
-    changeFrequency: 'weekly' as const,
-    priority: 0.8,
-  }));
+  const articleUrls = articles.flatMap((article) => {
+    // Turkish URL
+    const trUrl = {
+      url: `${baseUrl}/tr/rehber/${article.slug}`,
+      lastModified: new Date(article.published_at || article.updated_at),
+      changeFrequency: 'weekly' as const,
+      priority: 0.8,
+    };
+
+    // English URL
+    const enUrl = {
+      url: `${baseUrl}/en/guide/${(article as any).slug_en || article.slug}`,
+      lastModified: new Date(article.published_at || article.updated_at),
+      changeFrequency: 'weekly' as const,
+      priority: 0.8,
+    };
+
+    return [trUrl, enUrl];
+  });
 
   // Get all location pages
   const locationUrls = (require('@/lib/constants').LOCATIONS as any[]).map((loc) => ({

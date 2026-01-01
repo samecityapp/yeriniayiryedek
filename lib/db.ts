@@ -765,7 +765,7 @@ export const db = {
       const { data, error } = await supabase
         .from('articles')
         .select('*')
-        .eq('slug', slug)
+        .or(`slug.eq.${slug},slug_en.eq.${slug}`)
         .maybeSingle();
 
       if (error) throw error;
@@ -775,7 +775,7 @@ export const db = {
         return mockResult;
       }
 
-      return data;
+      return data ? { ...data, slug_en: data.slug_en } : null;
     },
 
     async getLatest(limit: number = 3) {

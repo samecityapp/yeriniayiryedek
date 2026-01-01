@@ -96,6 +96,18 @@ const nextConfig = {
       },
     ];
   },
+  async rewrites() {
+    return [
+      {
+        source: '/en/guide',
+        destination: '/en/rehber',
+      },
+      {
+        source: '/en/guide/:slug*',
+        destination: '/en/rehber/:slug*',
+      },
+    ];
+  },
 };
 
 module.exports = nextConfig;

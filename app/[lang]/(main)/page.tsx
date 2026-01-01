@@ -116,6 +116,10 @@ export async function generateMetadata({ params }: { params: { lang: string } })
     description: dict.seo.home.description,
     alternates: {
       canonical: `https://www.yeriniayir.com${lang === 'tr' ? '' : `/${lang}`}`,
+      languages: {
+        'tr': 'https://www.yeriniayir.com',
+        'en': 'https://www.yeriniayir.com/en',
+      },
     },
   };
 }

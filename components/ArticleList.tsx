@@ -28,7 +28,7 @@ export function ArticleList({ articles, lang = 'tr' }: ArticleListProps) {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
             {articles.map((article: any) => (
                 <Link
-                    href={`/${lang}/rehber/${article.slug}`}
+                    href={`/${lang}/${lang === 'en' ? 'guide' : 'rehber'}/${(lang === 'en' && article.slug_en) ? article.slug_en : article.slug}`}
                     key={article.id}
                     className="group block"
                 >

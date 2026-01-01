@@ -23,7 +23,7 @@ export async function RelatedArticles({ location, lang = 'tr' }: { location: str
         {articles.map((article: Article) => (
           <Link
             key={article.id}
-            href={`/${lang}/rehber/${article.slug}`}
+            href={`/${lang}/${lang === 'en' ? 'guide' : 'rehber'}/${(lang === 'en' && article.slug_en) ? article.slug_en : article.slug}`}
             className="group flex gap-4 p-5 hover:bg-zinc-50/80 transition-colors"
           >
             <div className="shrink-0 w-24 h-24 bg-zinc-200 rounded-lg overflow-hidden relative">

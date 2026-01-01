@@ -64,15 +64,21 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const description = getLocalizedText(article.meta_description, lang);
   const articleLocation = getLocalizedText(article.location, lang);
 
+  // Determine slugs for both languages
+  const slugTr = article.slug;
+  const slugEn = (article as any).slug_en || article.slug; // Fallback if not set but DB should have it
+
   return {
     title: `${title}`,
     description: description,
     keywords: [title, articleLocation, 'rehber', 'gezi', 'otel', 'türkiye'],
     alternates: {
-      canonical: `https://www.yeriniayir.com/${lang}/rehber/${article.slug}`,
+      canonical: lang === 'tr'
+        ? `https://www.yeriniayir.com/tr/rehber/${slugTr}`
+        : `https://www.yeriniayir.com/en/guide/${slugEn}`,
       languages: {
-        'tr': `https://www.yeriniayir.com/tr/rehber/${article.slug}`,
-        'en': `https://www.yeriniayir.com/en/rehber/${article.slug}`,
+        'tr': `https://www.yeriniayir.com/tr/rehber/${slugTr}`,
+        'en': `https://www.yeriniayir.com/en/guide/${slugEn}`,
       },
     },
     openGraph: {

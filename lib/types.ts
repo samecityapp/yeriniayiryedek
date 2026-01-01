@@ -102,6 +102,7 @@ export interface Article {
   id: string;
   title: LocalizedString | string;
   slug: string;
+  slug_en?: string;
   cover_image_url?: string;
   meta_description?: LocalizedString | string;
   content?: LocalizedString | string;
