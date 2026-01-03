@@ -114,10 +114,14 @@ export const db = {
     },
 
     async searchByLocation(location: string): Promise<Hotel[]> {
+      // Split location by comma and take the first part for broader matching
+      // e.g. "Bodrum, Muğla" -> "Bodrum"
+      const searchTerm = location.split(',')[0].trim();
+
       const { data, error } = await supabase
         .from('hotels')
         .select('*')
-        .ilike('location', `%${location}%`)
+        .ilike('location', `%${searchTerm}%`)
         .is('deleted_at', null)
         .order('rating', { ascending: false })
         .limit(6);

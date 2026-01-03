@@ -102,7 +102,11 @@ export default function SearchClient() {
     let processedHotels = [...allHotels];
 
     if (locationQuery) {
-      const locationLower = locationQuery.toLocaleLowerCase(lang === 'tr' ? 'tr-TR' : 'en-GB');
+      // Use the first part of the location query for broader matching
+      // e.g. "Bodrum, Muğla" -> "Bodrum" matches "Akyarlar, Bodrum"
+      const searchLocation = locationQuery.split(',')[0].trim();
+      const locationLower = searchLocation.toLocaleLowerCase(lang === 'tr' ? 'tr-TR' : 'en-GB');
+
       processedHotels = processedHotels.filter(hotel =>
         getLocalizedText(hotel.location, lang).toLocaleLowerCase(lang === 'tr' ? 'tr-TR' : 'en-GB').includes(locationLower)
       );
