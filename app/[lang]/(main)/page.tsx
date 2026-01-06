@@ -138,6 +138,11 @@ export default async function HomePage({ params }: { params: { lang: string } })
           <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6 tracking-tight">
             {dict.home.hero_title}
           </h1>
+
+          <p className="text-[10px] text-gray-400 mt-[-1rem] mb-6 max-w-2xl mx-auto px-4">
+            Websitesinde yer alan oteller, platformun işleyişini göstermek amacıyla kullanılan demo örneklerdir. Gerçek oteller yakında listelenecektir..
+          </p>
+
           <Suspense fallback={<div className="h-40" />}>
             <SearchFilters lang={lang} dict={dict} />
           </Suspense>
