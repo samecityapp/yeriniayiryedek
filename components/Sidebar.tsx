@@ -2,13 +2,14 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, List, Pencil, Tag, Star, TrendingUp } from 'lucide-react';
+import { LayoutDashboard, List, Pencil, Tag, Star, TrendingUp, Megaphone } from 'lucide-react';
 
 const menuItems = [
   { name: 'Dashboard', href: '/jilinrime', icon: LayoutDashboard },
   { name: 'İstatistikler', href: '/jilinrime/dashboard', icon: TrendingUp },
   { name: 'Otel Ekle / Düzenle', href: '/jilinrime/otel-ekle', icon: Pencil },
   { name: 'Otel Listesi', href: '/jilinrime/otel-listesi', icon: List },
+  { name: 'Teklif Yönetimi', href: '/jilinrime/teklif-yonetimi', icon: Megaphone },
   { name: 'Anasayfa Grupları', href: '/jilinrime/anasayfa-yonetimi', icon: LayoutDashboard },
   { name: 'Ana Sayfa Etiketleri', href: '/jilinrime/main-page-tags', icon: Star },
   { name: 'Etiket Yönetimi', href: '/jilinrime/etiket-yonetimi', icon: Tag },

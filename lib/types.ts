@@ -112,3 +112,13 @@ export interface Article {
   created_at?: string;
   updated_at?: string;
 }
+
+export interface Offer {
+  id: string;
+  slug: string;
+  hotel_name: string;
+  price: string;
+  region: string;
+  created_at: string;
+  updated_at: string;
+}
